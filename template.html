@@ -1,0 +1,21 @@
+<div class="concept-widget container" style="background-color: #fff">
+    <div class="result-counts col-lg-12">
+        <span class="versal">Termillä "{{label}}" kuvailtuja aineistoja Finnassa: <span class="count">{{count}}</span></span>
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-default">&laquo;</button>
+        {{#each records}}
+        <div class="col-sm-4 record">
+            <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
+                <img alt="{{title}}" src="https://www.finna.fi/thumbnail.php?id={{id}}&size=small">
+                <span class="versal versal-bold">{{title}}</span>
+            </a>
+            <span class="versal">{{buildings.0.translated}}</span>
+            <span class="versal">{{imageRights.copyright}}</span>
+        </div>
+        {{/each}}
+        <button type="button" class="btn btn-default">&raquo;</button>
+    </div>
+    <div class="col-md-12"><a href="{{finnalink}}" target="_blank">Kaikki hakutulokset Finnassa</a></div>
+</div>
+            

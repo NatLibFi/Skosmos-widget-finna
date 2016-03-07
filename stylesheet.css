@@ -1,0 +1,86 @@
+.concept-widget {
+  padding: 15px 0;
+  min-height: 265px;
+}
+
+.concept-widget > .row > .record {
+  margin-left: 15px;
+}
+
+.concept-widget > a {
+  margin: 0 25px 0 0;
+}
+
+.concept-widget .active > a{
+  background-color: #83CFC8 !important;
+  color: #fff !important;
+}
+
+.concept-widget > .result-counts {
+  margin-bottom: 15px;
+  padding-left: 43px;
+} 
+.concept-widget > .col-md-12 {
+  margin-top: 5px;
+}
+
+.concept-widget > .col-md-12 {
+  padding-left: 43px;
+}
+
+.concept-widget > .result-counts > nav {
+  display: inline-block; 
+  float: right;
+} 
+
+.concept-widget > .result-counts > nav > ul {
+  width: auto; 
+  border: 0 !important; 
+  padding: 0;
+} 
+
+.record {
+  padding: 0;
+  width: 126px;
+  margin-left: 15px;
+} 
+
+.concept-widget > .row {
+  margin: 0;
+}
+
+.record > a > span {
+  border-top: 1px #83CFC8 solid; 
+  display: block; 
+  font-size: 10px; 
+  margin-top: 5px;
+  padding-top: 1px; 
+}
+
+.record > span {
+  display: block; 
+  font-size: 10px;
+}
+
+.concept-widget > .row > .btn:hover, .concept-widget > .row > .btn:active, .concept-widget > .row > .btn:focus {
+  background-color: #fff;
+}
+
+.concept-widget > .row > .btn {
+  border-radius: 0;
+  border: 1px solid #83CFC8 !important;
+  color: #83CFC8 !important;
+  font-size: 24px;
+  margin-top: 60px;
+  padding: 12px 7px;
+}
+
+.concept-widget > .row > .btn:first-of-type {
+  float: left; 
+  border-left: 0 !important;
+}
+
+.concept-widget > .row > .btn:last-of-type {
+  float: right;
+  border-right: 0 !important;
+}
