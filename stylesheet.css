@@ -84,3 +84,15 @@
   float: right;
   border-right: 0 !important;
 }
+
+@media (min-width: 1281px) {
+  .concept-widget > .row > .record {
+    margin-left: 12px;
+  }
+}
+
+@media (min-width: 1520px) {
+  .concept-widget > .row > .record {
+    margin-left: 22px;
+  }
+}
