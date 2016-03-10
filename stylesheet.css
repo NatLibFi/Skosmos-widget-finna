@@ -1,10 +1,13 @@
 .concept-widget {
-  padding: 15px 0;
-  min-height: 265px;
+  border-top: 2px solid #394554;
+  /*min-height: 265px;*/
 }
 
 .concept-widget > .panel {
-  border-radius: 0 !important;
+  border-radius: 0;
+  border: 0;
+  /*box-shadow: none !important;*/
+  box-shadow: none;
 }
 
 .concept-widget > .panel > #headingOne {
@@ -23,7 +26,7 @@
 .record {
   padding: 0;
   width: 126px;
-  margin-left: 15px;
+  margin-left: 18px;
 } 
 
 .concept-widget > .row {
@@ -47,9 +50,15 @@
   background-color: #fff;
 }
 
-#headingOne > a > .glyphicon {
+#headingOne > .glyphicon {
+  color: #83CFC8;
   float: right;
   top: 5px;
+  padding-left: 15px;
+}
+
+#collapseOne > .panel-body {
+  border-top: 1px solid #D4EDEB;
 }
 
 #collapseOne > .panel-body > .row > .btn {
@@ -69,6 +78,35 @@
 #collapseOne > .panel-body > .row > .btn:last-of-type {
   float: right;
   border-right: 0 !important;
+}
+
+#headingOne > .btn-group > .btn:hover, #headingOne > .btn-group > .btn:active, #headingOne > .btn-group > .btn:focus {
+  background-color: #75889F;
+  color: #fff;
+}
+
+#headingOne > .btn-group {
+  float: right;
+}
+
+#headingOne > .btn-group > .btn {
+  border-radius: 0;
+  border: 1px solid #83CFC8;
+  color: #00748f;
+}
+
+#headingOne > .btn-group > .dropdown-menu {
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+#headingOne > .btn-group > .dropdown-menu > li > a:hover, #headingOne > .btn-group > .dropdown-menu > li > a:focus, #headingOne > .btn-group > .dropdown-menu > li > a:active, #headingOne > .btn-group > .dropdown-menu > li > a:visited {
+  background-color: #75889F;
+  border: 1px solid #83CFC8;
+  color: #fff !important;
 }
 
 @media (min-width: 1281px) {

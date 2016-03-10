@@ -41,8 +41,9 @@ $(function() {
             }
         });
 
-        $('#headingOne').on('click', function() { 
-            var $glyph = $(this).children().children('.glyphicon');
+        $('#headingOne > .glyphicon').on('click', function() { 
+            $('#collapseOne').collapse('toggle');
+            var $glyph = $(this);
             if ($glyph.hasClass('glyphicon-chevron-down')) {
                 $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
             } else {

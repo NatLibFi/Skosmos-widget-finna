@@ -2,9 +2,18 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-          Termillä "{{label}}" kuvailtuja aineistoja Finnassa <span class="count">{{count}}</span><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+          Termillä "{{label}}" kuvailtuja aineistoja Finnassa <span class="count">{{count}}</span>
       </a>
-    </div>
+      <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      <div class="btn-group dropup">
+          <button class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button">
+              Valitse aineistotyyppi <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+              <li><a class="versal">Kaikki aineistotyypit</a></li>
+              <li><a class="versal">Vain kuva-aineistot</a></li>
+              <li><a class="versal">Vain teksti-aineistot</a></li>
+          </div>
+      </div>
     <div id="collapseOne" class="panel-collapse collapse{{# if opened}} in{{/if}}" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
             <div class="row">
@@ -21,7 +30,7 @@
                 {{/each}}
                 <button type="button" class="btn btn-default">&raquo;</button>
             </div>
-            <div class="col-md-12"><a class="versal" href="{{finnalink}}" target="_blank">Kaikki hakutulokset Finnassa</a></div>
+            <a class="versal" href="{{finnalink}}" target="_blank">Kaikki hakutulokset Finnassa</a>
       </div>
     </div>
   </div>
