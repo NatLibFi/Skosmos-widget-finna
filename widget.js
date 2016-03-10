@@ -66,7 +66,7 @@ $(function() {
                     finnaOffset += 5;
                     updateResults();
                 } else { // here we have reached the end of the current set of results
-                    queryFinna(prefLabels[0].label, finnaOffset, resultLimit)
+                    queryFinna(prefLabels[0].label, finnaOffset, resultLimit);
                 }
             });
         } else {
