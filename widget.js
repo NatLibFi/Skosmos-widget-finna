@@ -76,7 +76,7 @@ $(function() {
         $('#headingFinna > a > .glyphicon').on('click', function() { 
             toggleAccordion();
         });
-        $('#headingFinna > a').on('click', function() { 
+        $('#headingFinna > a.versal').on('click', function() { 
             toggleAccordion();
         });
         $('#headingFinna > .btn-group > .dropdown-menu > li > a').on('click', function() { 

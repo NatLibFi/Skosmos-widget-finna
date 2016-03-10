@@ -4,8 +4,8 @@
       <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
           Termillä "{{label}}" kuvailtuja {{formatString}} Finnassa <span class="count">{{count}}</span>
       </a>
-      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
-        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
+          <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>
       </a>
       <div class="btn-group dropup">
           <button class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button">
