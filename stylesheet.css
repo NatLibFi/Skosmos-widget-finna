@@ -50,7 +50,7 @@
   background-color: #fff;
 }
 
-#headingOne > .glyphicon {
+#headingOne > a > .glyphicon {
   color: #83CFC8;
   float: right;
   top: 5px;
@@ -82,6 +82,7 @@
 
 #headingOne > .btn-group > .btn:hover, #headingOne > .btn-group > .btn:active, #headingOne > .btn-group > .btn:focus {
   background-color: #75889F;
+  border: 0;
   color: #fff;
 }
 
@@ -105,7 +106,7 @@
 
 #headingOne > .btn-group > .dropdown-menu > li > a:hover, #headingOne > .btn-group > .dropdown-menu > li > a:focus, #headingOne > .btn-group > .dropdown-menu > li > a:active, #headingOne > .btn-group > .dropdown-menu > li > a:visited {
   background-color: #75889F;
-  border: 1px solid #83CFC8;
+  border: 0;
   color: #fff !important;
 }
 

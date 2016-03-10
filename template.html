@@ -2,16 +2,19 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-          Termillä "{{label}}" kuvailtuja aineistoja Finnassa <span class="count">{{count}}</span>
+          Termillä "{{label}}" kuvailtuja {{formatString}} Finnassa <span class="count">{{count}}</span>
       </a>
-      <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+      </a>
       <div class="btn-group dropup">
           <button class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button">
               Valitse aineistotyyppi <span class="caret"></span></button>
           <ul class="dropdown-menu">
               <li><a class="versal">Kaikki aineistotyypit</a></li>
               <li><a class="versal">Vain kuva-aineistot</a></li>
-              <li><a class="versal">Vain teksti-aineistot</a></li>
+              <li><a class="versal">Vain kirjat</a></li>
+              <li><a class="versal">Vain esineet</a></li>
           </div>
       </div>
     <div id="collapseOne" class="panel-collapse collapse{{# if opened}} in{{/if}}" role="tabpanel" aria-labelledby="headingOne">
