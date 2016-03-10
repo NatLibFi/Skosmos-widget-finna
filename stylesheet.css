@@ -98,7 +98,7 @@
 
 #headingFinna > .btn-group > .dropdown-menu {
   border-radius: 0;
-  border: 0;
+  border: 1px solid #D4EDEB;
   box-shadow: none;
   margin: 0;
   padding: 0;
