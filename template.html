@@ -1,10 +1,10 @@
 <div class="concept-widget panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+    <div class="panel-heading" role="tab" id="headingFinna">
+      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
           Termillä "{{label}}" kuvailtuja {{formatString}} Finnassa <span class="count">{{count}}</span>
       </a>
-      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
       </a>
       <div class="btn-group dropup">
@@ -17,7 +17,7 @@
               <li><a class="versal">Vain esineet</a></li>
           </div>
       </div>
-    <div id="collapseOne" class="panel-collapse collapse{{# if opened}} in{{/if}}" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapseFinna" class="panel-collapse collapse{{# if opened}} in{{/if}}" role="tabpanel" aria-labelledby="headingFinna">
       <div class="panel-body">
             <div class="row">
                 <button type="button" class="btn btn-default">&laquo;</button>
@@ -28,7 +28,7 @@
                         <span class="versal versal-bold">{{title}}</span>
                     </a>
                     <span class="versal">{{buildings.0.translated}}</span>
-                    <span class="versal">{{imageRights.copyright}}</span>
+                    <!--<span class="versal">{{imageRights.copyright}}</span>-->
                 </div>
                 {{/each}}
                 <button type="button" class="btn btn-default">&raquo;</button>
