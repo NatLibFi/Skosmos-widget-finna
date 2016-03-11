@@ -23,6 +23,7 @@ $(function() {
             params.filter = ['online_boolean:1'];
         }
         var url = 'https://api.finna.fi/v1/search?' + $.param(params) + '&callback=?';
+        console.log(url);
         $.getJSON(url, function(data) {
             if (data.resultCnt === 0) { return; }
             if (data.records) {
@@ -83,6 +84,7 @@ $(function() {
             currentFormat = $(this).parent().index();
             createCookie('FINNA_WIDGET_FORMAT', currentFormat);
             finnaOffset = 0;
+            finnaResults = null;
             queryFinna(finnaTerm, 0, resultLimit);
         });
     }
