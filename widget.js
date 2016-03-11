@@ -23,7 +23,6 @@ $(function() {
             params.filter = ['online_boolean:1'];
         }
         var url = 'https://api.finna.fi/v1/search?' + $.param(params) + '&callback=?';
-        console.log(url);
         $.getJSON(url, function(data) {
             if (data.resultCnt === 0) { return; }
             if (data.records) {
@@ -83,8 +82,7 @@ $(function() {
         $('#headingFinna > .btn-group > .dropdown-menu > li > a').on('click', function() { 
             currentFormat = $(this).parent().index();
             createCookie('FINNA_WIDGET_FORMAT', currentFormat);
-            finnaOffset = 0;
-            finnaResults = null;
+            clearCachedResults();
             queryFinna(finnaTerm, 0, resultLimit);
         });
     }
@@ -100,6 +98,12 @@ $(function() {
         } else {
             $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
         }
+    }
+
+    function clearCachedResults() {
+        finnaOffset = 0;
+        resultsFetched = 0;
+        finnaResults = null;
     }
 
 });
