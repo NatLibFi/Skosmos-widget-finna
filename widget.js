@@ -7,6 +7,7 @@ FINNA = {
     prefLabelFi: prefLabels[0].label,
     resultLimit: 10,
     resultsFetched: 0,
+    imgCache: {},
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/'],
     formatName: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuva-aineistoja', sv: 'bild', en: 'image records'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä'}],
@@ -31,6 +32,9 @@ FINNA = {
             if (data.records) {
                 FINNA.resultsFetched += data.records.length;
                 for (var i in data.records) {
+                    if ($.inArray({value:"0/Book/", translated:"Kirja"}, data.records[i].formats)) {
+                        data.records[i].book = true;
+                    }
                     if (data.records[i].id.indexOf('urn:nbn') !== -1) {
                         // for some reason the urn containing id's need to be double encoded...
                         data.records[i].id = encodeURIComponent(data.records[i].id);
@@ -104,7 +108,8 @@ FINNA = {
         } else {
             $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
         }
-    }
+    },
+
 };
 
 $(function() { 
