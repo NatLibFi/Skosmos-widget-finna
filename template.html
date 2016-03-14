@@ -23,8 +23,12 @@
                 <button type="button" class="btn btn-default">&laquo;</button>
                 {{#each records}}
                 <div class="col-sm-4 record">
+                    <div class="image-container">
+                        <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
+                            <img alt="{{title}}" src="https://api.finna.fi{{images.[0]}}&w=126&h=126">
+                        </a>
+                    </div>
                     <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
-                        <img alt="{{title}}" src="https://www.finna.fi/thumbnail.php?id={{id}}&size=small">
                         <span class="versal versal-bold">{{title}}</span>
                     </a>
                     <span class="versal">{{buildings.0.translated}}</span>
