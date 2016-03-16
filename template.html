@@ -11,10 +11,8 @@
           <button class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button">
               Valitse aineistotyyppi <span class="caret"></span></button>
           <ul class="dropdown-menu">
-              <li><a class="versal">Kaikki aineistotyypit</a></li>
-              <li><a class="versal">Vain kuva-aineistot</a></li>
-              <li><a class="versal">Vain kirjat</a></li>
-              <li><a class="versal">Vain esineet</a></li>
+              {{#each types}}<li><a class="versal">{{fi}}</a></li>{{/each}}
+          </ul>
           </div>
       </div>
     <div id="collapseFinna" class="panel-collapse collapse{{# if opened}} in{{/if}}" role="tabpanel" aria-labelledby="headingFinna">

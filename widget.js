@@ -1,6 +1,20 @@
 // declaring a namespace for the plugin
 var FINNA = FINNA || {};
 
+    //Asiakirja
+    //Esine
+    //Kartta 
+    //Kirja 
+    //Kuva 
+    //Lehti/Artikkeli 
+    //Muu
+    //Nuotti
+    //Opinnäyte
+    //Paikka
+    //Taideteos
+    //Video
+    //Äänite 
+
 FINNA = {
     finnaOffset: 0,
     finnaResults: null,
@@ -9,8 +23,8 @@ FINNA = {
     resultsFetched: 0,
     imgCache: {},
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
-    formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/'],
-    formatName: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuva-aineistoja', sv: 'bild', en: 'image records'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä'}],
+    formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
+    formatName: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuva-aineistoja', sv: 'bild', en: 'image records'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä'}, {fi: 'Äänite', sv: '', en: ''}, {fi: 'Lehti/Artikkeli', sv: '', en: ''}, {fi: 'Nuotti', sv: '', en: ''}, {fi: 'Video', sv: '', en: ''}, {fi: 'Opinnäyte', sv: '', en: ''}],
 
 
     updateResults: function () {
@@ -62,7 +76,7 @@ FINNA = {
         if (isOpened) {
             $('.concept-widget').remove();
             var finnaUrl = 'https://www.finna.fi/Search/Results?' + $.param({lookfor: term, filter: ['online_boolean:1'], type: 'Subject'});
-            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + 5), opened: isOpened, formatString: FINNA.formatName[FINNA.currentFormat][lang]}));
+            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + 5), opened: isOpened, formatString: FINNA.formatName[FINNA.currentFormat][lang], types: FINNA.formatName}));
             $('#collapseFinna > .panel-body > .row > button:first').on('click', function() {
                 if (FINNA.finnaOffset >= 5) {
                     FINNA.finnaOffset -= 5;
