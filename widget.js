@@ -42,7 +42,6 @@ FINNA = {
         }
         var url = 'https://api.finna.fi/v1/search?' + $.param(params) + '&callback=?';
         $.getJSON(url, function(data) {
-            if (data.resultCnt === 0) { return; }
             if (data.records) {
                 FINNA.resultsFetched += data.records.length;
                 for (var i in data.records) {
@@ -94,7 +93,7 @@ FINNA = {
                 }
             });
         } else {
-            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatName[FINNA.currentFormat][lang]}));
+            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatName[FINNA.currentFormat][lang], types: FINNA.formatName}));
         }
 
         $('#headingFinna > a > .glyphicon').on('click', function() { 

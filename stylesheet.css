@@ -75,11 +75,15 @@
   background-color: #fff;
 }
 
-#headingFinna > a > .glyphicon {
+#headingFinna > a > .glyphicon, #headingFinna > .glyphicon {
   color: #83CFC8;
   float: right;
   top: 5px;
   padding-left: 15px;
+}
+
+#headingFinna > .glyphicon {
+  color: #777;
 }
 
 #collapseFinna > .panel-body {
