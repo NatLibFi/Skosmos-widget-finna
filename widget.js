@@ -24,7 +24,8 @@ FINNA = {
     imgCache: {},
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
-    formatName: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuva-aineistoja', sv: 'bild', en: 'image records'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä'}, {fi: 'Äänite', sv: '', en: ''}, {fi: 'Lehti/Artikkeli', sv: '', en: ''}, {fi: 'Nuotti', sv: '', en: ''}, {fi: 'Video', sv: '', en: ''}, {fi: 'Opinnäyte', sv: '', en: ''}],
+    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuvia', sv: 'bild', en: 'image records'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä'}, {fi: 'äänitteitä', sv: '', en: ''}, {fi: 'lehtiä/artikkeleita', sv: '', en: ''}, {fi: 'nuotteja', sv: '', en: ''}, {fi: 'videoita', sv: '', en: ''}, {fi: 'opinnäytteitä', sv: '', en: ''}],
+    formatNames: [{fi: 'Kaikki tyypit', sv: '', en: ''}, {fi: 'Kuva', sv: 'bild', en: 'image records'}, {fi: 'Kirja', sv: 'böcker', en: 'books'}, {fi: 'Esine'}, {fi: 'Äänite', sv: '', en: ''}, {fi: 'Lehti/Artikkeli', sv: '', en: ''}, {fi: 'Nuotti', sv: '', en: ''}, {fi: 'Video', sv: '', en: ''}, {fi: 'Opinnäyte', sv: '', en: ''}],
 
 
     updateResults: function () {
@@ -80,7 +81,7 @@ FINNA = {
             return 'glyphicon-camera'; 
         }
         if (formatString.indexOf("0/PhysicalObject/") !== -1) {
-            return 'glyphicon-sunglasses'; 
+            return 'glyphicon-wrench'; 
         }
         if (formatString.indexOf("0/Sound/") !== -1) {
             return 'glyphicon-volume-up'; 
@@ -113,7 +114,7 @@ FINNA = {
         if (isOpened) {
             $('.concept-widget').remove();
             var finnaUrl = 'https://www.finna.fi/Search/Results?' + $.param({lookfor: term, filter: ['online_boolean:1'], type: 'Subject'});
-            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + 5), opened: isOpened, formatString: FINNA.formatName[FINNA.currentFormat][lang], types: FINNA.formatName}));
+            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + 5), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames}));
             $('#collapseFinna > .panel-body > .row > button:first').on('click', function() {
                 if (FINNA.finnaOffset >= 5) {
                     FINNA.finnaOffset -= 5;
@@ -132,7 +133,7 @@ FINNA = {
             });
         } else {
             $('.concept-widget').remove();
-            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatName[FINNA.currentFormat][lang], types: FINNA.formatName}));
+            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames}));
         }
 
         $('#headingFinna > a > .glyphicon').on('click', function() { 
