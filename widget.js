@@ -35,7 +35,7 @@ FINNA = {
     queryFinna: function (term, offset, limit) {
         var params = {lookfor: term, limit: limit,filter: ['online_boolean:1', FINNA.formats[FINNA.currentFormat]], view: 'jsonp', type: 'Subject'};
         if (offset) {
-            params.page = (offset / 5) + 1;
+            params.page = Math.floor((offset / 10) + 1);
         }
         if (FINNA.currentFormat === 0) { 
             params.filter = ['online_boolean:1'];
@@ -56,7 +56,7 @@ FINNA = {
             }
             if (!FINNA.finnaResults || typeof FINNA.finnaResults.records === 'undefined') {
                 FINNA.finnaResults = data; 
-            } else { 
+            } else if (typeof data.records !== 'undefined') { 
                 // if there are already some records from previous searches appending the new results to that array
                 FINNA.finnaResults.records = FINNA.finnaResults.records.concat(data.records);
             }
@@ -85,12 +85,12 @@ FINNA = {
                 }
             });
             $('#collapseFinna > .panel-body > .row > button:last').on('click', function() {
-                if ((FINNA.finnaOffset + 5) < parseInt($('.count').html(), 10) && (FINNA.finnaOffset + 5) < FINNA.resultsFetched) {
+                if ((FINNA.finnaOffset + 5) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + 5) < FINNA.resultsFetched) {
                     FINNA.finnaOffset += 5;
                     FINNA.updateResults();
-                    if (FINNA.resultsFetched - FINNA.finnaOffset <= 10)  { 
+                    if (FINNA.resultsFetched - FINNA.finnaOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html()))  { 
                         // querying more results in advance if there is two pages or less remaining
-                        FINNA.queryFinna(FINNA.prefLabelFi, FINNA.finnaOffset, FINNA.resultLimit);
+                        FINNA.queryFinna(FINNA.prefLabelFi, FINNA.resultsFetched, FINNA.resultLimit);
                     }
                 }
             });
