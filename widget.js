@@ -45,9 +45,7 @@ FINNA = {
             if (data.records) {
                 FINNA.resultsFetched += data.records.length;
                 for (var i in data.records) {
-                    if (JSON.stringify(data.records[i].formats).indexOf("0/Book/") !== -1) {
-                        data.records[i].book = true;
-                    }
+                    data.records[i].glyphicon = FINNA.formatToGlyphicon(data.records[i].formats);
                     if (data.records[i].id.indexOf('urn:nbn') !== -1) {
                         // for some reason the urn containing id's need to be double encoded...
                         data.records[i].id = encodeURIComponent(data.records[i].id);
@@ -73,6 +71,44 @@ FINNA = {
         FINNA.finnaResults = null;
     },
 
+    formatToGlyphicon: function(format) {
+        var formatString = JSON.stringify(format);
+        if (formatString.indexOf("0/Book/") !== -1) {
+            return 'glyphicon-book'; 
+        }
+        if (formatString.indexOf("0/Image/") !== -1) {
+            return 'glyphicon-camera'; 
+        }
+        if (formatString.indexOf("0/PhysicalObject/") !== -1) {
+            return 'glyphicon-sunglasses'; 
+        }
+        if (formatString.indexOf("0/Sound/") !== -1) {
+            return 'glyphicon-volume-up'; 
+        }
+        if (formatString.indexOf("0/Journal/") !== -1) {
+            return 'glyphicon-file'; 
+        }
+        if (formatString.indexOf("0/MusicalScore/") !== -1) {
+            return 'glyphicon-music'; 
+        }
+        if (formatString.indexOf("0/Video/") !== -1) {
+            return 'glyphicon-film'; 
+        }
+        if (formatString.indexOf("0/Thesis/") !== -1) {
+            return 'glyphicon-book'; 
+        }
+        if (formatString.indexOf("0/WorkOfArt/") !== -1) {
+            return 'glyphicon-picture'; 
+        }
+        if (formatString.indexOf("0/Place/") !== -1) {
+            return 'glyphicon-globe'; 
+        }
+        if (formatString.indexOf("0/Document/") !== -1) {
+            return 'glyphicon-folder-open'; 
+        }
+        return 'glyphicon-asterisk'; 
+    },
+
     renderWidget: function (term, isOpened) {
         if (isOpened) {
             $('.concept-widget').remove();
@@ -95,6 +131,7 @@ FINNA = {
                 }
             });
         } else {
+            $('.concept-widget').remove();
             $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatName[FINNA.currentFormat][lang], types: FINNA.formatName}));
         }
 

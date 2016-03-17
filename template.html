@@ -24,11 +24,9 @@
                 {{#each records}}
                 <div class="col-sm-4 record">
                     <div class="image-container">
-                        {{#if book}}
-                        <span class="glyphicon glyphicon-book"></span>
-                        {{/if}}
+                        <span class="glyphicon {{glyphicon}}"></span>
                         <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
-                            <img alt="{{buildings.0.translated}}" src="https://api.finna.fi{{images.[0]}}&w=126&h=126">
+                            <img alt="" src="https://api.finna.fi{{images.[0]}}&w=126&h=126">
                         </a>
                     </div>
                     <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
