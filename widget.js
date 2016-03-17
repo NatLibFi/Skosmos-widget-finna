@@ -33,6 +33,7 @@ FINNA = {
                 FINNA.resultsFetched += data.records.length;
                 for (var i in data.records) {
                     data.records[i].glyphicon = FINNA.formatToGlyphicon(data.records[i].formats);
+                    data.records[i].owner = FINNA.guessOwnerOfRecord(data.records[i]);
                     if (data.records[i].id.indexOf('urn:nbn') !== -1) {
                         // for some reason the urn containing id's need to be double encoded...
                         data.records[i].id = encodeURIComponent(data.records[i].id);
@@ -56,6 +57,14 @@ FINNA = {
         FINNA.finnaOffset = 0;
         FINNA.resultsFetched = 0;
         FINNA.finnaResults = null;
+    },
+
+    guessOwnerOfRecord: function(record) {
+        var format = record.formats[0].value.split('/')[1];
+        if (format === 'Book' || format === 'Thesis') {
+            return record.nonPresenterAuthors[0].name;
+        }
+        return record.buildings[0].translated;
     },
 
     formatToGlyphicon: function(format) {
