@@ -29,6 +29,10 @@
   margin-left: 18px;
 } 
 
+.record:first-of-type {
+  margin-left: 16px;
+}
+
 .concept-widget > .row {
   margin: 0;
 }
