@@ -1,20 +1,6 @@
 // declaring a namespace for the plugin
 var FINNA = FINNA || {};
 
-    //Asiakirja
-    //Esine
-    //Kartta 
-    //Kirja 
-    //Kuva 
-    //Lehti/Artikkeli 
-    //Muu
-    //Nuotti
-    //Opinnäyte
-    //Paikka
-    //Taideteos
-    //Video
-    //Äänite 
-
 FINNA = {
     finnaOffset: 0,
     finnaResults: null,
