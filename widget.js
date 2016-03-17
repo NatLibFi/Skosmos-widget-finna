@@ -45,7 +45,7 @@ FINNA = {
             if (data.records) {
                 FINNA.resultsFetched += data.records.length;
                 for (var i in data.records) {
-                    if ($.inArray({value:"0/Book/", translated:"Kirja"}, data.records[i].formats)) {
+                    if (JSON.stringify(data.records[i].formats).indexOf("0/Book/") !== -1) {
                         data.records[i].book = true;
                     }
                     if (data.records[i].id.indexOf('urn:nbn') !== -1) {
