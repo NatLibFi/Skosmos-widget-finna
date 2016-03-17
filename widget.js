@@ -24,8 +24,8 @@ FINNA = {
     imgCache: {},
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
-    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuvia', sv: 'bild', en: 'image records'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä'}, {fi: 'äänitteitä', sv: '', en: ''}, {fi: 'lehtiä/artikkeleita', sv: '', en: ''}, {fi: 'nuotteja', sv: '', en: ''}, {fi: 'videoita', sv: '', en: ''}, {fi: 'opinnäytteitä', sv: '', en: ''}],
-    formatNames: [{fi: 'Kaikki tyypit', sv: '', en: ''}, {fi: 'Kuva', sv: 'bild', en: 'image records'}, {fi: 'Kirja', sv: 'böcker', en: 'books'}, {fi: 'Esine'}, {fi: 'Äänite', sv: '', en: ''}, {fi: 'Lehti/Artikkeli', sv: '', en: ''}, {fi: 'Nuotti', sv: '', en: ''}, {fi: 'Video', sv: '', en: ''}, {fi: 'Opinnäyte', sv: '', en: ''}],
+    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudspelningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskriftar och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
+    formatNames: [{fi: 'Kaikki tyypit', sv: 'Allar typer av material', en: ''}, {fi: 'Kuva', sv: 'Bild', en: 'image records'}, {fi: 'Kirja', sv: 'Bok', en: 'books'}, {fi: 'Esine', sv: 'Föremål'}, {fi: 'Äänite', sv: 'Ljudupptagning', en: ''}, {fi: 'Lehti/Artikkeli', sv: 'Tidskrift/Artikel', en: ''}, {fi: 'Nuotti', sv: 'Noter', en: ''}, {fi: 'Video', sv: 'Video', en: ''}, {fi: 'Opinnäyte', sv: 'Examensarbete', en: ''}],
 
 
     updateResults: function () {
