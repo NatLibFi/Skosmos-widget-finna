@@ -61,7 +61,9 @@ FINNA = {
                 FINNA.finnaResults.records = FINNA.finnaResults.records.concat(data.records);
             }
             var opened = (data.records !== undefined);
-            FINNA.renderWidget(FINNA.prefLabelFi, opened);
+            if (offset === 0) {
+                FINNA.renderWidget(FINNA.prefLabelFi, opened);
+            }
         });
     },
 
