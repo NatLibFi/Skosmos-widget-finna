@@ -173,10 +173,18 @@
   #collapseFinna > .panel-body > .row > .record {
     margin-left: 12px;
   }
+  
+  #collapseFinna > .panel-body > .row > .record:first-of-type {
+    margin-left: 44px;
+  }
 }
 
 @media (min-width: 1520px) {
   #collapseFinna > .panel-body > .row > .record {
     margin-left: 22px;
+  }
+
+  #collapseFinna > .panel-body > .row > .record:first-of-type {
+    margin-left: 48px;
   }
 }
