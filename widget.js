@@ -20,12 +20,15 @@ FINNA = {
     },
 
     queryFinna: function (term, offset, limit) {
-        var params = {lookfor: term, limit: limit,filter: ['online_boolean:1', FINNA.formats[FINNA.currentFormat]], view: 'jsonp', type: 'Subject'};
+        var params = {lookfor: term, limit: limit, view: 'jsonp', type: 'Subject'};
         if (offset) {
             params.page = Math.floor((offset / 10) + 1);
         }
-        if (FINNA.currentFormat === 0) { 
+        if (FINNA.currentFormat === 1) { 
             params.filter = ['online_boolean:1'];
+        }
+        if (FINNA.currentFormat > 0) {
+            params.filter = ['online_boolean:1', FINNA.formats[FINNA.currentFormat]];
         }
         var url = 'https://api.finna.fi/v1/search?' + $.param(params) + '&callback=?';
         $.getJSON(url, function(data) {
