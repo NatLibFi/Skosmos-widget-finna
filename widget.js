@@ -35,12 +35,10 @@ FINNA = {
             if (data.records) {
                 FINNA.resultsFetched += data.records.length;
                 for (var i in data.records) {
-                    data.records[i].glyphicon = FINNA.formatToGlyphicon(data.records[i].formats);
-                    data.records[i].owner = FINNA.guessOwnerOfRecord(data.records[i]);
-                    if (data.records[i].id.indexOf('urn:nbn') !== -1) {
-                        // for some reason the urn containing id's need to be double encoded...
-                        data.records[i].id = encodeURIComponent(data.records[i].id);
-                    }
+                    var record = data.records[i];
+                    record.glyphicon = FINNA.formatToGlyphicon(record.formats);
+                    record.owner = FINNA.guessOwnerOfRecord(record);
+                    record = FINNA.shortenTitle(record);
                 }
             }
             if (!FINNA.finnaResults || typeof FINNA.finnaResults.records === 'undefined') {
@@ -60,6 +58,12 @@ FINNA = {
         FINNA.finnaOffset = 0;
         FINNA.resultsFetched = 0;
         FINNA.finnaResults = null;
+    },
+
+    shortenTitle: function(record) {
+        // only shortens titles over 60 chars long.
+        record.shortTitle = record.title.length > 60 ? record.title.substr(0, 55) + ' ...' : record.title;
+        return record;
     },
 
     guessOwnerOfRecord: function(record) {
