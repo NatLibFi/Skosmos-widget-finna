@@ -7,11 +7,22 @@ FINNA = {
     prefLabelFi: prefLabels[0].label,
     resultLimit: 10,
     resultsFetched: 0,
-    imgCache: {},
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
     formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudspelningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskriftar och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
     formatNames: [{fi: 'Kaikki tyypit', sv: 'Allar typer av material', en: ''}, {fi: 'Kuva', sv: 'Bild', en: 'image records'}, {fi: 'Kirja', sv: 'Bok', en: 'books'}, {fi: 'Esine', sv: 'Föremål'}, {fi: 'Äänite', sv: 'Ljudupptagning', en: ''}, {fi: 'Lehti/Artikkeli', sv: 'Tidskrift/Artikel', en: ''}, {fi: 'Nuotti', sv: 'Noter', en: ''}, {fi: 'Video', sv: 'Video', en: ''}, {fi: 'Opinnäyte', sv: 'Examensarbete', en: ''}],
+    
+    recordsDisplayed: function() { 
+        var viewWidth = $(window).width(); 
+        if (viewWidth < 500) {
+            return 2;
+        } else if (viewWidth < 720) {
+            return 3;
+        } else if(viewWidth < 1121) {
+            return 4;
+        }
+        return 5;
+    },
 
     // Destroys the DOM widget element and calls the render function.
     updateResults: function () {
@@ -123,16 +134,16 @@ FINNA = {
         if (isOpened) {
             $('.concept-widget').remove();
             var finnaUrl = 'https://www.finna.fi/Search/Results?' + $.param({lookfor: term, filter: ['online_boolean:1'], type: 'Subject'});
-            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + 5), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames}));
+            $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames}));
             $('#collapseFinna > .panel-body > button:first').on('click', function() {
-                if (FINNA.finnaOffset >= 5) {
-                    FINNA.finnaOffset -= 5;
+                if (FINNA.finnaOffset >= FINNA.recordsDisplayed()) {
+                    FINNA.finnaOffset -= FINNA.recordsDisplayed();
                     FINNA.updateResults();
                 }
             });
             $('#collapseFinna > .panel-body > button:last').on('click', function() {
-                if ((FINNA.finnaOffset + 5) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + 5) < FINNA.resultsFetched) {
-                    FINNA.finnaOffset += 5;
+                if ((FINNA.finnaOffset + FINNA.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + FINNA.recordsDisplayed()) < FINNA.resultsFetched) {
+                    FINNA.finnaOffset += FINNA.recordsDisplayed();
                     FINNA.updateResults();
                     if (FINNA.resultsFetched - FINNA.finnaOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html()))  { 
                         // querying more results in advance if there is two pages or less remaining

@@ -15,31 +15,31 @@
   background-color: #fff;
 }
 
-.concept-widget > .row > .record {
-  margin-left: 15px;
-}
-
 .concept-widget > .result-counts {
   margin-bottom: 15px;
   padding-left: 43px;
 } 
 
+#collapseFinna > .panel-body {
+  padding: 15px 0 5px 0;
+}
+
+#collapseFinna > .panel-body > .row {
+  margin: 0 38px;
+}
+
+
 /*
  * Record specific
  */
 .record {
+  display: block;
+  float: left;
   padding: 0;
   width: 126px;
-  margin-left: 18px;
+  min-height: 205px;
+  margin-right: 18px;
 } 
-
-.record:first-of-type {
-  margin-left: 42px;
-}
-
-.concept-widget > .row {
-  margin: 0;
-}
 
 .record > a > span {
   border-top: 1px #83CFC8 solid; 
@@ -131,6 +131,7 @@
 
 #headingFinna > .btn-group {
   float: right;
+  max-width: 135px;
 }
 
 #headingFinna > .btn-group > .btn {
@@ -158,10 +159,6 @@
   margin-bottom: 5px;
 }
 
-#collapseFinna > .panel-body {
-  padding: 15px 15px 5px 15px;
-}
-
 #collapseFinna > .panel-body > a:last-of-type {
   margin-left: 25px;
 }
@@ -169,22 +166,43 @@
 /*
  * Mediaqueries
  */
+@media (max-width: 1170px) {
+  #collapseFinna > .panel-body > .row > .record {
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 1130px) {
+  #collapseFinna > .panel-body > .row > .record {
+      margin-right: 4px;
+  }
+}
+
+@media (max-width: 1120px) {
+  #collapseFinna > .panel-body > .row > .record {
+      margin-right: 24px;
+  }
+}
+
+@media (max-width: 800px) {
+  #collapseFinna > .panel-body > .row > .record {
+      margin-right: 10px;
+  }
+}
+
 @media (min-width: 1281px) {
   #collapseFinna > .panel-body > .row > .record {
-    margin-left: 12px;
-  }
-  
-  #collapseFinna > .panel-body > .row > .record:first-of-type {
-    margin-left: 44px;
+    margin-right: 12px;
   }
 }
 
 @media (min-width: 1520px) {
   #collapseFinna > .panel-body > .row > .record {
-    margin-left: 22px;
-  }
-
-  #collapseFinna > .panel-body > .row > .record:first-of-type {
-    margin-left: 48px;
+    margin-right: 22px;
   }
 }
+
+#collapseFinna > .panel-body > .row > .record:last-of-type {
+    margin-right: 0px;
+}
+
