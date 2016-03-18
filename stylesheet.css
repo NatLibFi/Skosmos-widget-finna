@@ -143,6 +143,18 @@
   color: #fff !important;
 }
 
+#collapseFinna > .panel-body > .row {
+  margin-bottom: 5px;
+}
+
+#collapseFinna > .panel-body {
+  padding: 15px 15px 5px 15px;
+}
+
+#collapseFinna > .panel-body > a:last-of-type {
+  margin-left: 25px;
+}
+
 @media (min-width: 1281px) {
   #collapseFinna > .panel-body > .row > .record {
     margin-left: 12px;
