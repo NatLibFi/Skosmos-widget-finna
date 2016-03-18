@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
-                        <span class="versal versal-bold" title="{{title}}">{{shortTitle}}</span>
+                        <span class="versal versal-bold" {{#if shortTitle}}title="{{title}}"{{/if}}>{{#if shortTitle}}{{shortTitle}}{{else}}{{title}}{{/if}}</span>
                     </a>
                     
                     <span class="versal">{{owner}}</span>

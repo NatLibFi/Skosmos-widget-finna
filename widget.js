@@ -61,8 +61,10 @@ FINNA = {
     },
 
     shortenTitle: function(record) {
-        // only shortens titles over 60 chars long.
-        record.shortTitle = record.title.length > 60 ? record.title.substr(0, 55) + ' ...' : record.title;
+        // only shortening titles longer than 60 chars
+        if (record.title.length > 60) {
+            record.shortTitle = record.title.substr(0, 55) + ' ...';
+        }
         return record;
     },
 
