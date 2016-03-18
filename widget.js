@@ -20,7 +20,7 @@ FINNA = {
     },
 
     queryFinna: function (term, offset, limit) {
-        var params = {lookfor: term, limit: limit, view: 'jsonp', type: 'Subject'};
+        var params = {lookfor: 'topic_facet:' + term, limit: limit, view: 'jsonp', type: 'AllFields'};
         if (offset) {
             params.page = Math.floor((offset / 10) + 1);
         }
