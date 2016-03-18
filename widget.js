@@ -18,7 +18,7 @@ FINNA = {
             return 2;
         } else if (viewWidth < 720) {
             return 3;
-        } else if(viewWidth < 1121) {
+        } else if(viewWidth < 1130) {
             return 4;
         }
         return 5;

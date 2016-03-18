@@ -174,12 +174,6 @@
 
 @media (max-width: 1130px) {
   #collapseFinna > .panel-body > .row > .record {
-      margin-right: 4px;
-  }
-}
-
-@media (max-width: 1120px) {
-  #collapseFinna > .panel-body > .row > .record {
       margin-right: 24px;
   }
 }
@@ -199,6 +193,10 @@
 @media (min-width: 1520px) {
   #collapseFinna > .panel-body > .row > .record {
     margin-right: 22px;
+  }
+  
+  #collapseFinna > .panel-body > .row {
+    margin: 0 48px;
   }
 }
 
