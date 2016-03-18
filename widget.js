@@ -13,12 +13,13 @@ FINNA = {
     formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudspelningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskriftar och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
     formatNames: [{fi: 'Kaikki tyypit', sv: 'Allar typer av material', en: ''}, {fi: 'Kuva', sv: 'Bild', en: 'image records'}, {fi: 'Kirja', sv: 'Bok', en: 'books'}, {fi: 'Esine', sv: 'Föremål'}, {fi: 'Äänite', sv: 'Ljudupptagning', en: ''}, {fi: 'Lehti/Artikkeli', sv: 'Tidskrift/Artikel', en: ''}, {fi: 'Nuotti', sv: 'Noter', en: ''}, {fi: 'Video', sv: 'Video', en: ''}, {fi: 'Opinnäyte', sv: 'Examensarbete', en: ''}],
 
-
+    // Destroys the DOM widget element and calls the render function.
     updateResults: function () {
         $('.concept-widget').remove();
         FINNA.renderWidget(FINNA.prefLabelFi, true);
     },
 
+    // Makes the queries to the Finna API.
     queryFinna: function (term, offset, limit) {
         var params = {lookfor: 'topic_facet:' + term, limit: limit, view: 'jsonp', type: 'AllFields'};
         if (offset) {
@@ -44,7 +45,7 @@ FINNA = {
             if (!FINNA.finnaResults || typeof FINNA.finnaResults.records === 'undefined') {
                 FINNA.finnaResults = data; 
             } else if (typeof data.records !== 'undefined') { 
-                // if there are already some records from previous searches appending the new results to that array
+                // If there are already records in the cache appending the new records to that array.
                 FINNA.finnaResults.records = FINNA.finnaResults.records.concat(data.records);
             }
             var opened = (data.records !== undefined);
@@ -54,12 +55,14 @@ FINNA = {
         });
     },
 
+    // Clears the cached search results and offset settings when changing the content type.
     clearCachedResults: function() {
         FINNA.finnaOffset = 0;
         FINNA.resultsFetched = 0;
         FINNA.finnaResults = null;
     },
 
+    // Shortens the title field of the record to prevent the UI from blowing up.
     shortenTitle: function(record) {
         // only shortening titles longer than 60 chars
         if (record.title.length > 60) {
@@ -155,9 +158,11 @@ FINNA = {
         });
     },
 
+    // Handles the collapsing and expanding actions of the widget.
     toggleAccordion: function() {
         $('#collapseFinna').collapse('toggle');
         var $glyph = $('#headingFinna > a > .glyphicon');
+        // switching the glyphicon to indicate a change in the accordion state
         if ($glyph.hasClass('glyphicon-chevron-down')) {
             if (FINNA.finnaResults.records === undefined) {
                 FINNA.queryFinna(FINNA.prefLabelFi, 0, FINNA.resultLimit);
@@ -171,8 +176,12 @@ FINNA = {
 };
 
 $(function() { 
-
-if (typeof uri !== 'undefined') { // Using this to detect when on a Skosmos concept/group page since the uri variable will be undefined otherwise.
-   FINNA.queryFinna(prefLabels[0].label, 0, 0);
-}
+    /**
+     * Using uri variable passed through in the php-code to detect when on 
+     * a Skosmos concept/group page since it will be undefined otherwise.
+     **/
+    if (typeof uri !== 'undefined') { 
+        // when we have a URI it's then desired to invoke the plugin
+        FINNA.queryFinna(prefLabels[0].label, 0, 0);
+    }
 });
