@@ -65,9 +65,9 @@ FINNA = {
 
     // Shortens the title field of the record to prevent the UI from blowing up.
     shortenTitle: function(record) {
-        // only shortening titles longer than 60 chars
-        if (record.title.length > 60) {
-            record.shortTitle = record.title.substr(0, 55) + ' ...';
+        // only shortening titles longer than 65 chars
+        if (record.title.length > 65) {
+            record.shortTitle = record.title.substr(0, 60) + ' ...';
         }
         return record;
     },
