@@ -64,7 +64,8 @@ FINNA = {
 
     guessOwnerOfRecord: function(record) {
         var format = record.formats[0].value.split('/')[1];
-        if (format === 'Book' || format === 'Thesis') {
+        if ((format === 'Book' || format === 'Thesis') && typeof record.nonPresenterAuthors !== 'undefined') {
+            // limiting to first author since the space is super limited
             return record.nonPresenterAuthors[0].name;
         }
         return record.buildings[0].translated;
