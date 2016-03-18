@@ -139,6 +139,7 @@
   border: 0;
   background-color: #D4EDEB;
   color: #00748f;
+  min-width: 100px; 
 }
 
 #headingFinna > .btn-group > .dropdown-menu {
