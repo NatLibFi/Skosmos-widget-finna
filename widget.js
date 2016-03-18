@@ -124,13 +124,13 @@ FINNA = {
             $('.concept-widget').remove();
             var finnaUrl = 'https://www.finna.fi/Search/Results?' + $.param({lookfor: term, filter: ['online_boolean:1'], type: 'Subject'});
             $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + 5), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames}));
-            $('#collapseFinna > .panel-body > .row > button:first').on('click', function() {
+            $('#collapseFinna > .panel-body > button:first').on('click', function() {
                 if (FINNA.finnaOffset >= 5) {
                     FINNA.finnaOffset -= 5;
                     FINNA.updateResults();
                 }
             });
-            $('#collapseFinna > .panel-body > .row > button:last').on('click', function() {
+            $('#collapseFinna > .panel-body > button:last').on('click', function() {
                 if ((FINNA.finnaOffset + 5) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + 5) < FINNA.resultsFetched) {
                     FINNA.finnaOffset += 5;
                     FINNA.updateResults();
