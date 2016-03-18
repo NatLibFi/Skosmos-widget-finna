@@ -40,6 +40,7 @@ FINNA = {
                     record.glyphicon = FINNA.formatToGlyphicon(record.formats);
                     record.owner = FINNA.guessOwnerOfRecord(record);
                     record = FINNA.shortenTitle(record);
+                    data.records[i].id = encodeURIComponent(data.records[i].id);
                 }
             }
             if (!FINNA.finnaResults || typeof FINNA.finnaResults.records === 'undefined') {
