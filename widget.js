@@ -26,7 +26,7 @@ FINNA = {
 
     // Destroys the DOM widget element and calls the render function.
     updateResults: function () {
-        $('.concept-widget').remove();
+        $('.concept-widget').css('visibility', 'hidden');
         FINNA.renderWidget(FINNA.prefLabelFi, true);
     },
 
@@ -131,10 +131,11 @@ FINNA = {
     },
 
     renderWidget: function (term, isOpened) {
+        var $previous = $('.concept-widget');
         if (isOpened) {
-            $('.concept-widget').remove();
             var finnaUrl = 'https://www.finna.fi/Search/Results?' + $.param({lookfor: term, filter: ['online_boolean:1'], type: 'Subject'});
             $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
+            $previous.remove();
             $('#collapseFinna > .panel-body > button:first').on('click', function() {
                 if (FINNA.finnaOffset >= FINNA.recordsDisplayed()) {
                     FINNA.finnaOffset -= FINNA.recordsDisplayed();
@@ -152,8 +153,8 @@ FINNA = {
                 }
             });
         } else {
-            $('.concept-widget').remove();
             $('.content').append(Handlebars.compile($('#finna-template').html())({label: FINNA.prefLabelFi, count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
+            $previous.remove();
         }
 
         $('#headingFinna > a > .glyphicon').on('click', function() { 
