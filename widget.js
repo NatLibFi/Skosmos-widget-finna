@@ -208,8 +208,8 @@ $(function() {
         Handlebars.registerHelper('trans',function(str, variable){
             var translation = typeof window.i18next !== 'undefined' ? window.i18next.t(str) : str;
             if (variable && translation.indexOf('#var#') !== -1) {
-                if (translation.indexOf('#var#') === 1) { 
-                    variable = variable.charAt(0).toUpperCase() + string.slice(1);
+                if (translation.indexOf('#var#') === 0) { 
+                    variable = variable.charAt(0).toUpperCase() + variable.slice(1);
                 }
                 translation = translation.replace('#var#', variable);
             }
