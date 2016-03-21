@@ -1,5 +1,5 @@
 {
-    "js": ["widget.js"],
+    "js": ["widget.js", "node_modules/i18next/i18next.min.js"],
     "css": ["stylesheet.css"],
     "templates": ["template.html"]
 }

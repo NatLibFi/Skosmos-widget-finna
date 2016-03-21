@@ -4,7 +4,7 @@
     {{#if count}}
       <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
     {{else}}<span class="versal">{{/if}}
-      Termillä kuvailtuja {{formatString}} Finnassa <span class="count">{{count}}</span>
+      {{trans 'recordsInFinna' formatString}} <span class="count">{{count}}</span>
     {{#if count}}</a>{{else}}</span>{{/if}}
     {{#if count}}<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">{{/if}} 
           <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>

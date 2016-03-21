@@ -8,6 +8,16 @@ FINNA = {
     resultLimit: 10,
     resultsFetched: 0,
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
+    translations: {'fi': {
+                            "translation": { "recordsInFinna": "Termillä kuvailtuja #var# Finnassa" }
+                         },
+                   'sv': {
+                            "translation": { "recordsInFinna": "Termillä kuvailtuja #var# Finnassa" }
+                         },
+                   'en': {
+                            "translation": { "recordsInFinna": "#var# records indexed with the term in Finna" }
+                         }
+                  },
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
     formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudspelningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskriftar och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
     formatNames: [{fi: 'Kaikki tyypit', sv: 'Allar typer av material', en: ''}, {fi: 'Kuva', sv: 'Bild', en: 'image records'}, {fi: 'Kirja', sv: 'Bok', en: 'books'}, {fi: 'Esine', sv: 'Föremål'}, {fi: 'Äänite', sv: 'Ljudupptagning', en: ''}, {fi: 'Lehti/Artikkeli', sv: 'Tidskrift/Artikel', en: ''}, {fi: 'Nuotti', sv: 'Noter', en: ''}, {fi: 'Video', sv: 'Video', en: ''}, {fi: 'Opinnäyte', sv: 'Examensarbete', en: ''}],
@@ -194,6 +204,15 @@ $(function() {
      * a Skosmos concept/group page since it will be undefined otherwise.
      **/
     if (typeof uri !== 'undefined') { 
+        window.i18next.init({"debug": true, "lng": lang, resources: FINNA.translations});
+        //console.log(i18next.t('recordsInFinna'));
+        Handlebars.registerHelper('trans',function(str, variable){
+            var translation = typeof window.i18next !== 'undefined' ? window.i18next.t(str) : str;
+            if (variable && translation.indexOf('#var#') !== -1) {
+                translation = translation.replace('#var#', variable);
+            }
+            return translation;
+        });
         // when we have a URI it's then desired to invoke the plugin
         FINNA.queryFinna(prefLabels[0].label, 0, 0);
     }
