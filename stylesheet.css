@@ -114,6 +114,10 @@
   padding: 12px 7px;
 }
 
+#collapseFinna > .panel-body {
+  min-height: 200px;
+}
+
 #collapseFinna > .panel-body > .btn:first-of-type {
   left: 0;
   border-left: 0 !important;
