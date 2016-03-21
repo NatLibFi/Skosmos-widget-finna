@@ -9,13 +9,13 @@ FINNA = {
     resultsFetched: 0,
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     translations: {'fi': {
-                            "translation": { "recordsInFinna": "Termillä kuvailtuja #var# Finnassa" }
+                            "translation": { "recordsInFinna": "Termillä kuvailtuja #var# Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
                          },
                    'sv': {
-                            "translation": { "recordsInFinna": "Termillä kuvailtuja #var# Finnassa" }
+                            "translation": { "recordsInFinna": "#var# beskrivad med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
                          },
                    'en': {
-                            "translation": { "recordsInFinna": "#var# records indexed with the term in Finna" }
+                            "translation": { "recordsInFinna": "#var# records indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
                          }
                   },
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
@@ -204,11 +204,13 @@ $(function() {
      * a Skosmos concept/group page since it will be undefined otherwise.
      **/
     if (typeof uri !== 'undefined') { 
-        window.i18next.init({"debug": true, "lng": lang, resources: FINNA.translations});
-        //console.log(i18next.t('recordsInFinna'));
+        window.i18next.init({"lng": lang, resources: FINNA.translations});
         Handlebars.registerHelper('trans',function(str, variable){
             var translation = typeof window.i18next !== 'undefined' ? window.i18next.t(str) : str;
             if (variable && translation.indexOf('#var#') !== -1) {
+                if (translation.indexOf('#var#') === 1) { 
+                    variable = variable.charAt(0).toUpperCase() + string.slice(1);
+                }
                 translation = translation.replace('#var#', variable);
             }
             return translation;
