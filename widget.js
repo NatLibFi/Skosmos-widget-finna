@@ -41,9 +41,9 @@ FINNA = {
     },
 
     generateQueryString: function(terms, offset, limit) {
-        var params = {limit: limit, type: 'AllFields', join: 'AND'};
+        var params = {lng: lang, limit: limit, type: 'AllFields', join: 'AND'};
         var lookfors = 'bool0[]=OR&';
-        for (var i in terms) {
+        for (var i = 0; i < terms.length; i++) {
             lookfors += ('lookfor0[]=topic_facet' + encodeURIComponent(':' + terms[i]) + '&'); 
         }
         if (offset) {
@@ -206,8 +206,12 @@ FINNA = {
 
     getLabels: function() {
         var labels = [];
-        for (var lang in FINNA.prefLabels) {
-            labels.push(FINNA.prefLabels[lang].label);
+        for (var i in FINNA.prefLabels) {
+            labels.push(FINNA.prefLabels[i].label);
+            // giving the a higher weight in the query to the term in the users language
+            if (FINNA.prefLabels[i].lang === lang) {
+                labels[i] += '^2';
+            }
         }
         return labels;
     }
