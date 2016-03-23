@@ -63,72 +63,81 @@ FINNA = {
             }
             var opened = (data.records !== undefined);
             if (offset === 0) {
-                FINNA.renderWidget(opened);
+                FINNA.widget.render(opened);
             }
         });
     },
 
-    // Clears the cached search results and offset settings when changing the content type.
-    clearCachedResults: function() {
-        FINNA.finnaOffset = 0;
-        FINNA.resultsFetched = 0;
-        FINNA.finnaResults = null;
+    cache: {
+        // Clears the cached search results and offset settings when changing the content type.
+        clear: function() {
+            FINNA.finnaOffset = 0;
+            FINNA.resultsFetched = 0;
+            FINNA.finnaResults = null;
+        },
+
     },
 
-    renderWidget: function (isOpened) {
-        var $previous = $('.concept-widget').css('visibility', 'hidden');
-        if (isOpened) {
-            var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
-            $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
-            $previous.remove();
-            $('#collapseFinna > .panel-body > button:first').on('click', function() {
-                if (FINNA.finnaOffset >= FINNA.helpers.recordsDisplayed()) {
-                    FINNA.finnaOffset -= FINNA.helpers.recordsDisplayed();
-                    FINNA.renderWidget(true);
+    widget: {
+        flipChevron: function() {
+            var $glyph = $('#headingFinna > a > .glyphicon');
+            if ($glyph.hasClass('glyphicon-chevron-down')) {
+                if (FINNA.finnaResults.records === undefined) {
+                    FINNA.queryFinna(FINNA.helpers.getLabels(), 0, FINNA.resultLimit);
                 }
-            });
-            $('#collapseFinna > .panel-body > button:last').on('click', function() {
-                if ((FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()) < FINNA.resultsFetched) {
-                    FINNA.finnaOffset += FINNA.helpers.recordsDisplayed();
-                    FINNA.renderWidget(true);
-                    if (FINNA.resultsFetched - FINNA.finnaOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html(),10))  { 
-                        // querying more results in advance if there is two pages or less remaining
-                        FINNA.queryFinna(FINNA.helpers.getLabels(), FINNA.resultsFetched, FINNA.resultLimit);
+                $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+            } else {
+                $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+            }
+        },
+
+        render: function (isOpened) {
+            var $previous = $('.concept-widget').css('visibility', 'hidden');
+            if (isOpened) {
+                var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
+                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
+                $previous.remove();
+                $('#collapseFinna > .panel-body > button:first').on('click', function() {
+                    if (FINNA.finnaOffset >= FINNA.helpers.recordsDisplayed()) {
+                        FINNA.finnaOffset -= FINNA.helpers.recordsDisplayed();
+                        FINNA.widget.render(true);
                     }
-                }
-            });
-        } else {
-            $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
-            $previous.remove();
-        }
-
-        $('#headingFinna > a > .glyphicon').on('click', function() { 
-            FINNA.toggleAccordion();
-        });
-        $('#headingFinna > a.versal').on('click', function() { 
-            FINNA.toggleAccordion();
-        });
-        $('#headingFinna > .btn-group > .dropdown-menu > li > a').on('click', function() { 
-            FINNA.currentFormat = $(this).parent().index();
-            createCookie('FINNA_WIDGET_FORMAT', FINNA.currentFormat);
-            FINNA.clearCachedResults();
-            FINNA.queryFinna(FINNA.helpers.getLabels(), 0, FINNA.resultLimit);
-        });
-    },
-
-    // Handles the collapsing and expanding actions of the widget.
-    toggleAccordion: function() {
-        $('#collapseFinna').collapse('toggle');
-        var $glyph = $('#headingFinna > a > .glyphicon');
-        // switching the glyphicon to indicate a change in the accordion state
-        if ($glyph.hasClass('glyphicon-chevron-down')) {
-            if (FINNA.finnaResults.records === undefined) {
-                FINNA.queryFinna(FINNA.helpers.getLabels(), 0, FINNA.resultLimit);
+                });
+                $('#collapseFinna > .panel-body > button:last').on('click', function() {
+                    if ((FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()) < FINNA.resultsFetched) {
+                        FINNA.finnaOffset += FINNA.helpers.recordsDisplayed();
+                        FINNA.widget.render(true);
+                        if (FINNA.resultsFetched - FINNA.finnaOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html(),10))  { 
+                            // querying more results in advance if there is two pages or less remaining
+                            FINNA.queryFinna(FINNA.helpers.getLabels(), FINNA.resultsFetched, FINNA.resultLimit);
+                        }
+                    }
+                });
+            } else {
+                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
+                $previous.remove();
             }
-            $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-        } else {
-            $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-        }
+
+            $('#headingFinna > a > .glyphicon').on('click', function() { 
+                FINNA.widget.toggleAccordion();
+            });
+            $('#headingFinna > a.versal').on('click', function() { 
+                FINNA.widget.toggleAccordion();
+            });
+            $('#headingFinna > .btn-group > .dropdown-menu > li > a').on('click', function() { 
+                FINNA.currentFormat = $(this).parent().index();
+                createCookie('FINNA_WIDGET_FORMAT', FINNA.currentFormat);
+                FINNA.cache.clear();
+                FINNA.queryFinna(FINNA.helpers.getLabels(), 0, FINNA.resultLimit);
+            });
+        },
+
+        // Handles the collapsing and expanding actions of the widget.
+        toggleAccordion: function() {
+            $('#collapseFinna').collapse('toggle');
+            // switching the glyphicon to indicate a change in the accordion state
+            FINNA.widget.flipChevron();
+        },
     },
     
     helpers: {
