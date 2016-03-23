@@ -78,7 +78,7 @@ FINNA = {
     renderWidget: function (isOpened) {
         var $previous = $('.concept-widget').css('visibility', 'hidden');
         if (isOpened) {
-            var finnaUrl = FINNA.generateQueryString(FINNA.prefLabels);
+            var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
             $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
             $previous.remove();
             $('#collapseFinna > .panel-body > button:first').on('click', function() {
