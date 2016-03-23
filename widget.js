@@ -158,7 +158,7 @@ FINNA = {
                 if ((FINNA.finnaOffset + FINNA.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + FINNA.recordsDisplayed()) < FINNA.resultsFetched) {
                     FINNA.finnaOffset += FINNA.recordsDisplayed();
                     FINNA.renderWidget(true);
-                    if (FINNA.resultsFetched - FINNA.finnaOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html()))  { 
+                    if (FINNA.resultsFetched - FINNA.finnaOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html(),10))  { 
                         // querying more results in advance if there is two pages or less remaining
                         FINNA.queryFinna(FINNA.getLabels(), FINNA.resultsFetched, FINNA.resultLimit);
                     }
