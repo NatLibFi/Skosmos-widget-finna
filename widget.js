@@ -34,12 +34,6 @@ FINNA = {
         return 5;
     },
 
-    // Destroys the DOM widget element and calls the render function.
-    updateResults: function () {
-        $('.concept-widget').css('visibility', 'hidden');
-        FINNA.renderWidget(true);
-    },
-
     generateQueryString: function(terms, offset, limit) {
         var params = {lng: lang, limit: limit, type: 'AllFields', join: 'AND'};
         var lookfors = 'bool0[]=OR&';
@@ -149,7 +143,7 @@ FINNA = {
     },
 
     renderWidget: function (isOpened) {
-        var $previous = $('.concept-widget');
+        var $previous = $('.concept-widget').css('visibility', 'hidden');
         if (isOpened) {
             var finnaUrl = FINNA.generateQueryString(FINNA.prefLabels);
             $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
@@ -157,13 +151,13 @@ FINNA = {
             $('#collapseFinna > .panel-body > button:first').on('click', function() {
                 if (FINNA.finnaOffset >= FINNA.recordsDisplayed()) {
                     FINNA.finnaOffset -= FINNA.recordsDisplayed();
-                    FINNA.updateResults();
+                    FINNA.renderWidget(true);
                 }
             });
             $('#collapseFinna > .panel-body > button:last').on('click', function() {
                 if ((FINNA.finnaOffset + FINNA.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + FINNA.recordsDisplayed()) < FINNA.resultsFetched) {
                     FINNA.finnaOffset += FINNA.recordsDisplayed();
-                    FINNA.updateResults();
+                    FINNA.renderWidget(true);
                     if (FINNA.resultsFetched - FINNA.finnaOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html()))  { 
                         // querying more results in advance if there is two pages or less remaining
                         FINNA.queryFinna(FINNA.getLabels(), FINNA.resultsFetched, FINNA.resultLimit);
