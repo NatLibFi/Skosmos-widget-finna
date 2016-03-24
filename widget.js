@@ -3,7 +3,6 @@ var FINNA = FINNA || {};
 
 FINNA = {
     finnaOffset: 0,
-    finnaResults: null,
     prefLabels: prefLabels,
     resultLimit: 10,
     resultsFetched: 0,
@@ -54,13 +53,7 @@ FINNA = {
                     data.records[i].id = encodeURIComponent(data.records[i].id);
                 }
             }
-            if (!FINNA.finnaResults || typeof FINNA.finnaResults.records === 'undefined') {
-                // If there are no records in the cache.
-                FINNA.finnaResults = data; 
-            } else if (typeof data.records !== 'undefined') { 
-                // If there are already records in the cache appending the new records to that array.
-                FINNA.finnaResults.records = FINNA.finnaResults.records.concat(data.records);
-            }
+            FINNA.cache.add(data);
             var opened = (data.records !== undefined);
             if (offset === 0) {
                 FINNA.widget.render(opened);
@@ -68,12 +61,23 @@ FINNA = {
         });
     },
 
+    // caches the query results to enable smooth paging
     cache: {
+        finnaResults: null,
+        add: function(response) {
+            if (!this.finnaResults || typeof this.finnaResults.records === 'undefined') {
+                // If there are no records in the cache.
+                this.finnaResults = response; 
+            } else if (typeof response.records !== 'undefined') { 
+                // If there are already records in the cache appending the new records to that array.
+                this.finnaResults.records = this.finnaResults.records.concat(response.records);
+            }
+        },
         // Clears the cached search results and offset settings when changing the content type.
         clear: function() {
             FINNA.finnaOffset = 0;
             FINNA.resultsFetched = 0;
-            FINNA.finnaResults = null;
+            this.finnaResults = null;
         },
 
     },
@@ -82,7 +86,7 @@ FINNA = {
         flipChevron: function() {
             var $glyph = $('#headingFinna > a > .glyphicon');
             if ($glyph.hasClass('glyphicon-chevron-down')) {
-                if (FINNA.finnaResults.records === undefined) {
+                if (FINNA.cache.finnaResults.records === undefined) {
                     FINNA.queryFinna(FINNA.helpers.getLabels(), 0, FINNA.resultLimit);
                 }
                 $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
@@ -95,7 +99,7 @@ FINNA = {
             var $previous = $('.concept-widget').css('visibility', 'hidden');
             if (isOpened) {
                 var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
-                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
+                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.cache.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.cache.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
                 $previous.remove();
                 $('#collapseFinna > .panel-body > button:first').on('click', function() {
                     if (FINNA.finnaOffset >= FINNA.helpers.recordsDisplayed()) {
@@ -114,7 +118,7 @@ FINNA = {
                     }
                 });
             } else {
-                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
+                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.cache.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
                 $previous.remove();
             }
 
