@@ -25,15 +25,14 @@
                     <div class="image-container">
                         <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
                             <span class="glyphicon {{glyphicon}}"></span>
-                            <img alt="" src="https://api.finna.fi{{images.[0]}}&w=126&h=126">
+                            <img alt="" src="https://finna.fi{{images.[0]}}&w=126&h=126">
                         </a>
                     </div>
                     <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
                         <span class="versal versal-bold" {{#if shortTitle}}title="{{title}}"{{/if}}>{{#if shortTitle}}{{shortTitle}}{{else}}{{title}}{{/if}}</span>
                     </a>
-                    
                     <span class="versal">{{owner}}</span>
-                    <!--<span class="versal">{{imageRights.copyright}}</span>-->
+                    {{#if ../showType}}<span class="versal">{{formats.[0].translated}}</span>{{/if}}
                 </div>
                 {{/each}}
             </div>

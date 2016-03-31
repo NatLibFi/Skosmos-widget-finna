@@ -2,7 +2,7 @@
 var FINNA = FINNA || {};
 
 FINNA = {
-    finnaOffset: 0,
+    recordOffset: 0,
     prefLabels: prefLabels,
     resultLimit: 10,
     resultsFetched: 0,
@@ -75,7 +75,7 @@ FINNA = {
         },
         // Clears the cached search results and offset settings when changing the content type.
         clear: function() {
-            FINNA.finnaOffset = 0;
+            FINNA.recordOffset = 0;
             FINNA.resultsFetched = 0;
             this.finnaResults = null;
         },
@@ -99,19 +99,19 @@ FINNA = {
             var $previous = $('.concept-widget').css('visibility', 'hidden');
             if (isOpened) {
                 var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
-                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.cache.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.cache.finnaResults.records.slice(FINNA.finnaOffset, FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
+                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.cache.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang], showType: 1}));
                 $previous.remove();
                 $('#collapseFinna > .panel-body > button:first').on('click', function() {
-                    if (FINNA.finnaOffset >= FINNA.helpers.recordsDisplayed()) {
-                        FINNA.finnaOffset -= FINNA.helpers.recordsDisplayed();
+                    if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
+                        FINNA.recordOffset -= FINNA.helpers.recordsDisplayed();
                         FINNA.widget.render(true);
                     }
                 });
                 $('#collapseFinna > .panel-body > button:last').on('click', function() {
-                    if ((FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.finnaOffset + FINNA.helpers.recordsDisplayed()) < FINNA.resultsFetched) {
-                        FINNA.finnaOffset += FINNA.helpers.recordsDisplayed();
+                    if ((FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) < FINNA.resultsFetched) {
+                        FINNA.recordOffset += FINNA.helpers.recordsDisplayed();
                         FINNA.widget.render(true);
-                        if (FINNA.resultsFetched - FINNA.finnaOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html(),10))  { 
+                        if (FINNA.resultsFetched - FINNA.recordOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html(),10))  { 
                             // querying more results in advance if there is two pages or less remaining
                             FINNA.queryFinna(FINNA.helpers.getLabels(), FINNA.resultsFetched, FINNA.resultLimit);
                         }
