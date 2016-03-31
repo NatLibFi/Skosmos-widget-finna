@@ -5,7 +5,6 @@ FINNA = {
     recordOffset: 0,
     prefLabels: prefLabels,
     resultLimit: 10,
-    resultsFetched: 0,
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     translations: {'fi': {
                             "translation": { "recordsInFinna": "Termillä kuvailtuja {{interpolation}} Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
@@ -40,11 +39,12 @@ FINNA = {
     },
 
     // Makes the queries to the Finna API.
-    queryFinna: function (terms, offset, limit) {
-        var url = FINNA.generateQueryString(terms, offset, limit);
+    queryFinna: function (offset, limit) {
+        var terms = this.helpers.getLabels();
+        var url = this.generateQueryString(terms, offset, limit);
         $.getJSON(url, function(data) {
             if (data.records) {
-                FINNA.resultsFetched += data.records.length;
+                FINNA.cache.resultsFetched += data.records.length;
                 for (var i in data.records) {
                     var record = data.records[i];
                     record.glyphicon = FINNA.helpers.formatToGlyphicon(record.formats);
@@ -64,6 +64,7 @@ FINNA = {
     // caches the query results to enable smooth paging
     cache: {
         finnaResults: null,
+        resultsFetched: 0,
         add: function(response) {
             if (!this.finnaResults || typeof this.finnaResults.records === 'undefined') {
                 // If there are no records in the cache.
@@ -76,7 +77,7 @@ FINNA = {
         // Clears the cached search results and offset settings when changing the content type.
         clear: function() {
             FINNA.recordOffset = 0;
-            FINNA.resultsFetched = 0;
+            this.cache.resultsFetched = 0;
             this.finnaResults = null;
         },
 
@@ -87,7 +88,7 @@ FINNA = {
             var $glyph = $('#headingFinna > a > .glyphicon');
             if ($glyph.hasClass('glyphicon-chevron-down')) {
                 if (FINNA.cache.finnaResults.records === undefined) {
-                    FINNA.queryFinna(FINNA.helpers.getLabels(), 0, FINNA.resultLimit);
+                    FINNA.queryFinna(0, FINNA.resultLimit);
                 }
                 $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
             } else {
@@ -108,12 +109,12 @@ FINNA = {
                     }
                 });
                 $('#collapseFinna > .panel-body > button:last').on('click', function() {
-                    if ((FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) < FINNA.resultsFetched) {
+                    if ((FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) < FINNA.cache.resultsFetched) {
                         FINNA.recordOffset += FINNA.helpers.recordsDisplayed();
                         FINNA.widget.render(true);
-                        if (FINNA.resultsFetched - FINNA.recordOffset <= 10 && FINNA.resultsFetched < parseInt($('.count').html(),10))  { 
+                        if (FINNA.cache.resultsFetched - FINNA.recordOffset <= 10 && FINNA.cache.resultsFetched < parseInt($('.count').html(),10))  { 
                             // querying more results in advance if there is two pages or less remaining
-                            FINNA.queryFinna(FINNA.helpers.getLabels(), FINNA.resultsFetched, FINNA.resultLimit);
+                            FINNA.queryFinna(FINNA.cache.resultsFetched, FINNA.resultLimit);
                         }
                     }
                 });
@@ -132,7 +133,7 @@ FINNA = {
                 FINNA.currentFormat = $(this).parent().index();
                 createCookie('FINNA_WIDGET_FORMAT', FINNA.currentFormat);
                 FINNA.cache.clear();
-                FINNA.queryFinna(FINNA.helpers.getLabels(), 0, FINNA.resultLimit);
+                FINNA.queryFinna(0, FINNA.resultLimit);
             });
         },
 
@@ -240,6 +241,6 @@ $(function() {
             return translation.charAt(0).toUpperCase() + translation.slice(1);
         });
         // when we have a URI it's then desired to invoke the plugin
-        FINNA.queryFinna(FINNA.helpers.getLabels(), 0, 0);
+        FINNA.queryFinna(0, 0);
     }
 });
