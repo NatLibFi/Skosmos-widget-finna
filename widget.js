@@ -65,6 +65,9 @@ FINNA = {
     cache: {
         finnaResults: null,
         resultsFetched: 0,
+        lessThanTwoPagesLeft: function() { return this.resultsFetched - FINNA.recordOffset <= 10; },
+        moreRecordsInAPI: function() { return this.resultsFetched < parseInt($('.count').html(),10); },
+        moreRecordsReady: function() { return (FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) < FINNA.cache.resultsFetched; },
         add: function(response) {
             if (!this.finnaResults || typeof this.finnaResults.records === 'undefined') {
                 // If there are no records in the cache.
@@ -80,7 +83,6 @@ FINNA = {
             this.resultsFetched = 0;
             this.finnaResults = null;
         },
-
     },
 
     widget: {
@@ -94,10 +96,10 @@ FINNA = {
             });
             // next page button to the right
             $('#collapseFinna > .panel-body > button:last').on('click', function() {
-                if ((FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) <= parseInt($('.count').html(), 10) && (FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) < FINNA.cache.resultsFetched) {
+                if (FINNA.cache.moreRecordsReady()) {
                     FINNA.recordOffset += FINNA.helpers.recordsDisplayed();
                     FINNA.widget.render(true);
-                    if (FINNA.cache.resultsFetched - FINNA.recordOffset <= 10 && FINNA.cache.resultsFetched < parseInt($('.count').html(),10))  { 
+                    if (FINNA.cache.lessThanTwoPagesLeft() && FINNA.cache.moreRecordsInAPI())  { 
                         // querying more results in advance if there is two pages or less remaining
                         FINNA.queryFinna(FINNA.cache.resultsFetched, FINNA.resultLimit);
                     }
