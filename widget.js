@@ -86,6 +86,15 @@ FINNA = {
     },
 
     widget: {
+        addAccordionToggleEvents: function() {
+                $('#headingFinna > a > .glyphicon').on('click', function() { 
+                    FINNA.widget.toggleAccordion();
+                });
+                $('#headingFinna > a.versal').on('click', function() { 
+                    FINNA.widget.toggleAccordion();
+                });
+            },
+
         addPagingButtons: function() {
             // previous page button to the left
             $('#collapseFinna > .panel-body > button:first').on('click', function() {
@@ -94,6 +103,7 @@ FINNA = {
                     FINNA.widget.render(true);
                 }
             });
+
             // next page button to the right
             $('#collapseFinna > .panel-body > button:last').on('click', function() {
                 if (FINNA.cache.moreRecordsReady()) {
@@ -121,22 +131,17 @@ FINNA = {
 
         render: function (isOpened) {
             var $previous = $('.concept-widget').css('visibility', 'hidden');
+            var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
+            var context = {count: FINNA.cache.finnaResults.resultCount, finnalink: finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] };
             if (isOpened) {
-                var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
-                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.cache.finnaResults.resultCount, finnalink: finnaUrl, records: FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed()), opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang], showType: 1}));
-                $previous.remove();
-                this.addPagingButtons();
-            } else {
-                $('.content').append(Handlebars.compile($('#finna-template').html())({count: FINNA.cache.finnaResults.resultCount, finnalink: FINNA.finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] }));
-                $previous.remove();
+                context.records = FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed());
+                context.showType = FINNA.currentFormat === 0 ? 1 : 0;
             }
+            $('.content').append(Handlebars.compile($('#finna-template').html())(context));
+            $previous.remove();
+            this.addPagingButtons();
+            this.addAccordionToggleEvents();
 
-            $('#headingFinna > a > .glyphicon').on('click', function() { 
-                FINNA.widget.toggleAccordion();
-            });
-            $('#headingFinna > a.versal').on('click', function() { 
-                FINNA.widget.toggleAccordion();
-            });
             $('#headingFinna > .btn-group > .dropdown-menu > li > a').on('click', function() { 
                 FINNA.currentFormat = $(this).parent().index();
                 createCookie('FINNA_WIDGET_FORMAT', FINNA.currentFormat);
