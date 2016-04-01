@@ -10,15 +10,15 @@ FINNA = {
                             "translation": { "recordsInFinna": "Termillä kuvailtuja {{interpolation}} Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
                          },
                    'sv': {
-                            "translation": { "recordsInFinna": "{{interpolation}} beskrivad med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
+                            "translation": { "recordsInFinna": "{{interpolation}} som beskrivits med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
                          },
                    'en': {
-                            "translation": { "recordsInFinna": "{{interpolation}} records indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
+                            "translation": { "recordsInFinna": "{{interpolation}} indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
                          }
                   },
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
-    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: '', en: 'records'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudspelningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskriftar och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
-    formatNames: [{fi: 'Kaikki tyypit', sv: 'Allar typer av material', en: ''}, {fi: 'Kuva', sv: 'Bild', en: 'image records'}, {fi: 'Kirja', sv: 'Bok', en: 'books'}, {fi: 'Esine', sv: 'Föremål'}, {fi: 'Äänite', sv: 'Ljudupptagning', en: ''}, {fi: 'Lehti/Artikkeli', sv: 'Tidskrift/Artikel', en: ''}, {fi: 'Nuotti', sv: 'Noter', en: ''}, {fi: 'Video', sv: 'Video', en: ''}, {fi: 'Opinnäyte', sv: 'Examensarbete', en: ''}],
+    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: 'material', en: 'items'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudspelningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskriftar och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
+    formatNames: {fi: ['Kaikki tyypit', 'Kuva', 'Kirja', 'Esine', 'Äänite', 'Lehti/Artikkeli', 'Nuotti', 'Video', 'Opinnäyte'], sv: ['Alla typer av material', 'Bild', 'Bok', 'Föremål', 'Ljudupptagning', 'Tidskrift/Artikel','Noter', 'Video', 'Examensarbete'], en: ['All types', 'Image','Book','Physical object', 'Sound recording', 'Article', 'Musical score', 'Video', 'Thesis']},
     
     generateQueryString: function(terms, offset, limit) {
         var params = {lng: lang, limit: limit, type: 'AllFields', join: 'AND'};
@@ -61,7 +61,7 @@ FINNA = {
         });
     },
 
-    // caches the query results to enable smooth paging
+    // Cache for the query results to enable smooth paging action
     cache: {
         finnaResults: null,
         resultsFetched: 0,
@@ -94,7 +94,7 @@ FINNA = {
                     FINNA.widget.toggleAccordion();
                 });
             },
-
+        
         addPagingButtons: function() {
             // previous page button to the left
             $('#collapseFinna > .panel-body > button:first').on('click', function() {
@@ -117,6 +117,7 @@ FINNA = {
             });
         },
 
+        // Flips the icon displayed on the top right corner of the widget header
         flipChevron: function() {
             var $glyph = $('#headingFinna > a > .glyphicon');
             if ($glyph.hasClass('glyphicon-chevron-down')) {
@@ -130,14 +131,24 @@ FINNA = {
         },
 
         render: function (isOpened) {
+            // hiding the current state of the widget in the dom to avoid the page length jumping around
             var $previous = $('.concept-widget').css('visibility', 'hidden');
             var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
-            var context = {count: FINNA.cache.finnaResults.resultCount, finnalink: finnaUrl, opened: isOpened, formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], types: FINNA.formatNames, typeString: FINNA.formatNames[FINNA.currentFormat][lang] };
+            var context = {
+                count: FINNA.cache.finnaResults.resultCount, 
+                finnalink: finnaUrl, opened: isOpened, 
+                formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], 
+                lang: lang,
+                types: FINNA.formatNames[lang], 
+                typeString: FINNA.formatNames[lang][FINNA.currentFormat] 
+            };
+            // adding the records to the context object if the widget is to be rendered in it's opened state.
             if (isOpened) {
                 context.records = FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed());
                 context.showType = FINNA.currentFormat === 0 ? 1 : 0;
             }
             $('.content').append(Handlebars.compile($('#finna-template').html())(context));
+            // removing the hidden old widget from the DOM after the new one is appended
             $previous.remove();
             this.addPagingButtons();
             this.addAccordionToggleEvents();
@@ -158,6 +169,7 @@ FINNA = {
         },
     },
     
+    // Helper functions for the widget
     helpers: {
         formatToGlyphicon: function(format) {
             var formatString = JSON.stringify(format);
@@ -227,6 +239,7 @@ FINNA = {
             return record;
         },
 
+        // Returns an integer value of how many records to display in a page based on the viewport width.
         recordsDisplayed: function() { 
             var viewWidth = $(window).width(); 
             if (viewWidth < 500) {
@@ -253,6 +266,7 @@ $(function() {
             var translation = typeof window.i18next !== 'undefined' ? window.i18next.t(str, {interpolation: variable}) : str;
             return translation.charAt(0).toUpperCase() + translation.slice(1);
         });
+
         // when we have a URI it's then desired to invoke the plugin
         FINNA.queryFinna(0, 0);
     }
