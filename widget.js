@@ -2,8 +2,8 @@
 var FINNA = FINNA || {};
 
 FINNA = {
+    prefLabels: null,
     recordOffset: 0,
-    prefLabels: prefLabels,
     resultLimit: 10,
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     translations: {'fi': {
@@ -39,8 +39,11 @@ FINNA = {
     },
 
     // Makes the queries to the Finna API.
-    queryFinna: function (offset, limit) {
-        var terms = this.helpers.getLabels();
+    queryFinna: function (offset, limit, prefs) {
+        if (prefs) {
+            FINNA.prefLabels = prefs;
+        }
+        var terms = this.helpers.getLabelString(this.prefLabels);
         var url = this.generateQueryString(terms, offset, limit);
         $.getJSON(url, function(data) {
             if (data.records) {
@@ -133,7 +136,7 @@ FINNA = {
         render: function (isOpened) {
             // hiding the current state of the widget in the dom to avoid the page length jumping around
             var $previous = $('.concept-widget').css('visibility', 'hidden');
-            var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabels()).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
+            var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabelString(this.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
             var context = {
                 count: FINNA.cache.finnaResults.resultCount, 
                 finnalink: finnaUrl, opened: isOpened, 
@@ -209,12 +212,12 @@ FINNA = {
             return 'glyphicon-asterisk'; 
         },
 
-        getLabels: function() {
+        getLabelString: function(prefLabels) {
             var labels = [];
-            for (var i in FINNA.prefLabels) {
-                labels.push(FINNA.prefLabels[i].label);
+            for (var i in prefLabels) {
+                labels.push(prefLabels[i].label);
                 // giving the a higher weight in the query to the term in the users language
-                if (FINNA.prefLabels[i].lang === lang) {
+                if (prefLabels[i].lang === lang) {
                     labels[i] += '^2';
                 }
             }
@@ -251,6 +254,7 @@ FINNA = {
             }
             return 5;
         },
+
     },
 
 };
@@ -268,6 +272,11 @@ $(function() {
         });
 
         // when we have a URI it's then desired to invoke the plugin
-        FINNA.queryFinna(0, 0);
+        FINNA.queryFinna(0, 0, window.prefLabels);
     }
+
+    window.newFinnaSearch = function (data) {
+        FINNA.cache.clear();
+        FINNA.queryFinna(0, 0, data.prefLabels);
+    };
 });
