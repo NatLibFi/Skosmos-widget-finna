@@ -128,8 +128,10 @@ FINNA = {
                     FINNA.queryFinna(0, FINNA.resultLimit);
                 }
                 $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+                createCookie('FINNA_WIDGET_OPEN', 1);
             } else {
                 $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+                createCookie('FINNA_WIDGET_OPEN', 0);
             }
         },
 
@@ -268,6 +270,11 @@ $(function() {
 
     window.newFinnaSearch = function (data) {
         FINNA.cache.clear();
+        var isOpen = readCookie('FINNA_WIDGET_OPEN') ? parseInt(readCookie('FINNA_WIDGET_OPEN'), 10) : 0;
+        if (isOpen) {
+            FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels);
+        } else {
         FINNA.queryFinna(0, 0, data.prefLabels);
+        }
     };
 });
