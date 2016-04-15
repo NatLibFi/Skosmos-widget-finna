@@ -266,16 +266,8 @@ $(function() {
         return translation.charAt(0).toUpperCase() + translation.slice(1);
     });
 
-    /**
-     * Using uri variable passed through in the php-code to detect when on 
-     * a Skosmos concept/group page since it will be undefined otherwise.
-     **/
-    if (typeof uri !== 'undefined') { 
-        // when we have a URI it's then desired to invoke the plugin
-        FINNA.queryFinna(0, 0, window.prefLabels);
-    }
-
     window.newFinnaSearch = function (data) {
+        alert('moi');
         FINNA.cache.clear();
         FINNA.queryFinna(0, 0, data.prefLabels);
     };
