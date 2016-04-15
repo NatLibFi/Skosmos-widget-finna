@@ -260,17 +260,17 @@ FINNA = {
 };
 
 $(function() { 
+    window.i18next.init({"lng": lang, resources: FINNA.translations});
+    Handlebars.registerHelper('trans',function(str, variable){
+        var translation = typeof window.i18next !== 'undefined' ? window.i18next.t(str, {interpolation: variable}) : str;
+        return translation.charAt(0).toUpperCase() + translation.slice(1);
+    });
+
     /**
      * Using uri variable passed through in the php-code to detect when on 
      * a Skosmos concept/group page since it will be undefined otherwise.
      **/
     if (typeof uri !== 'undefined') { 
-        window.i18next.init({"lng": lang, resources: FINNA.translations});
-        Handlebars.registerHelper('trans',function(str, variable){
-            var translation = typeof window.i18next !== 'undefined' ? window.i18next.t(str, {interpolation: variable}) : str;
-            return translation.charAt(0).toUpperCase() + translation.slice(1);
-        });
-
         // when we have a URI it's then desired to invoke the plugin
         FINNA.queryFinna(0, 0, window.prefLabels);
     }
