@@ -267,7 +267,6 @@ $(function() {
     });
 
     window.newFinnaSearch = function (data) {
-        alert('moi');
         FINNA.cache.clear();
         FINNA.queryFinna(0, 0, data.prefLabels);
     };
