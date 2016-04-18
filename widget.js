@@ -269,6 +269,10 @@ $(function() {
     });
 
     window.newFinnaSearch = function (data) {
+        // Only activating the widget when on a concept page and there is a prefLabel.
+        if (data.page !== 'page' || data.prefLabels === undefined) {
+            return;
+        }
         FINNA.cache.clear();
         var isOpen = readCookie('FINNA_WIDGET_OPEN') ? parseInt(readCookie('FINNA_WIDGET_OPEN'), 10) : 0;
         if (isOpen) {
