@@ -33,7 +33,7 @@ FINNA = {
             params.filter = ['online_boolean:1'];
         }
         if (FINNA.currentFormat > 0) {
-            params.filter = ['online_boolean:1', FINNA.formats[FINNA.currentFormat]];
+            params.filter = [FINNA.formats[FINNA.currentFormat]];
         }
         return 'https://api.finna.fi/v1/search?' + lookfors + $.param(params) + '&callback=?';
     },
@@ -41,7 +41,7 @@ FINNA = {
     // Makes the queries to the Finna API.
     queryFinna: function (offset, limit, prefs) {
         if (prefs) {
-            FINNA.prefLabels = prefs;
+            this.prefLabels = prefs;
         }
         var terms = this.helpers.getLabelString(this.prefLabels);
         var url = this.generateQueryString(terms, offset, limit);
@@ -138,7 +138,7 @@ FINNA = {
         render: function (isOpened) {
             // hiding the current state of the widget in the dom to avoid the page length jumping around
             var $previous = $('.concept-widget').css('visibility', 'hidden');
-            var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabelString(this.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
+            var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabelString(FINNA.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
             var context = {
                 count: FINNA.cache.finnaResults.resultCount, 
                 finnalink: finnaUrl, opened: isOpened, 
@@ -278,7 +278,7 @@ $(function() {
         if (isOpen) {
             FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels);
         } else {
-        FINNA.queryFinna(0, 0, data.prefLabels);
+            FINNA.queryFinna(0, 0, data.prefLabels);
         }
     };
 });
