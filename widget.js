@@ -274,7 +274,8 @@ $(function() {
             return;
         }
         FINNA.cache.clear();
-        var isOpen = readCookie('FINNA_WIDGET_OPEN') ? parseInt(readCookie('FINNA_WIDGET_OPEN'), 10) : 0;
+        var openCookie = readCookie('FINNA_WIDGET_OPEN');
+        var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
         if (isOpen) {
             FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels);
         } else {
