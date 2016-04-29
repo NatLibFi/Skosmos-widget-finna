@@ -61,24 +61,6 @@
   resize: both;
 }
 
-.record > .image-container > a > span.glyphicon {
-  color: #83CFC8;
-  font-size: 42px;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  resize: both;
-}
-
-.record > .image-container > a > img {
-  transform: translate(-50%, -50%);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  resize: both;
-}
-
 #collapseFinna > .panel-body > .btn:hover, #collapseFinna > .panel-body > .btn:active, #collapseFinna > .panel-body > .btn:focus {
   background-color: #fff;
 }
@@ -97,6 +79,30 @@
 #collapseFinna > .panel-body {
   position: relative;
   border-top: 1px solid #D4EDEB;
+}
+
+.img-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.img-wrapper img {
+  position: relative;
+}
+
+.img-wrapper td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.img-wrapper span.glyphicon {
+  color: #83CFC8;
+  font-size: 42px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  resize: both;
 }
 
 /*
