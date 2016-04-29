@@ -59,7 +59,13 @@ FINNA = {
             FINNA.cache.add(data);
             var opened = (data.records !== undefined);
             if (offset === 0) {
-                FINNA.widget.render(opened);
+                // detecting safari and delaying the dom insertion since otherwise it just seems to disappear after it's been appended
+                var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+                if (isSafari) {
+                    setTimeout(function() { if ($('.concept-widget').length === 0) { FINNA.widget.render(true); }}, 800);
+                } else {
+                    FINNA.widget.render(opened);
+                }
             }
         });
     },
@@ -262,7 +268,9 @@ FINNA = {
 };
 
 $(function() { 
-    window.i18next.init({"lng": lang, resources: FINNA.translations});
+    if (typeof window.i18next !== 'undefined') {
+        window.i18next.init({"lng": lang, resources: FINNA.translations});
+    }
     Handlebars.registerHelper('trans',function(str, variable){
         var translation = typeof window.i18next !== 'undefined' ? window.i18next.t(str, {interpolation: variable}) : str;
         return translation.charAt(0).toUpperCase() + translation.slice(1);
