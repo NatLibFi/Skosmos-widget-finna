@@ -59,13 +59,7 @@ FINNA = {
             FINNA.cache.add(data);
             var opened = (data.records !== undefined);
             if (offset === 0) {
-                // detecting safari and delaying the dom insertion since otherwise it just seems to disappear after it's been appended
-                var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
-                if (isSafari) {
-                    setTimeout(function() { if ($('.concept-widget').length === 0) { FINNA.widget.render(true); }}, 800);
-                } else {
-                    FINNA.widget.render(opened);
-                }
+                FINNA.widget.render(opened);
             }
         });
     },
