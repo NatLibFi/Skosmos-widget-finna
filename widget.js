@@ -143,7 +143,6 @@ FINNA = {
 
         render: function (isOpened) {
             // hiding the current state of the widget in the dom to avoid the page length jumping around
-            var $previous = $('.concept-widget').css('visibility', 'hidden');
             var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabelString(FINNA.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
             var context = {
                 count: FINNA.cache.finnaResults.resultCount, 
@@ -158,9 +157,11 @@ FINNA = {
                 context.records = FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed());
                 context.showType = FINNA.currentFormat === 0 ? 1 : 0;
             }
-            $('.content').append(Handlebars.compile($('#finna-template').html())(context));
-            // removing the hidden old widget from the DOM after the new one is appended
-            $previous.remove();
+            if ($('.concept-widget').length > 0) {
+                $('.concept-widget').replaceWith(Handlebars.compile($('#finna-template').html())(context));
+            } else {
+                $('.content').append(Handlebars.compile($('#finna-template').html())(context));
+            }
             this.addPagingButtons();
             this.addAccordionToggleEvents();
 
