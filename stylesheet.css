@@ -200,6 +200,12 @@
   }
 }
 
+@media (max-width: 1024px) {
+  #collapseFinna > .panel-body > .row > .record {
+      margin-left: 24px;
+  }
+}
+
 @media (min-width: 1259px) {
   #collapseFinna > .panel-body > .row > .record {
     margin-right: 12px;
