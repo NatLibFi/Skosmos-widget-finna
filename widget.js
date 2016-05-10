@@ -53,6 +53,9 @@ FINNA = {
                     record.glyphicon = FINNA.helpers.formatToGlyphicon(record.formats);
                     record.owner = FINNA.helpers.guessOwnerOfRecord(record);
                     record = FINNA.helpers.shortenTitle(record);
+                    if (record.images && record.images[0].indexOf('fullres')) {
+                        record.images[0] = record.images[0].replace('&fullres=1', '');
+                    }
                     data.records[i].id = encodeURIComponent(data.records[i].id);
                 }
             }
