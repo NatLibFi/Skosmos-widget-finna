@@ -236,7 +236,10 @@ FINNA = {
                 // limiting to first author since the space is super limited
                 return record.nonPresenterAuthors[0].name;
             }
-            return record.buildings[0].translated;
+            if (record.buildings) {
+                return record.buildings[0].translated;
+            }
+            return null;
         },
 
         // Shortens the title field of the record to prevent the UI from blowing up.
