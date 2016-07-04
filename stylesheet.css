@@ -120,6 +120,11 @@
   padding: 12px 7px;
 }
 
+#collapseFinna > .panel-body > .btn-disabled {
+  color: #ccc !important;
+  border-color: #ccc !important;
+}
+
 #collapseFinna > .panel-body {
   min-height: 200px;
 }

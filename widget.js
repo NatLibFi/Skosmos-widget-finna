@@ -108,6 +108,9 @@ FINNA = {
                     FINNA.recordOffset -= FINNA.helpers.recordsDisplayed();
                     FINNA.widget.render(true);
                 }
+                if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
+                    $('#collapseFinna > .panel-body > button:first').removeClass('btn-disabled');
+                }
             });
 
             // next page button to the right
@@ -118,6 +121,10 @@ FINNA = {
                     if (FINNA.cache.lessThanTwoPagesLeft() && FINNA.cache.moreRecordsInAPI())  { 
                         // querying more results in advance if there is two pages or less remaining
                         FINNA.queryFinna(FINNA.cache.resultsFetched, FINNA.resultLimit);
+                    }
+                    $('#collapseFinna > .panel-body > button:first').removeClass('btn-disabled');
+                    if (FINNA.cache.moreRecordsReady() === false && FINNA.cache.moreRecordsInAPI() === false) {
+                        $('#collapseFinna > .panel-body > button:last').addClass('btn-disabled');
                     }
                 }
             });
@@ -143,8 +150,10 @@ FINNA = {
             var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabelString(FINNA.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
             var context = {
                 count: FINNA.cache.finnaResults.resultCount, 
-                finnalink: finnaUrl, opened: isOpened, 
+                finnalink: finnaUrl, 
+                opened: isOpened, 
                 formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], 
+                noMoreResults: FINNA.cache.finnaResults.resultCount <= FINNA.helpers.recordsDisplayed() ? 1 : 0,
                 lang: lang,
                 types: FINNA.formatNames[lang], 
                 typeString: FINNA.formatNames[lang][FINNA.currentFormat] 
