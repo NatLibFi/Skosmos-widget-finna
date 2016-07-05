@@ -122,6 +122,7 @@
 
 #collapseFinna > .panel-body > .btn-disabled {
   color: #ccc !important;
+  cursor: default;
   border-color: #ccc !important;
 }
 
