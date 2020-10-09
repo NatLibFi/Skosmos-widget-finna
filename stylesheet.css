@@ -21,24 +21,20 @@
 } 
 
 #collapseFinna > .panel-body {
-  padding: 15px 0 5px 0;
+  padding: 15px 38px 5px 38px;
 }
-
-#collapseFinna > .panel-body > .row {
-  margin: 0 38px;
-}
-
 
 /*
  * Record specific
  */
 .record {
-  display: block;
-  float: left;
+  display: inline-flex;
+  flex-direction: column;
+  margin-left: 12px;
+  margin-right: 12px;
   padding: 0;
   width: 126px;
   min-height: 200px;
-  margin-right: 18px;
 } 
 
 .record > a > span {
@@ -185,50 +181,15 @@
   margin-left: 25px;
 }
 
-/*
- * Mediaqueries
- */
-@media (max-width: 1170px) {
-  #collapseFinna > .panel-body > .row > .record {
-    margin-right: 8px;
+@media (min-width: 1260px) {
+  .record {
+    margin-left: 8px;
+    margin-right: 7px;
   }
-}
 
-@media (max-width: 1130px) {
-  #collapseFinna > .panel-body > .row > .record {
-      margin-right: 24px;
-  }
-}
+ #collapseFinna > .panel-body {
+   padding-left: 30px;
+   padding-right: 30px;
+ }
 
-@media (max-width: 800px) {
-  #collapseFinna > .panel-body > .row > .record {
-      margin-right: 10px;
-  }
 }
-
-@media (max-width: 1024px) {
-  #collapseFinna > .panel-body > .row > .record {
-      margin-left: 24px;
-  }
-}
-
-@media (min-width: 1259px) {
-  #collapseFinna > .panel-body > .row > .record {
-    margin-right: 12px;
-  }
-}
-
-@media (min-width: 1520px) {
-  #collapseFinna > .panel-body > .row > .record {
-    margin-right: 22px;
-  }
-  
-  #collapseFinna > .panel-body > .row {
-    margin: 0 48px;
-  }
-}
-
-#collapseFinna > .panel-body > .row > .record:last-of-type {
-    margin-right: 0px;
-}
-
