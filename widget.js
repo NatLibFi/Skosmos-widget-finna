@@ -7,13 +7,13 @@ FINNA = {
     resultLimit: 10,
     currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     translations: {'fi': {
-                            "translation": { "recordsInFinna": "Termillä kuvailtuja {{interpolation}} Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
+                            "translation": { "recordsInFinna": "Termillä kuvailtuja {{- interpolation}} Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
                          },
                    'sv': {
-                            "translation": { "recordsInFinna": "{{interpolation}} som beskrivits med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
+                            "translation": { "recordsInFinna": "{{- interpolation}} som beskrivits med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
                          },
                    'en': {
-                            "translation": { "recordsInFinna": "{{interpolation}} indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
+                            "translation": { "recordsInFinna": "{{- interpolation}} indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
                          }
                   },
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
