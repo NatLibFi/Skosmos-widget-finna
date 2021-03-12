@@ -163,8 +163,8 @@ FINNA = {
                 context.records = FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed());
                 context.showType = FINNA.currentFormat === 0 ? 1 : 0;
             }
-            if ($('.concept-widget').length > 0) {
-                $('.concept-widget').replaceWith(Handlebars.compile($('#finna-template').html())(context));
+            if ($('#finna-widget').length > 0) {
+                $('#finna-widget').replaceWith(Handlebars.compile($('#finna-template').html())(context));
             } else {
                 $('.content').append(Handlebars.compile($('#finna-template').html())(context));
             }
