@@ -44,7 +44,9 @@ FINNA = {
             this.prefLabels = prefs;
         }
         var terms = this.helpers.getLabelString(this.prefLabels);
+        // limit = '10';
         var url = this.generateQueryString(terms, offset, limit);
+
         $.getJSON(url, function(data) {
             if (data.records) {
                 FINNA.cache.resultsFetched += data.records.length;
@@ -132,15 +134,20 @@ FINNA = {
 
         // Flips the icon displayed on the top right corner of the widget header
         flipChevron: function() {
-            var $glyph = $('#headingFinna > a > .glyphicon');
-            if ($glyph.hasClass('glyphicon-chevron-down')) {
+            // var $glyph = $('#headingFinna > a > .glyphicon');
+            var $glyph = $('#headingFinna > btn-group > #testi');
+            // if ($glyph.hasClass('glyphicon-chevron-down')) {
+            if ($glyph.hasClass('testi-chevron-down')) {
                 if (FINNA.cache.finnaResults.records === undefined) {
                     FINNA.queryFinna(0, FINNA.resultLimit);
                 }
-                $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+                // Tutki tätä kohtaa
+                // $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+                $glyph.removeClass('testi-chevron-down').addClass('testi-chevron-up');
                 createCookie('FINNA_WIDGET_OPEN', 1);
             } else {
-                $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+                $glyph.removeClass('testi-chevron-up').addClass('testi-chevron-down');
+                // $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
                 createCookie('FINNA_WIDGET_OPEN', 0);
             }
         },
@@ -151,12 +158,13 @@ FINNA = {
             var context = {
                 count: FINNA.cache.finnaResults.resultCount, 
                 finnalink: finnaUrl, 
-                opened: isOpened, 
+                opened: isOpened,
                 formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], 
                 noMoreResults: FINNA.cache.finnaResults.resultCount <= FINNA.helpers.recordsDisplayed() ? 1 : 0,
                 lang: lang,
                 types: FINNA.formatNames[lang], 
-                typeString: FINNA.formatNames[lang][FINNA.currentFormat] 
+                typeString: FINNA.formatNames[lang][FINNA.currentFormat] ,
+                hostname: location
             };
             // adding the records to the context object if the widget is to be rendered in it's opened state.
             if (isOpened) {
@@ -277,6 +285,11 @@ FINNA = {
 
 };
 
+function getHostName() {
+    var h = location.hostname;
+    document.getElementById("hostname").innerHTML = h;
+}
+
 $(function() { 
     if (typeof window.i18next !== 'undefined') {
         window.i18next.init({"lng": lang, resources: FINNA.translations});
@@ -286,18 +299,20 @@ $(function() {
         return translation.charAt(0).toUpperCase() + translation.slice(1);
     });
 
-    window.newFinnaSearch = function (data) {
-        // Only activating the widget when on a concept page and there is a prefLabel.
-        if (data.page !== 'page' || data.prefLabels === undefined) {
-            return;
-        }
-        FINNA.cache.clear();
-        var openCookie = readCookie('FINNA_WIDGET_OPEN');
-        var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
-        if (isOpen) {
-            FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels);
-        } else {
-            FINNA.queryFinna(0, 0, data.prefLabels);
-        }
-    };
 });
+window.newFinnaSearch = function (data) {
+    // Only activating the widget when on a concept page and there is a prefLabel.
+    if (data.page !== 'page' || data.prefLabels === undefined) {
+        return;
+    }
+    FINNA.cache.clear();
+    var openCookie = readCookie('FINNA_WIDGET_OPEN');
+    var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
+
+    if (isOpen) {
+        FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels);
+    } else {
+        // FINNA.queryFinna(0, 0, data.prefLabels);
+        FINNA.queryFinna(0, 10, data.prefLabels);
+    }
+};

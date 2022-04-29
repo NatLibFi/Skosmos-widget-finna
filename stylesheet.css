@@ -5,10 +5,37 @@
   border-top: 2px solid #394554;
 }
 
+/*<span style="background-repeat:no-repeat; background-size:contain; height:200px; width:1200px; background-image: url('https://firstvet.com/uploaded/images/articles/cat-first-aid.jpg')">moikka</span>*/
+.testi-chevron-up {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:18px;
+  width:18px;
+  /*background-image: url('resource/icons/chevron-up.svg');*/
+  /*background-image: url('resource/pics/broader.gif');*/
+  /*background-image: url("./icons/cat-first-aid.jpg");*/
+  background-image: url("./icons/chevron-up.svg");
+}
+
+.testi-chevron-down {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:18px;
+  width:18px;
+  /*background-image: url('resource/icons/chevron-down.svg');*/
+  /*background-image: url('resource/pics/narrower.gif');*/
+  background-image: url("./icons/chevron-down.svg");
+  /*background-image: url("./icons/cat-first-aid.jpg");*/
+}
+
 .concept-widget > .panel {
   border-radius: 0;
   border: 0;
   box-shadow: none;
+}
+
+.hook {
+
 }
 
 .concept-widget > .panel > #headingFinna {
@@ -18,10 +45,11 @@
 .concept-widget > .result-counts {
   margin-bottom: 15px;
   padding-left: 43px;
-} 
+}
 
 #collapseFinna > .panel-body {
   padding: 15px 38px 5px 38px;
+  background-color: #fff;
 }
 
 /*
@@ -35,18 +63,18 @@
   padding: 0;
   width: 126px;
   min-height: 200px;
-} 
+}
 
 .record > a > span {
-  border-top: 1px #83CFC8 solid; 
-  display: block; 
-  font-size: 10px; 
+  border-top: 1px #83CFC8 solid;
+  display: block;
+  font-size: 10px;
   margin-top: 5px;
-  padding-top: 1px; 
+  padding-top: 1px;
 }
 
 .record > span {
-  display: block; 
+  display: block;
   font-size: 10px;
 }
 
@@ -151,12 +179,12 @@
   border: 0;
   background-color: #D4EDEB;
   color: #00748f;
-  min-width: 100px; 
+  min-width: 100px;
   text-align: left;
 }
 
 #headingFinna > .btn-group > .btn > .caret {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 #headingFinna > .btn-group > .dropdown-menu {
@@ -187,9 +215,9 @@
     margin-right: 7px;
   }
 
- #collapseFinna > .panel-body {
-   padding-left: 30px;
-   padding-right: 30px;
- }
+  #collapseFinna > .panel-body {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 
 }

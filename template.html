@@ -2,20 +2,30 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFinna">
     {{#if count}}
-      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
+<!--      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">-->
+      <a class="versal collapsed" role="button" data-bs-toggle="collapse" data-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
     {{else}}<span class="versal">{{/if}}
       {{trans 'recordsInFinna' formatString}} <span class="count">{{count}}</span>
     {{#if count}}</a>{{else}}</span>{{/if}}
-    {{#if count}}<a class="collapsed" role="button" data-toggle="collapse" data-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">{{/if}}
-          <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>
+    {{#if count}}<a class="collapsed" role="button" data-bs-toggle="collapse" data-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">{{/if}}
+<!--          <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>-->
+<!--        <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>-->
+<!--        toimii!!! <div class="testi-chevron-{{#if opened}}up{{else}}down{{/if}}"></div>-->
+<!--        toimii <img src="resource/icons/chevron-up.svg" alt="ylööös" />-->
+        {{opened}} <!--{{hostname}} -->
+<!--        toimii <img src="resource/icons/chevron-down.svg" alt="alaaas" />-->
+<!--        toimii <span style="background-repeat:no-repeat; background-size:contain; height:200px; width:1200px; background-image: url('https://firstvet.com/uploaded/images/articles/cat-first-aid.jpg')">moikka</span>-->
+<!--        <img class="testi-chevron-{{#if opened}}up{{else}}down{{/if}}" src="./resource/fontawsome/svgs/solid/wine-bottle.svg" />-->
+<!--        <img class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></img>-->
           {{#if count}}</a>{{/if}}
       <div class="btn-group dropup">
           <button class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>
           <ul class="dropdown-menu">
               {{#each types}}<li><a class="versal">{{this}}</a></li>{{/each}}
           </ul>
-          </div>
+          <a id="testi" class="collapsed testi-chevron-{{#if opened}}up{{else}}down{{/if}}" role="button" data-bs-toggle="collapse" data-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna"></a>
       </div>
+    </div>
     <div id="collapseFinna" class="panel-collapse collapse{{# if opened}} in{{/if}}" role="tabpanel" aria-labelledby="headingFinna">
       <div class="panel-body">
             <button type="button" class="btn btn-default btn-disabled">&laquo;</button>
@@ -25,7 +35,8 @@
                     <div class="image-container">
                         <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
                             <table class="img-wrapper">
-                                <tr><td><span class="glyphicon {{glyphicon}}"></span><img alt="" src="https://finna.fi{{images.[0]}}&w=126&h=126"></td></tr>
+<!--                                <tr><td><span class="glyphicon {{glyphicon}}"></span><img alt="" src="https://finna.fi{{images.[0]}}&w=126&h=126"></td></tr>-->
+                                <tr><td><span class="jokutesti"></span><img alt="" src="https://finna.fi{{images.[0]}}&w=126&h=126"></td></tr>
                             </table>
                         </a>
                     </div>
