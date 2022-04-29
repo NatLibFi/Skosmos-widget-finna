@@ -5,15 +5,11 @@
   border-top: 2px solid #394554;
 }
 
-/*<span style="background-repeat:no-repeat; background-size:contain; height:200px; width:1200px; background-image: url('https://firstvet.com/uploaded/images/articles/cat-first-aid.jpg')">moikka</span>*/
 .testi-chevron-up {
   background-repeat:no-repeat;
   background-size:contain;
   height:18px;
   width:18px;
-  /*background-image: url('resource/icons/chevron-up.svg');*/
-  /*background-image: url('resource/pics/broader.gif');*/
-  /*background-image: url("./icons/cat-first-aid.jpg");*/
   background-image: url("./icons/chevron-up.svg");
 }
 
@@ -22,10 +18,7 @@
   background-size:contain;
   height:18px;
   width:18px;
-  /*background-image: url('resource/icons/chevron-down.svg');*/
-  /*background-image: url('resource/pics/narrower.gif');*/
   background-image: url("./icons/chevron-down.svg");
-  /*background-image: url("./icons/cat-first-aid.jpg");*/
 }
 
 .concept-widget > .panel {

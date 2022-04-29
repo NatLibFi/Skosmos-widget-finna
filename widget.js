@@ -164,7 +164,6 @@ FINNA = {
                 lang: lang,
                 types: FINNA.formatNames[lang], 
                 typeString: FINNA.formatNames[lang][FINNA.currentFormat] ,
-                hostname: location
             };
             // adding the records to the context object if the widget is to be rendered in it's opened state.
             if (isOpened) {
