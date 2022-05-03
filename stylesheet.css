@@ -18,7 +18,95 @@
   background-image: url("./icons/chevron-down.svg");
 }
 
+/*Uudet ikonit alkavat tästä*/
 
+.glyphicon-asterisk {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/asterisk.svg");
+}
+
+.glyphicon-book {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/book.svg");
+}
+
+.glyphicon-camera {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/camera.svg");
+}
+
+.glyphicon-file {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/file.svg");
+}
+
+.glyphicon-film {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/film.svg");
+}
+
+.glyphicon-folder-open {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/folder-open.svg");
+}
+
+.glyphicon-globe {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/globe.svg");
+}
+
+.glyphicon-music {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/music.svg");
+}
+
+.glyphicon-picture {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/image.svg");
+}
+
+.glyphicon-volume-up {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/volume-high.svg");
+}
+
+.glyphicon-wrench {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:48px;
+  width:48px;
+  background-image: url("./icons/wrench.svg");
+}
 
 .concept-widget {
   border-top: 2px solid #394554;

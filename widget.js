@@ -51,6 +51,8 @@ FINNA = {
                 for (var i in data.records) {
                     var record = data.records[i];
                     record.glyphicon = FINNA.helpers.formatToGlyphicon(record.formats);
+                    // tempLogger("record.glyphicon");
+                    tempLogger(record.glyphicon);
                     record.owner = FINNA.helpers.guessOwnerOfRecord(record);
                     record = FINNA.helpers.shortenTitle(record);
                     if (record.images[0] && record.images[0].indexOf('fullres')) {
@@ -93,10 +95,10 @@ FINNA = {
 
     widget: {
         addAccordionToggleEvents: function() {
-                $('#headingFinna > a > .glyphicon').on('click', function() { 
+                $('#headingFinna > a > .glyphicon').on('click', function() {
                     FINNA.widget.toggleAccordion();
                 });
-                $('#headingFinna > a.versal').on('click', function() { 
+                $('#headingFinna > a.versal').on('click', function() {
                     FINNA.widget.toggleAccordion();
                 });
             },
@@ -134,7 +136,6 @@ FINNA = {
         flipChevron: function() {
             var $glyph = $('#headingFinna > a > .glyphicon');
             if ($glyph.hasClass('local-chevron-down')) {
-            // if ($glyph.hasClass('glyphicon-chevron-down')) {
                 if (FINNA.cache.finnaResults.records === undefined) {
                     FINNA.queryFinna(0, FINNA.resultLimit);
                 }
@@ -152,8 +153,8 @@ FINNA = {
             var context = {
                 count: FINNA.cache.finnaResults.resultCount, 
                 finnalink: finnaUrl, 
-                opened: isOpened, 
-                formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], 
+                opened: isOpened,
+                formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang],
                 noMoreResults: FINNA.cache.finnaResults.resultCount <= FINNA.helpers.recordsDisplayed() ? 1 : 0,
                 lang: lang,
                 types: FINNA.formatNames[lang], 
@@ -278,6 +279,11 @@ FINNA = {
 
 };
 
+function tempLogger(itemToBeLogged) {
+    window.console.log("* * * * * *");
+    window.console.log(itemToBeLogged);
+}
+
 $(function() { 
     if (typeof window.i18next !== 'undefined') {
         window.i18next.init({"lng": lang, resources: FINNA.translations});
@@ -294,7 +300,15 @@ $(function() {
         }
         FINNA.cache.clear();
         var openCookie = readCookie('FINNA_WIDGET_OPEN');
+        tempLogger("openCookie");
+        tempLogger(openCookie);
         var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
+        tempLogger("isOpen");
+        tempLogger(isOpen);
+        tempLogger("FINNA.resultLimit");
+        tempLogger(FINNA.resultLimit);
+        tempLogger("data.prefLabels");
+        tempLogger(data.prefLabels);
         if (isOpen) {
             FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels);
         } else {
