@@ -2,6 +2,18 @@
  * The whole widget
  */
 
+.versal-for-drop-down {
+  color: #474B4F;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: none;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+/*Uudet ikonit alkavat tästä*/
+
 .local-chevron-up {
   background-repeat:no-repeat;
   background-size:contain;
@@ -17,8 +29,6 @@
   width:18px;
   background-image: url("./icons/chevron-down.svg");
 }
-
-/*Uudet ikonit alkavat tästä*/
 
 .glyphicon-asterisk {
   background-repeat:no-repeat;
