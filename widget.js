@@ -133,15 +133,15 @@ FINNA = {
         // Flips the icon displayed on the top right corner of the widget header
         flipChevron: function() {
             var $glyph = $('#headingFinna > a > .glyphicon');
-            if ($glyph.hasClass('testi-chevron-down')) {
+            if ($glyph.hasClass('local-chevron-down')) {
             // if ($glyph.hasClass('glyphicon-chevron-down')) {
                 if (FINNA.cache.finnaResults.records === undefined) {
                     FINNA.queryFinna(0, FINNA.resultLimit);
                 }
-                $glyph.removeClass('testi-chevron-down').addClass('testi-chevron-up');
+                $glyph.removeClass('local-chevron-down').addClass('local-chevron-up');
                 createCookie('FINNA_WIDGET_OPEN', 1);
             } else {
-                $glyph.removeClass('testi-chevron-up').addClass('testi-chevron-down');
+                $glyph.removeClass('local-chevron-up').addClass('local-chevron-down');
                 createCookie('FINNA_WIDGET_OPEN', 0);
             }
         },

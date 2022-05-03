@@ -2,7 +2,7 @@
  * The whole widget
  */
 
-.testi-chevron-up {
+.local-chevron-up {
   background-repeat:no-repeat;
   background-size:contain;
   height:18px;
@@ -10,7 +10,7 @@
   background-image: url("./icons/chevron-up.svg");
 }
 
-.testi-chevron-down {
+.local-chevron-down {
   background-repeat:no-repeat;
   background-size:contain;
   height:18px;
