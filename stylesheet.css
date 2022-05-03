@@ -1,6 +1,25 @@
 /*
  * The whole widget
  */
+
+.testi-chevron-up {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:18px;
+  width:18px;
+  background-image: url("./icons/chevron-up.svg");
+}
+
+.testi-chevron-down {
+  background-repeat:no-repeat;
+  background-size:contain;
+  height:18px;
+  width:18px;
+  background-image: url("./icons/chevron-down.svg");
+}
+
+
+
 .concept-widget {
   border-top: 2px solid #394554;
 }
@@ -9,6 +28,7 @@
   border-radius: 0;
   border: 0;
   box-shadow: none;
+  background-color: #fff;
 }
 
 .concept-widget > .panel > #headingFinna {
@@ -18,6 +38,7 @@
 .concept-widget > .result-counts {
   margin-bottom: 15px;
   padding-left: 43px;
+  background-color: #fff;
 } 
 
 #collapseFinna > .panel-body {

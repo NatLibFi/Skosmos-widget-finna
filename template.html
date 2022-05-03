@@ -2,15 +2,17 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFinna">
     {{#if count}}
-      <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
+      <a class="versal collapsed" role="button" data-bs-toggle="collapse" data-bs-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
     {{else}}<span class="versal">{{/if}}
       {{trans 'recordsInFinna' formatString}} <span class="count">{{count}}</span>
     {{#if count}}</a>{{else}}</span>{{/if}}
-    {{#if count}}<a class="collapsed" role="button" data-toggle="collapse" data-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">{{/if}}
-          <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>
+    {{#if count}}<a class="collapsed" role="button" data-bs-toggle="collapse" data-bs-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">{{/if}}
+        {{opened}}
+        <span class="glyphicon testi-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>
+<!--        <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>-->
           {{#if count}}</a>{{/if}}
       <div class="btn-group dropup">
-          <button class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>
+          <button class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>
           <ul class="dropdown-menu">
               {{#each types}}<li><a class="versal">{{this}}</a></li>{{/each}}
           </ul>
