@@ -4,16 +4,17 @@
 
 :root {
   --finto-mint: invert(99%) sepia(62%) saturate(1534%) hue-rotate(151deg) brightness(84%) contrast(89%);
+  --gray-900: #474B4F;
+  --font-size: 14px;
 }
 
 .versal-for-drop-down {
-  color: #474B4F;
-  font-size: 12px;
-  font-weight: 400;
+  color: var(--gray-900);
+  display: block;
+  padding: 3px 20px;
+  clear: both;
   text-decoration: none;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-bottom: 20px;
+  /*color: #83CFC8;*/
 }
 
 /*Uudet ikonit alkavat tästä*/
@@ -33,107 +34,6 @@
   height:24px;
   width:24px;
   background-image: url("./icons/chevron-down.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-asterisk {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/asterisk.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-book {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  color: red;
-  filter: var(--finto-mint);
-  background-image: url("./icons/book.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-camera {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/camera.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-file {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/file.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-film {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/film.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-folder-open {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/folder-open.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-globe {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/globe.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-music {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/music.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-picture {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/image.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-volume-up {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/volume-high.svg");
-  filter: var(--finto-mint);
-}
-
-.glyphicon-wrench {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:48px;
-  width:48px;
-  background-image: url("./icons/wrench.svg");
   filter: var(--finto-mint);
 }
 
