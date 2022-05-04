@@ -204,7 +204,7 @@ FINNA = {
                 return 'fa-volume-high';
             }
             if (formatString.indexOf("0/Journal/") !== -1) {
-                return 'fa-file';
+                return 'fa-file-lines';
             }
             if (formatString.indexOf("0/MusicalScore/") !== -1) {
                 return 'fa-music';
