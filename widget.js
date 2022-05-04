@@ -93,7 +93,7 @@ FINNA = {
 
     widget: {
         addAccordionToggleEvents: function() {
-                $('#headingFinna > a > .glyphicon').on('click', function() {
+                $('#headingFinna > a > .fa-regular').on('click', function() {
                     FINNA.widget.toggleAccordion();
                 });
                 $('#headingFinna > a.versal').on('click', function() {
@@ -132,7 +132,7 @@ FINNA = {
 
         // Flips the icon displayed on the top right corner of the widget header
         flipChevron: function() {
-            var $glyph = $('#headingFinna > a > .glyphicon');
+            var $glyph = $('#headingFinna > a > .fa-regular');
             if ($glyph.hasClass('local-chevron-down')) {
                 if (FINNA.cache.finnaResults.records === undefined) {
                     FINNA.queryFinna(0, FINNA.resultLimit);
@@ -192,39 +192,39 @@ FINNA = {
         formatToGlyphicon: function(format) {
             var formatString = JSON.stringify(format);
             if (formatString.indexOf("0/Book/") !== -1) {
-                return 'glyphicon-book'; 
+                return 'fa-book';
             }
             if (formatString.indexOf("0/Image/") !== -1) {
-                return 'glyphicon-camera'; 
+                return 'fa-camera';
             }
             if (formatString.indexOf("0/PhysicalObject/") !== -1) {
-                return 'glyphicon-wrench'; 
+                return 'fa-wrench';
             }
             if (formatString.indexOf("0/Sound/") !== -1) {
-                return 'glyphicon-volume-up'; 
+                return 'fa-volume-high';
             }
             if (formatString.indexOf("0/Journal/") !== -1) {
-                return 'glyphicon-file'; 
+                return 'fa-file';
             }
             if (formatString.indexOf("0/MusicalScore/") !== -1) {
-                return 'glyphicon-music'; 
+                return 'fa-music';
             }
             if (formatString.indexOf("0/Video/") !== -1) {
-                return 'glyphicon-film'; 
+                return 'fa-film';
             }
             if (formatString.indexOf("0/Thesis/") !== -1) {
-                return 'glyphicon-book'; 
+                return 'fa-book';
             }
             if (formatString.indexOf("0/WorkOfArt/") !== -1) {
-                return 'glyphicon-picture'; 
+                return 'fa-image';
             }
             if (formatString.indexOf("0/Place/") !== -1) {
-                return 'glyphicon-globe'; 
+                return 'fa-globe';
             }
             if (formatString.indexOf("0/Document/") !== -1) {
-                return 'glyphicon-folder-open'; 
+                return 'fa-folder-open';
             }
-            return 'glyphicon-asterisk'; 
+            return 'fa-asterisk';
         },
 
         getLabelString: function(prefLabels) {

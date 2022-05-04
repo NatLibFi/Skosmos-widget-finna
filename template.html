@@ -1,5 +1,6 @@
 <div class="concept-widget panel-group" id="finna-widget" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
+      <span class="fa-regular fa-chevron-up"></span>
     <div class="panel-heading" role="tab" id="headingFinna">
     {{#if count}}
       <a class="versal collapsed" role="button" data-bs-toggle="collapse" data-bs-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">
@@ -7,8 +8,9 @@
       {{trans 'recordsInFinna' formatString}} <span class="count">{{count}}</span>
     {{#if count}}</a>{{else}}</span>{{/if}}
     {{#if count}}<a class="collapsed" role="button" data-bs-toggle="collapse" data-bs-parent="#finna-widget" href="#collapseFinna" aria-expanded="false" aria-controls="collapseFinna">{{/if}}
-        {{opened}}
-        <span class="glyphicon local-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>
+        {{opened}}{{glyphicon}}
+        <span class="fa-regular fa-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>
+<!--        <span class="glyphicon local-chevron-{{#if opened}}up{{else}}down{{/if}}" aria-hidden="true"></span>-->
           {{#if count}}</a>{{/if}}
       <div class="btn-group dropup">
           <button class="btn btn-light btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>
@@ -26,7 +28,7 @@
                     <div class="image-container">
                         <a href="https://www.finna.fi/Record/{{id}}" target="_blank">
                             <table class="img-wrapper">
-                                <tr><td><div class="{{glyphicon}}"></div><img alt="" src="https://finna.fi{{images.[0]}}&w=126&h=126"></td></tr>
+                                <tr><td><div class="fa-solid {{glyphicon}}"></div><img alt="" src="https://finna.fi{{images.[0]}}&w=126&h=126"></td></tr>
 <!--                                <tr><td><span class="glyphicon {{glyphicon}}"></span><img alt="" src="https://finna.fi{{images.[0]}}&w=126&h=126"></td></tr>-->
                             </table>
                         </a>
