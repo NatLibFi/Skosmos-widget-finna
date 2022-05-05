@@ -50,7 +50,7 @@ FINNA = {
                 FINNA.cache.resultsFetched += data.records.length;
                 for (var i in data.records) {
                     var record = data.records[i];
-                    record.glyphicon = FINNA.helpers.formatToGlyphicon(record.formats);
+                    record.iconizer = FINNA.helpers.formatToGlyphicon(record.formats);
                     record.owner = FINNA.helpers.guessOwnerOfRecord(record);
                     record = FINNA.helpers.shortenTitle(record);
                     if (record.images[0] && record.images[0].indexOf('fullres')) {
@@ -133,14 +133,14 @@ FINNA = {
         // Flips the icon displayed on the top right corner of the widget header
         flipChevron: function() {
             var $glyph = $('#headingFinna > a > .fa-regular');
-            if ($glyph.hasClass('local-chevron-down')) {
+            if ($glyph.hasClass('fa-chevron-down')) {
                 if (FINNA.cache.finnaResults.records === undefined) {
                     FINNA.queryFinna(0, FINNA.resultLimit);
                 }
-                $glyph.removeClass('local-chevron-down').addClass('local-chevron-up');
+                $glyph.removeClass('fa-chevron-down').addClass('fa-chevron-up');
                 createCookie('FINNA_WIDGET_OPEN', 1);
             } else {
-                $glyph.removeClass('local-chevron-up').addClass('local-chevron-down');
+                $glyph.removeClass('fa-chevron-up').addClass('fa-chevron-down');
                 createCookie('FINNA_WIDGET_OPEN', 0);
             }
         },
@@ -277,12 +277,7 @@ FINNA = {
 
 };
 
-function tempLogger(itemToBeLogged) {
-    window.console.log("* * * * * *");
-    window.console.log(itemToBeLogged);
-}
-
-$(function() { 
+$(function() {
     if (typeof window.i18next !== 'undefined') {
         window.i18next.init({"lng": lang, resources: FINNA.translations});
     }

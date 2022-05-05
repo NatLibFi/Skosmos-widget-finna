@@ -14,29 +14,13 @@
   padding: 3px 20px;
   clear: both;
   text-decoration: none;
-  /*color: #83CFC8;*/
 }
 
-/*Uudet ikonit alkavat tästä*/
-
-.local-chevron-up {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:24px;
-  width:24px;
-  background-image: url("./icons/chevron-up.svg");
-  filter: var(--finto-mint);
+.versal-for-finna-search-link {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
 }
-
-.local-chevron-down {
-  background-repeat:no-repeat;
-  background-size:contain;
-  height:24px;
-  width:24px;
-  background-image: url("./icons/chevron-down.svg");
-  filter: var(--finto-mint);
-}
-
 .concept-widget {
   border-top: 2px solid #394554;
 }
@@ -50,6 +34,10 @@
 
 .concept-widget > .panel > #headingFinna {
   background-color: #fff;
+  padding: 9px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 .concept-widget > .result-counts {
@@ -72,8 +60,8 @@
   margin-right: 12px;
   padding: 0;
   width: 126px;
-  min-height: 200px;
-} 
+  min-height: 200px !important;
+}
 
 .record > a > span {
   border-top: 1px #83CFC8 solid; 
@@ -99,14 +87,14 @@
   background-color: #fff;
 }
 
-#headingFinna > a > .glyphicon, #headingFinna > .glyphicon {
+#headingFinna > a > .fa-regular, #headingFinna > .fa-regular {
   color: #83CFC8;
   float: right;
   top: 5px;
   padding-left: 15px;
 }
 
-#headingFinna > .glyphicon {
+#headingFinna > .fa-regular {
   color: #777;
 }
 
@@ -129,7 +117,7 @@
   text-align: center;
 }
 
-.img-wrapper span.glyphicon {
+.img-wrapper span.fa-solid {
   color: #83CFC8;
   font-size: 42px;
   transform: translate(-50%, -50%);
@@ -142,6 +130,7 @@
 /*
  * Previous and next page buttons
  */
+
 #collapseFinna > .panel-body > .btn {
   position: absolute;
   top: 50%;
@@ -152,6 +141,10 @@
   font-size: 24px;
   margin-top: -50px;
   padding: 12px 7px;
+}
+
+.font-only-height {
+  font-size: 12px;
 }
 
 #collapseFinna > .panel-body > .btn-disabled {
@@ -189,14 +182,18 @@
   border: 0;
   background-color: #D4EDEB;
   color: #00748f;
-  min-width: 100px; 
+  min-width: 100px;
+  max-height: 22px;
   text-align: left;
+  vertical-align: middle;
+  padding: .175rem .75rem;
 }
 
 #headingFinna > .btn-group > .btn > .caret {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
+/*#headingFinna > .btn-group > .dropdown-menu {*/
 #headingFinna > .btn-group > .dropdown-menu {
   border-radius: 0;
   border: 1px solid #D4EDEB;
