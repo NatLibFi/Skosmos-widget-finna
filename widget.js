@@ -93,10 +93,10 @@ FINNA = {
 
     widget: {
         addAccordionToggleEvents: function() {
-                $('#headingFinna > a > .fa-regular').on('click', function() {
+                $('#headingFinna > .panel-collapse> a > .fa-regular').on('click', function() {
                     FINNA.widget.toggleAccordion();
                 });
-                $('#headingFinna > a.versal').on('click', function() {
+                $('#headingFinna > .panel-collapse > a.versal').on('click', function() {
                     FINNA.widget.toggleAccordion();
                 });
             },
@@ -171,7 +171,7 @@ FINNA = {
             this.addPagingButtons();
             this.addAccordionToggleEvents();
 
-            $('#headingFinna > .btn-group > .dropdown-menu > li > a').on('click', function() { 
+            $('#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a').on('click', function() {
                 FINNA.currentFormat = $(this).parent().index();
                 createCookie('FINNA_WIDGET_FORMAT', FINNA.currentFormat);
                 FINNA.cache.clear();
@@ -181,7 +181,7 @@ FINNA = {
 
         // Handles the collapsing and expanding actions of the widget.
         toggleAccordion: function() {
-            $('#collapseFinna').collapse('toggle');
+            $('#headingFinna').collapse('toggle');
             // switching the glyphicon to indicate a change in the accordion state
             FINNA.widget.flipChevron();
         },

@@ -2,7 +2,7 @@
  * The whole widget
  */
 
-:root {
+ :root {
   --finto-mint: invert(99%) sepia(62%) saturate(1534%) hue-rotate(151deg) brightness(84%) contrast(89%);
   --gray-900: #474B4F;
   --font-size: 14px;
@@ -34,7 +34,6 @@
 
 .concept-widget > .panel > #headingFinna {
   background-color: #fff;
-  padding: 9px 15px;
   border-bottom: 1px solid transparent;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -167,17 +166,46 @@
   border-right: 0 !important;
 }
 
-#headingFinna > .btn-group > .btn:hover, #headingFinna > .btn-group > .btn:active, #headingFinna > .btn-group > .btn:focus {
+.buttons-wrapper {
+  position: relative;
+  height: 40px;
+}
+
+#headingFinna .accordion-button {
+  color: var(--medium-color);
+  background-color: #fff !important;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+  position: absolute;
+  z-index: 0;
+  height: 40px;
+}
+
+#headingFinna .accordion-button {
+  box-shadow: none;
+}
+
+#headingFinna > .buttons-wrapper > .btn-group > .btn:hover, #headingFinna > .buttons-wrapper > .btn-group > .btn:active, #headingFinna > .buttons-wrapper > .btn-group > .btn:focus {
   background-color: #D4EDEB;
   border: 0;
 }
 
-#headingFinna > .btn-group {
-  float: right;
+#headingFinna > .buttons-wrapper > .btn-group {
   max-width: 135px;
+  height: 40px;
+  left: 300px;
+  right: 100px;
+  top: 10px;
+  bottom: 10px;
+  vertical-align: middle;
+  position: absolute;
+  z-index: 1;
 }
 
-#headingFinna > .btn-group > .btn {
+#headingFinna > .buttons-wrapper > .btn-group > .btn {
   border-radius: 0;
   border: 0;
   background-color: #D4EDEB;
@@ -189,12 +217,11 @@
   padding: .175rem .75rem;
 }
 
-#headingFinna > .btn-group > .btn > .caret {
+#headingFinna > .buttons-wrapper > .btn-group > .btn > .caret {
   margin: 0 5px;
 }
 
-/*#headingFinna > .btn-group > .dropdown-menu {*/
-#headingFinna > .btn-group > .dropdown-menu {
+#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu {
   border-radius: 0;
   border: 1px solid #D4EDEB;
   box-shadow: none;
@@ -202,7 +229,7 @@
   padding: 0;
 }
 
-#headingFinna > .btn-group > .dropdown-menu > li > a:hover, #headingFinna > .btn-group > .dropdown-menu > li > a:focus, #headingFinna > .btn-group > .dropdown-menu > li > a:active, #headingFinna > .btn-group > .dropdown-menu > li > a:visited {
+#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:hover, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:focus, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:active, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:visited {
   background-color: #83CFC8;
   border: 0;
   color: #fff !important;
