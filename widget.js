@@ -72,7 +72,7 @@ FINNA = {
         finnaResults: null,
         resultsFetched: 0,
         lessThanTwoPagesLeft: function() { return this.resultsFetched - FINNA.recordOffset <= 10; },
-        moreRecordsInAPI: function() { return this.resultsFetched < parseInt($('.count').html(),10); },
+        moreRecordsInAPI: function() { return this.resultsFetched < this.finnaResults.resultCount; },
         moreRecordsReady: function() { return (FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) < FINNA.cache.resultsFetched; },
         add: function(response) {
             if (!this.finnaResults || typeof this.finnaResults.records === 'undefined') {

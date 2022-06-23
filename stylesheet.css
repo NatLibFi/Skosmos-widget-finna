@@ -20,6 +20,7 @@
   font-family: 'Fira Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
+  padding-left: 16px;
 }
 .concept-widget {
   border-top: 2px solid #394554;
@@ -196,8 +197,7 @@
 #headingFinna > .buttons-wrapper > .btn-group {
   max-width: 135px;
   height: 40px;
-  left: 300px;
-  right: 100px;
+  right: 50px;
   top: 10px;
   bottom: 10px;
   vertical-align: middle;
