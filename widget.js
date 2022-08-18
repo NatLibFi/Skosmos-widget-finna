@@ -17,7 +17,7 @@ FINNA = {
                          }
                   },
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
-    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: 'material', en: 'items'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudspelningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskriftar och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
+    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: 'material', en: 'items'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudupptagningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskrifter och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
     formatNames: {fi: ['Kaikki tyypit', 'Kuva', 'Kirja', 'Esine', 'Äänite', 'Lehti/Artikkeli', 'Nuotti', 'Video', 'Opinnäyte'], sv: ['Alla typer av material', 'Bild', 'Bok', 'Föremål', 'Ljudupptagning', 'Tidskrift/Artikel','Noter', 'Video', 'Examensarbete'], en: ['All types', 'Image','Book','Physical object', 'Sound recording', 'Article', 'Musical score', 'Video', 'Thesis']},
     
     generateQueryString: function(terms, offset, limit) {
@@ -50,7 +50,7 @@ FINNA = {
                 FINNA.cache.resultsFetched += data.records.length;
                 for (var i in data.records) {
                     var record = data.records[i];
-                    record.glyphicon = FINNA.helpers.formatToGlyphicon(record.formats);
+                    record.iconizer = FINNA.helpers.formatToGlyphicon(record.formats);
                     record.owner = FINNA.helpers.guessOwnerOfRecord(record);
                     record = FINNA.helpers.shortenTitle(record);
                     if (record.images[0] && record.images[0].indexOf('fullres')) {
@@ -72,7 +72,7 @@ FINNA = {
         finnaResults: null,
         resultsFetched: 0,
         lessThanTwoPagesLeft: function() { return this.resultsFetched - FINNA.recordOffset <= 10; },
-        moreRecordsInAPI: function() { return this.resultsFetched < parseInt($('.count').html(),10); },
+        moreRecordsInAPI: function() { return this.resultsFetched < this.finnaResults.resultCount; },
         moreRecordsReady: function() { return (FINNA.recordOffset + FINNA.helpers.recordsDisplayed()) < FINNA.cache.resultsFetched; },
         add: function(response) {
             if (!this.finnaResults || typeof this.finnaResults.records === 'undefined') {
@@ -93,10 +93,10 @@ FINNA = {
 
     widget: {
         addAccordionToggleEvents: function() {
-                $('#headingFinna > a > .glyphicon').on('click', function() { 
+                $('#headingFinna > .panel-collapse> a > .fa-regular').on('click', function() {
                     FINNA.widget.toggleAccordion();
                 });
-                $('#headingFinna > a.versal').on('click', function() { 
+                $('#headingFinna > .panel-collapse > a.versal').on('click', function() {
                     FINNA.widget.toggleAccordion();
                 });
             },
@@ -132,15 +132,15 @@ FINNA = {
 
         // Flips the icon displayed on the top right corner of the widget header
         flipChevron: function() {
-            var $glyph = $('#headingFinna > a > .glyphicon');
-            if ($glyph.hasClass('glyphicon-chevron-down')) {
+            var $glyph = $('#headingFinna > a > .fa-regular');
+            if ($glyph.hasClass('fa-chevron-down')) {
                 if (FINNA.cache.finnaResults.records === undefined) {
                     FINNA.queryFinna(0, FINNA.resultLimit);
                 }
-                $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+                $glyph.removeClass('fa-chevron-down').addClass('fa-chevron-up');
                 createCookie('FINNA_WIDGET_OPEN', 1);
             } else {
-                $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+                $glyph.removeClass('fa-chevron-up').addClass('fa-chevron-down');
                 createCookie('FINNA_WIDGET_OPEN', 0);
             }
         },
@@ -151,8 +151,8 @@ FINNA = {
             var context = {
                 count: FINNA.cache.finnaResults.resultCount, 
                 finnalink: finnaUrl, 
-                opened: isOpened, 
-                formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang], 
+                opened: isOpened,
+                formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang],
                 noMoreResults: FINNA.cache.finnaResults.resultCount <= FINNA.helpers.recordsDisplayed() ? 1 : 0,
                 lang: lang,
                 types: FINNA.formatNames[lang], 
@@ -171,7 +171,7 @@ FINNA = {
             this.addPagingButtons();
             this.addAccordionToggleEvents();
 
-            $('#headingFinna > .btn-group > .dropdown-menu > li > a').on('click', function() { 
+            $('#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a').on('click', function() {
                 FINNA.currentFormat = $(this).parent().index();
                 createCookie('FINNA_WIDGET_FORMAT', FINNA.currentFormat);
                 FINNA.cache.clear();
@@ -181,7 +181,7 @@ FINNA = {
 
         // Handles the collapsing and expanding actions of the widget.
         toggleAccordion: function() {
-            $('#collapseFinna').collapse('toggle');
+            $('#headingFinna').collapse('toggle');
             // switching the glyphicon to indicate a change in the accordion state
             FINNA.widget.flipChevron();
         },
@@ -192,39 +192,39 @@ FINNA = {
         formatToGlyphicon: function(format) {
             var formatString = JSON.stringify(format);
             if (formatString.indexOf("0/Book/") !== -1) {
-                return 'glyphicon-book'; 
+                return 'fa-book';
             }
             if (formatString.indexOf("0/Image/") !== -1) {
-                return 'glyphicon-camera'; 
+                return 'fa-camera';
             }
             if (formatString.indexOf("0/PhysicalObject/") !== -1) {
-                return 'glyphicon-wrench'; 
+                return 'fa-wrench';
             }
             if (formatString.indexOf("0/Sound/") !== -1) {
-                return 'glyphicon-volume-up'; 
+                return 'fa-volume-high';
             }
             if (formatString.indexOf("0/Journal/") !== -1) {
-                return 'glyphicon-file'; 
+                return 'fa-file-lines';
             }
             if (formatString.indexOf("0/MusicalScore/") !== -1) {
-                return 'glyphicon-music'; 
+                return 'fa-music';
             }
             if (formatString.indexOf("0/Video/") !== -1) {
-                return 'glyphicon-film'; 
+                return 'fa-film';
             }
             if (formatString.indexOf("0/Thesis/") !== -1) {
-                return 'glyphicon-book'; 
+                return 'fa-book';
             }
             if (formatString.indexOf("0/WorkOfArt/") !== -1) {
-                return 'glyphicon-picture'; 
+                return 'fa-image';
             }
             if (formatString.indexOf("0/Place/") !== -1) {
-                return 'glyphicon-globe'; 
+                return 'fa-globe';
             }
             if (formatString.indexOf("0/Document/") !== -1) {
-                return 'glyphicon-folder-open'; 
+                return 'fa-folder-open';
             }
-            return 'glyphicon-asterisk'; 
+            return 'fa-asterisk';
         },
 
         getLabelString: function(prefLabels) {
@@ -277,7 +277,7 @@ FINNA = {
 
 };
 
-$(function() { 
+$(function() {
     if (typeof window.i18next !== 'undefined') {
         window.i18next.init({"lng": lang, resources: FINNA.translations});
     }
