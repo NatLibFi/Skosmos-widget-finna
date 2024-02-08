@@ -12,14 +12,18 @@ FINNA = {
                    'sv': {
                             "translation": { "recordsInFinna": "{{- interpolation}} som beskrivits med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
                          },
+                   'se': {
+                            "translation": { "recordsInFinna": "Tearpmain govviduvvon {{- interpolation}} Finnas",
+                                             "resultListingInFinna": "Geahča ohcanbohtosiid Finnas" }
+                         },
                    'en': {
                             "translation": { "recordsInFinna": "{{- interpolation}} indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
                          }
                   },
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
-    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: 'material', en: 'items'}, {fi: 'kuvia', sv: 'bilder', en: 'images'}, {fi: 'kirjoja', sv: 'böcker', en: 'books'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects'}, {fi: 'äänitteitä', sv: 'ljudupptagningar', en: 'sound recordings'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskrifter och artiklar', en: 'journals and articles'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores'}, {fi: 'videoita', sv: 'video', en: 'videos'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses'}],
-    formatNames: {fi: ['Kaikki tyypit', 'Kuva', 'Kirja', 'Esine', 'Äänite', 'Lehti/Artikkeli', 'Nuotti', 'Video', 'Opinnäyte'], sv: ['Alla typer av material', 'Bild', 'Bok', 'Föremål', 'Ljudupptagning', 'Tidskrift/Artikel','Noter', 'Video', 'Examensarbete'], en: ['All types', 'Image','Book','Physical object', 'Sound recording', 'Article', 'Musical score', 'Video', 'Thesis']},
-    
+    formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: 'material', en: 'items', se: 'materiálat (buot tiippat)'}, {fi: 'kuvia', sv: 'bilder', en: 'images', se: 'govat'}, {fi: 'kirjoja', sv: 'böcker', en: 'books', se: 'girjjit'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects', se: 'diŋggat'}, {fi: 'äänitteitä', sv: 'ljudupptagningar', en: 'sound recordings', se: 'jietnabáttit'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskrifter och artiklar', en: 'journals and articles', se: 'aviissat/artihkkalat'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores', se: 'nuohtat'}, {fi: 'videoita', sv: 'video', en: 'videos', se: 'videot'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses', se: 'oahppočájánasat'}],
+    formatNames: {fi: ['Kaikki tyypit', 'Kuva', 'Kirja', 'Esine', 'Äänite', 'Lehti/Artikkeli', 'Nuotti', 'Video', 'Opinnäyte'], sv: ['Alla typer av material', 'Bild', 'Bok', 'Föremål', 'Ljudupptagning', 'Tidskrift/Artikel','Noter', 'Video', 'Examensarbete'], en: ['All types', 'Image','Book','Physical object', 'Sound recording', 'Article', 'Musical score', 'Video', 'Thesis'], se: ['Buot tiippat', 'Govva', 'Girji', 'Diŋga', 'Jietnabáddi','Aviisa/Artihkal', 'Nuohtta', 'Video', 'Oahppočájánas']},
+
     generateQueryString: function(terms, offset, limit) {
         var params = {lng: lang, limit: limit, type: 'AllFields', join: 'AND'};
         var lookfors = 'bool0[]=OR&';
