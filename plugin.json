@@ -1,6 +1,5 @@
 {
     "js": ["widget.js", "node_modules/i18next/i18next.min.js"],
     "callback": ["newFinnaSearch"],
-    "css": ["stylesheet.css"],
-    "templates": ["template.html"]
+    "css": ["stylesheet.css"]
 }

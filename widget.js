@@ -1,11 +1,88 @@
-// declaring a namespace for the plugin
-var FINNA = FINNA || {};
+/* global Vue */
 
-FINNA = {
+const FINNA = {
+    vueApp: null,
+    createVueApp: function() {
+        return Vue.createApp({
+            data() {
+                return {
+                    count: FINNA.cache.finnaResults.resultCount,
+                    finnalink: FINNA.generateQueryString(FINNA.helpers.getLabelString(FINNA.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results'),
+                    //opened: isOpened,
+                    formatString: FINNA.formatNamePlurals[FINNA.currentFormat][window.SKOSMOS.lang],
+                    noMoreResults: FINNA.cache.finnaResults.resultCount <= FINNA.helpers.recordsDisplayed() ? 1 : 0,
+                    lang: window.SKOSMOS.lang,
+                    types: FINNA.formatNames[window.SKOSMOS.lang],
+                    typeString: FINNA.formatNames[window.SKOSMOS.lang][FINNA.currentFormat],
+                    records: FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed()),
+                    showType: FINNA.currentFormat === 0 ? 1 : 0,
+                    translations: {'fi': {
+                            "translation": { "recordsInFinna": "Termillä kuvailtuja {{- interpolation}} Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
+                         },
+                   'sv': {
+                            "translation": { "recordsInFinna": "{{- interpolation}} som beskrivits med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
+                         },
+                   'se': {
+                            "translation": { "recordsInFinna": "Tearpmain govviduvvon {{- interpolation}} Finnas",
+                                             "resultListingInFinna": "Geahča ohcanbohtosiid Finnas" }
+                         },
+                   'en': {
+                            "translation": { "recordsInFinna": "{{- interpolation}} indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
+                         }
+                  },
+                }
+            },
+            template: `
+                <div class="concept-widget panel-group" id="finna-widget" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFinna">
+                      <div class="buttons-wrapper">
+                        <button class="accordion-button type="button" :data-bs-toggle="collapse" data-bs-target="#collapseFinna" aria-expanded="true" aria-controls="collapseWiki">
+                          <span class="count">trans 'recordsInFinna' formatString {{count}}</span>
+                        </button>
+                        <div class="btn-group dropup">
+                          <button class="font-only-height btn btn-light btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>
+                          <ul class="dropdown-menu">
+                              <li v-for="type in types"><a class="versal-for-drop-down">{{type}}</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="collapseFinna" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="headingFinna">
+                      <div class="panel-body">
+                        <button @click="leftButton" type="button" class="btn btn-light btn-disabled">&laquo;</button>
+                        <div class="row">
+                          <div class="record" v-for="record in records">
+                            <div class="image-container">
+                              <a :href="'https://www.finna.fi/Record/' + record.id" target="_blank">
+                                <table class="img-wrapper">
+                                  <tr><td><span :class="'fa-solid '+ record.iconizer"></span><img alt="" :src="'https://finna.fi'+record.images[0]+'&w=126&h=126'"></td></tr>
+                                </table>
+                              </a>
+                            </div>
+                            <a :href="'https://www.finna.fi/Record/' + record.id" target="_blank">
+                              <span class="versal versal-bold" :title="shortTitle ? title : null">{{record.shortTitle ? record.shortTitle : record.title}}</span>
+                            </a>
+                            <span class="versal">{{record.owner}}</span>
+                            <!--
+                            {{#if ../showType}}<span class="versal">{{formats.[0].translated}}</span>{{/if}}
+                            -->
+                          </div>
+                        </div>
+                        <button @click="rightButton" type="button" class="btn btn-light" :class="{ 'btn-disabled': noMoreResults }">&raquo;</button>
+                      </div>
+                      <a class="versal-for-finna-search-link" :href=finnalink target="_blank">trans resultListingInFinna</a>
+                    </div>
+                  </div>
+                </div>
+                `
+        })
+    },
     prefLabels: null,
     recordOffset: 0,
     resultLimit: 10,
-    currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
+    currentFormat: 1,
+    //currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
     translations: {'fi': {
                             "translation": { "recordsInFinna": "Termillä kuvailtuja {{- interpolation}} Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
                          },
@@ -25,10 +102,13 @@ FINNA = {
     formatNames: {fi: ['Kaikki tyypit', 'Kuva', 'Kirja', 'Esine', 'Äänite', 'Lehti/Artikkeli', 'Nuotti', 'Video', 'Opinnäyte'], sv: ['Alla typer av material', 'Bild', 'Bok', 'Föremål', 'Ljudupptagning', 'Tidskrift/Artikel','Noter', 'Video', 'Examensarbete'], en: ['All types', 'Image','Book','Physical object', 'Sound recording', 'Article', 'Musical score', 'Video', 'Thesis'], se: ['Buot tiippat', 'Govva', 'Girji', 'Diŋga', 'Jietnabáddi','Aviisa/Artihkal', 'Nuohtta', 'Video', 'Oahppočájánas']},
 
     generateQueryString: function(terms, offset, limit) {
-        var params = {lng: lang, limit: limit, type: 'AllFields', join: 'AND'};
+        var params = {lng: window.SKOSMOS.lang, type: 'AllFields', join: 'AND'};
         var lookfors = 'bool0[]=OR&';
         for (var i = 0; i < terms.length; i++) {
             lookfors += ('lookfor0[]=topic_facet' + encodeURIComponent(':' + terms[i]) + '&'); 
+        }
+        if (limit) {
+            params.limit = limit
         }
         if (offset) {
             params.page = Math.floor((offset / 10) + 1);
@@ -39,7 +119,8 @@ FINNA = {
         if (FINNA.currentFormat > 0) {
             params.filter = [FINNA.formats[FINNA.currentFormat]];
         }
-        return 'https://api.finna.fi/v1/search?' + lookfors + $.param(params) + '&callback=?';
+        const url_params = new URLSearchParams(params).toString();
+        return 'https://api.finna.fi/v1/search?' + lookfors + url_params;
     },
 
     // Makes the queries to the Finna API.
@@ -49,24 +130,27 @@ FINNA = {
         }
         var terms = this.helpers.getLabelString(this.prefLabels);
         var url = this.generateQueryString(terms, offset, limit);
-        $.getJSON(url, function(data) {
-            if (data.records) {
-                FINNA.cache.resultsFetched += data.records.length;
-                for (var i in data.records) {
-                    var record = data.records[i];
-                    record.iconizer = FINNA.helpers.formatToGlyphicon(record.formats);
-                    record.owner = FINNA.helpers.guessOwnerOfRecord(record);
-                    record = FINNA.helpers.shortenTitle(record);
-                    if (record.images[0] && record.images[0].indexOf('fullres')) {
-                        record.images[0] = record.images[0].replace('&fullres=1', '');
-                    }
-                    data.records[i].id = encodeURIComponent(data.records[i].id);
+        fetch(url)
+            .then(response => {
+                return response.json(); })
+            .then(data => {
+                if (data.records) {
+                    FINNA.cache.resultsFetched += data.records.length;
+                    for (var i in data.records) {
+                        var record = data.records[i];
+                        record.iconizer = FINNA.helpers.formatToGlyphicon(record.formats);
+                        record.owner = FINNA.helpers.guessOwnerOfRecord(record);
+                        record = FINNA.helpers.shortenTitle(record);
+                        if (record.images[0] && record.images[0].indexOf('fullres')) {
+                            record.images[0] = record.images[0].replace('&fullres=1', '');
+                        }
+                        data.records[i].id = encodeURIComponent(data.records[i].id);
                 }
             }
             FINNA.cache.add(data);
             var opened = (data.records !== undefined);
             if (offset === 0) {
-                FINNA.widget.render(opened);
+                FINNA.render(opened);
             }
         });
     },
@@ -94,103 +178,46 @@ FINNA = {
             this.finnaResults = null;
         },
     },
-
-    widget: {
-        addAccordionToggleEvents: function() {
-                $('#headingFinna > .panel-collapse> a > .fa-regular').on('click', function() {
-                    FINNA.widget.toggleAccordion();
-                });
-                $('#headingFinna > .panel-collapse > a.versal').on('click', function() {
-                    FINNA.widget.toggleAccordion();
-                });
-            },
-        
-        addPagingButtons: function() {
-            // previous page button to the left
-            $('#collapseFinna > .panel-body > button:first').on('click', function() {
-                if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
-                    FINNA.recordOffset -= FINNA.helpers.recordsDisplayed();
-                    FINNA.widget.render(true);
-                }
-                if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
-                    $('#collapseFinna > .panel-body > button:first').removeClass('btn-disabled');
-                }
-            });
-
-            // next page button to the right
-            $('#collapseFinna > .panel-body > button:last').on('click', function() {
-                if (FINNA.cache.moreRecordsReady()) {
-                    FINNA.recordOffset += FINNA.helpers.recordsDisplayed();
-                    FINNA.widget.render(true);
-                    if (FINNA.cache.lessThanTwoPagesLeft() && FINNA.cache.moreRecordsInAPI())  { 
-                        // querying more results in advance if there is two pages or less remaining
-                        FINNA.queryFinna(FINNA.cache.resultsFetched, FINNA.resultLimit);
-                    }
-                    $('#collapseFinna > .panel-body > button:first').removeClass('btn-disabled');
-                    if (FINNA.cache.moreRecordsReady() === false && FINNA.cache.moreRecordsInAPI() === false) {
-                        $('#collapseFinna > .panel-body > button:last').addClass('btn-disabled');
-                    }
-                }
-            });
-        },
-
-        // Flips the icon displayed on the top right corner of the widget header
-        flipChevron: function() {
-            var $glyph = $('#headingFinna > a > .fa-regular');
-            if ($glyph.hasClass('fa-chevron-down')) {
-                if (FINNA.cache.finnaResults.records === undefined) {
-                    FINNA.queryFinna(0, FINNA.resultLimit);
-                }
-                $glyph.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                createCookie('FINNA_WIDGET_OPEN', 1);
-            } else {
-                $glyph.removeClass('fa-chevron-up').addClass('fa-chevron-down');
-                createCookie('FINNA_WIDGET_OPEN', 0);
-            }
-        },
-
-        render: function (isOpened) {
-            // hiding the current state of the widget in the dom to avoid the page length jumping around
-            var finnaUrl = FINNA.generateQueryString(FINNA.helpers.getLabelString(FINNA.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results');
-            var context = {
-                count: FINNA.cache.finnaResults.resultCount, 
-                finnalink: finnaUrl, 
-                opened: isOpened,
-                formatString: FINNA.formatNamePlurals[FINNA.currentFormat][lang],
-                noMoreResults: FINNA.cache.finnaResults.resultCount <= FINNA.helpers.recordsDisplayed() ? 1 : 0,
-                lang: lang,
-                types: FINNA.formatNames[lang], 
-                typeString: FINNA.formatNames[lang][FINNA.currentFormat] 
-            };
-            // adding the records to the context object if the widget is to be rendered in it's opened state.
-            if (isOpened) {
-                context.records = FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed());
-                context.showType = FINNA.currentFormat === 0 ? 1 : 0;
-            }
-            if ($('#finna-widget').length > 0) {
-                $('#finna-widget').replaceWith(Handlebars.compile($('#finna-template').html())(context));
-            } else {
-                $('.content').append(Handlebars.compile($('#finna-template').html())(context));
-            }
-            this.addPagingButtons();
-            this.addAccordionToggleEvents();
-
-            $('#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a').on('click', function() {
-                FINNA.currentFormat = $(this).parent().index();
-                createCookie('FINNA_WIDGET_FORMAT', FINNA.currentFormat);
-                FINNA.cache.clear();
-                FINNA.queryFinna(0, FINNA.resultLimit);
-            });
-        },
-
-        // Handles the collapsing and expanding actions of the widget.
-        toggleAccordion: function() {
-            $('#headingFinna').collapse('toggle');
-            // switching the glyphicon to indicate a change in the accordion state
-            FINNA.widget.flipChevron();
-        },
+    leftButton: function(event) {
+        // previous page button to the left
+        if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
+            FINNA.recordOffset -= FINNA.helpers.recordsDisplayed();
+            FINNA.render(true);
+        }
+        if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
+          const button = document.querySelector('#collapseFinna > .panel-body > button:first-of-type');
+          button.classList.remove('btn-disabled');
+        }
     },
-    
+    rightButton: function(event) {
+        // next page button to the right
+        if (FINNA.cache.moreRecordsReady()) {
+            FINNA.recordOffset += FINNA.helpers.recordsDisplayed();
+            FINNA.render(true);
+            if (FINNA.cache.lessThanTwoPagesLeft() && FINNA.cache.moreRecordsInAPI())  {
+                // querying more results in advance if there is two pages or less remaining
+                FINNA.queryFinna(FINNA.cache.resultsFetched, FINNA.resultLimit);
+            }
+            if (FINNA.cache.moreRecordsReady() === false && FINNA.cache.moreRecordsInAPI() === false) {
+                const button = document.querySelector('#collapseFinna > .panel-body > button:lasst-of-type');
+            button.classList.remove('btn-disabled');
+            }
+        }
+    },
+    render: function () {
+        const mountPoint = document.getElementById('finna-plugin')
+        if (mountPoint) {
+            if (this.vueApp) {
+                this.vueApp.unmount()
+            }
+        mountPoint.remove()
+        }
+        const newMountPoint = document.createElement('div')
+        newMountPoint.id = 'finna-plugin'
+        document.getElementById('main-content-bottom-slot').appendChild(newMountPoint)
+        this.vueApp = this.createVueApp()
+        this.vueApp.mount('#finna-plugin')
+    },
     // Helper functions for the widget
     helpers: {
         formatToGlyphicon: function(format) {
@@ -230,19 +257,17 @@ FINNA = {
             }
             return 'fa-asterisk';
         },
-
         getLabelString: function(prefLabels) {
             var labels = [];
-            for (var i in prefLabels) {
+            for (const i in prefLabels) {
                 labels.push(prefLabels[i].label);
                 // giving the a higher weight in the query to the term in the users language
-                if (prefLabels[i].lang === lang) {
+                if (prefLabels[i].lang === window.SKOSMOS.lang) {
                     labels[i] += '^2';
                 }
             }
             return labels;
         },
-
         guessOwnerOfRecord: function(record) {
             var format = record.formats[0].value.split('/')[1];
             if ((format === 'Book' || format === 'Thesis') && typeof record.nonPresenterAuthors !== 'undefined' && record.nonPresenterAuthors[0]) {
@@ -266,7 +291,7 @@ FINNA = {
 
         // Returns an integer value of how many records to display in a page based on the viewport width.
         recordsDisplayed: function() { 
-            var viewWidth = $(window).width(); 
+            var viewWidth = window.innerWidth;
             if (viewWidth < 500) {
                 return 2;
             } else if (viewWidth < 720) {
@@ -281,23 +306,17 @@ FINNA = {
 
 };
 
-$(function() {
-    if (typeof window.i18next !== 'undefined') {
-        window.i18next.init({"lng": lang, resources: FINNA.translations});
-    }
-    Handlebars.registerHelper('trans',function(str, variable){
-        var translation = typeof window.i18next !== 'undefined' ? window.i18next.t(str, {interpolation: variable}) : str;
-        return translation.charAt(0).toUpperCase() + translation.slice(1);
-    });
+document.addEventListener('DOMContentLoaded', function() {
 
     window.newFinnaSearch = function (data) {
         // Only activating the widget when on a concept page and there is a prefLabel.
-        if (data.page !== 'page' || data.prefLabels === undefined) {
+        if (data.pageType !== 'concept' || data.prefLabels === undefined) {
             return;
         }
         FINNA.cache.clear();
-        var openCookie = readCookie('FINNA_WIDGET_OPEN');
-        var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
+        //var openCookie = readCookie('FINNA_WIDGET_OPEN');
+        //var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
+        var isOpen = 1;
         if (isOpen) {
             FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels);
         } else {
