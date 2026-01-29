@@ -1,4 +1,4 @@
-/* global Vue */
+/* global Vue, vue-i18n */
 
 const FINNA = {
     vueApp: null,
@@ -9,27 +9,34 @@ const FINNA = {
                     count: FINNA.cache.finnaResults.resultCount,
                     finnalink: FINNA.generateQueryString(FINNA.helpers.getLabelString(FINNA.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results'),
                     //opened: isOpened,
-                    formatString: FINNA.formatNamePlurals[FINNA.currentFormat][window.SKOSMOS.lang],
                     noMoreResults: FINNA.cache.finnaResults.resultCount <= FINNA.helpers.recordsDisplayed() ? 1 : 0,
                     lang: window.SKOSMOS.lang,
                     types: FINNA.formatNames[window.SKOSMOS.lang],
                     typeString: FINNA.formatNames[window.SKOSMOS.lang][FINNA.currentFormat],
-                    records: FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed()),
+                    currentFormat: FINNA.currentFormat,
                     showType: FINNA.currentFormat === 0 ? 1 : 0,
-                    translations: {'fi': {
-                            "translation": { "recordsInFinna": "Termillä kuvailtuja {{- interpolation}} Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
-                         },
-                   'sv': {
-                            "translation": { "recordsInFinna": "{{- interpolation}} som beskrivits med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
-                         },
-                   'se': {
-                            "translation": { "recordsInFinna": "Tearpmain govviduvvon {{- interpolation}} Finnas",
-                                             "resultListingInFinna": "Geahča ohcanbohtosiid Finnas" }
-                         },
-                   'en': {
-                            "translation": { "recordsInFinna": "{{- interpolation}} indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
-                         }
-                  },
+                }
+            },
+            computed: {
+                records() {
+                    if (FINNA.cache.finnaResults.records) {
+                        return FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed())
+                    }
+                },
+                formatString() {
+                    return FINNA.formatNamePlurals[FINNA.currentFormat][window.SKOSMOS.lang]
+                },
+                getTranslation() {
+                  return {'fi':
+                            { "recordsInFinna": "Termillä kuvailtuja " + this.formatString + " Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" },
+                   'sv':
+                            { "recordsInFinna": this.formatString + " som beskrivits med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" },
+                   'se':
+                            { "recordsInFinna": "Tearpmain govviduvvon " + this.formatString + " Finnas",
+                                             "resultListingInFinna": "Geahča ohcanbohtosiid Finnas" },
+                   'en':
+                            { "recordsInFinna": this.formatString+ " indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
+                    }
                 }
             },
             template: `
@@ -37,20 +44,20 @@ const FINNA = {
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingFinna">
                       <div class="buttons-wrapper">
-                        <button class="accordion-button type="button" :data-bs-toggle="collapse" data-bs-target="#collapseFinna" aria-expanded="true" aria-controls="collapseWiki">
-                          <span class="count">trans 'recordsInFinna' formatString {{count}}</span>
+                        <button class="accordion-button accordion" :type="records ? 'button' : null" :data-bs-toggle="records ? 'collapse' : null" data-bs-target="#collapseFinna" aria-expanded="false" aria-controls="collapseWiki">
+                          <span class="count">{{getTranslation[lang].recordsInFinna}} {{count}}</span>
                         </button>
                         <div class="btn-group dropup">
                           <button class="font-only-height btn btn-light btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>
                           <ul class="dropdown-menu">
-                              <li v-for="type in types"><a class="versal-for-drop-down">{{type}}</a></li>
+                              <li v-for="(type, index) in types"><a @click="typeButton($event)" :id=index class="versal-for-drop-down">{{type}}</a></li>
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <div id="collapseFinna" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="headingFinna">
+                    <div id="collapseFinna" class="panel-collapse collapse" :class="{ 'show': records }" role="tabpanel" aria-labelledby="headingFinna">
                       <div class="panel-body">
-                        <button @click="leftButton" type="button" class="btn btn-light btn-disabled">&laquo;</button>
+                        <button @click="leftButton()" type="button" class="btn btn-light btn-disabled">&laquo;</button>
                         <div class="row">
                           <div class="record" v-for="record in records">
                             <div class="image-container">
@@ -71,11 +78,46 @@ const FINNA = {
                         </div>
                         <button @click="rightButton" type="button" class="btn btn-light" :class="{ 'btn-disabled': noMoreResults }">&raquo;</button>
                       </div>
-                      <a class="versal-for-finna-search-link" :href=finnalink target="_blank">trans resultListingInFinna</a>
+                      <a class="versal-for-finna-search-link" :href=finnalink target="_blank">{{getTranslation[lang].resultListingInFinna}}</a>
                     </div>
                   </div>
                 </div>
-                `
+                `,
+            methods: {
+                leftButton () {
+                    // previous page button to the left
+                    if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
+                        FINNA.recordOffset -= FINNA.helpers.recordsDisplayed();
+                        FINNA.render(true);
+                    }
+                    if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
+                    const button = document.querySelector('#collapseFinna > .panel-body > button:first-of-type');
+                    button.classList.remove('btn-disabled');
+                    }
+                },
+                rightButton () {
+                    // next page button to the right
+                    if (FINNA.cache.moreRecordsReady()) {
+                        FINNA.recordOffset += FINNA.helpers.recordsDisplayed();
+                        FINNA.render(true);
+                        if (FINNA.cache.lessThanTwoPagesLeft() && FINNA.cache.moreRecordsInAPI())  {
+                            // querying more results in advance if there is two pages or less remaining
+                            FINNA.queryFinna(FINNA.cache.resultsFetched, FINNA.resultLimit);
+                        }
+                        if (FINNA.cache.moreRecordsReady() === false && FINNA.cache.moreRecordsInAPI() === false) {
+                            const button = document.querySelector('#collapseFinna > .panel-body > button:last-of-type');
+                        button.classList.remove('btn-disabled');
+                        }
+                    }
+                },
+                typeButton (event) {
+                    FINNA.currentFormat = event.target.id
+                    //createCookie('FINNA_WIDGET_FORMAT', FINNA.currentFormat);
+                    FINNA.cache.clear();
+                    FINNA.queryFinna(0, FINNA.resultLimit);
+                }
+            }
+
         })
     },
     prefLabels: null,
@@ -83,20 +125,6 @@ const FINNA = {
     resultLimit: 10,
     currentFormat: 1,
     //currentFormat: readCookie('FINNA_WIDGET_FORMAT') ? parseInt(readCookie('FINNA_WIDGET_FORMAT'), 10) : 1,
-    translations: {'fi': {
-                            "translation": { "recordsInFinna": "Termillä kuvailtuja {{- interpolation}} Finnassa", "resultListingInFinna": "Katso hakutulokset Finnassa" }
-                         },
-                   'sv': {
-                            "translation": { "recordsInFinna": "{{- interpolation}} som beskrivits med termen i Finna", "resultListingInFinna": "Se alla sökresultat i Finna" }
-                         },
-                   'se': {
-                            "translation": { "recordsInFinna": "Tearpmain govviduvvon {{- interpolation}} Finnas",
-                                             "resultListingInFinna": "Geahča ohcanbohtosiid Finnas" }
-                         },
-                   'en': {
-                            "translation": { "recordsInFinna": "{{- interpolation}} indexed with the term in Finna", "resultListingInFinna": "See all the results in Finna" }
-                         }
-                  },
     formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
     formatNamePlurals: [{fi: 'aineistoja (kaikki tyypit)', sv: 'material', en: 'items', se: 'materiálat (buot tiippat)'}, {fi: 'kuvia', sv: 'bilder', en: 'images', se: 'govat'}, {fi: 'kirjoja', sv: 'böcker', en: 'books', se: 'girjjit'}, {fi: 'esineitä', sv: 'föremål', en: 'physical objects', se: 'diŋggat'}, {fi: 'äänitteitä', sv: 'ljudupptagningar', en: 'sound recordings', se: 'jietnabáttit'}, {fi: 'lehtiä/artikkeleita', sv: 'tidskrifter och artiklar', en: 'journals and articles', se: 'aviissat/artihkkalat'}, {fi: 'nuotteja', sv: 'noter', en: 'musical scores', se: 'nuohtat'}, {fi: 'videoita', sv: 'video', en: 'videos', se: 'videot'}, {fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses', se: 'oahppočájánasat'}],
     formatNames: {fi: ['Kaikki tyypit', 'Kuva', 'Kirja', 'Esine', 'Äänite', 'Lehti/Artikkeli', 'Nuotti', 'Video', 'Opinnäyte'], sv: ['Alla typer av material', 'Bild', 'Bok', 'Föremål', 'Ljudupptagning', 'Tidskrift/Artikel','Noter', 'Video', 'Examensarbete'], en: ['All types', 'Image','Book','Physical object', 'Sound recording', 'Article', 'Musical score', 'Video', 'Thesis'], se: ['Buot tiippat', 'Govva', 'Girji', 'Diŋga', 'Jietnabáddi','Aviisa/Artihkal', 'Nuohtta', 'Video', 'Oahppočájánas']},
@@ -122,7 +150,6 @@ const FINNA = {
         const url_params = new URLSearchParams(params).toString();
         return 'https://api.finna.fi/v1/search?' + lookfors + url_params;
     },
-
     // Makes the queries to the Finna API.
     queryFinna: function (offset, limit, prefs) {
         if (prefs) {
@@ -178,39 +205,13 @@ const FINNA = {
             this.finnaResults = null;
         },
     },
-    leftButton: function(event) {
-        // previous page button to the left
-        if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
-            FINNA.recordOffset -= FINNA.helpers.recordsDisplayed();
-            FINNA.render(true);
-        }
-        if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
-          const button = document.querySelector('#collapseFinna > .panel-body > button:first-of-type');
-          button.classList.remove('btn-disabled');
-        }
-    },
-    rightButton: function(event) {
-        // next page button to the right
-        if (FINNA.cache.moreRecordsReady()) {
-            FINNA.recordOffset += FINNA.helpers.recordsDisplayed();
-            FINNA.render(true);
-            if (FINNA.cache.lessThanTwoPagesLeft() && FINNA.cache.moreRecordsInAPI())  {
-                // querying more results in advance if there is two pages or less remaining
-                FINNA.queryFinna(FINNA.cache.resultsFetched, FINNA.resultLimit);
-            }
-            if (FINNA.cache.moreRecordsReady() === false && FINNA.cache.moreRecordsInAPI() === false) {
-                const button = document.querySelector('#collapseFinna > .panel-body > button:lasst-of-type');
-            button.classList.remove('btn-disabled');
-            }
-        }
-    },
-    render: function () {
+    render: function (isOpened) {
         const mountPoint = document.getElementById('finna-plugin')
         if (mountPoint) {
             if (this.vueApp) {
                 this.vueApp.unmount()
             }
-        mountPoint.remove()
+            mountPoint.remove()
         }
         const newMountPoint = document.createElement('div')
         newMountPoint.id = 'finna-plugin'
@@ -316,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
         FINNA.cache.clear();
         //var openCookie = readCookie('FINNA_WIDGET_OPEN');
         //var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
+
         var isOpen = 1;
         if (isOpen) {
             FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels);
