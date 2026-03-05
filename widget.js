@@ -45,7 +45,7 @@ const FINNA = {
                     <div class="panel-heading" role="tab" id="headingFinna">
                       <div class="buttons-wrapper">
                         <button class="accordion-button accordion" :type="records ? 'button' : null" :data-bs-toggle="records ? 'collapse' : null" data-bs-target="#collapseFinna" aria-expanded="false" aria-controls="collapseWiki">
-                          <div id="widget-content-text">{{getTranslation[lang].recordsInFinna}} {{count}}</div>
+                          <div>{{getTranslation[lang].recordsInFinna}} {{count}}</div>
                         </button>
                         <div class="btn-group dropup">
                           <button class="font-only-height btn btn-light btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>

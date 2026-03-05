@@ -35,11 +35,11 @@
 
 #finna-widget {
   margin-top: .2rem;
-  background-color: var(--light-color)
+  background-color: var(--light-color);
 }
 
 .concept-widget > .panel > #headingFinna {
-  background-color: #fff;
+  background-color: var(--white-color);
   border-bottom: 1px solid transparent;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -184,7 +184,6 @@
 }
 
 #headingFinna > .buttons-wrapper > .btn-group > .btn:hover, #headingFinna > .buttons-wrapper > .btn-group > .btn:active, #headingFinna > .buttons-wrapper > .btn-group > .btn:focus {
- /*  background-color: #dfe5ed; */
   border: 0;
 }
 
