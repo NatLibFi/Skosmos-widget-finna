@@ -3,34 +3,39 @@
  */
 
  :root {
-  --finto-mint: invert(99%) sepia(62%) saturate(1534%) hue-rotate(151deg) brightness(84%) contrast(89%);
-  --gray-900: #474B4F;
+  --dark-color: #002855;
+  --secondary-dark-color: #5d7999;
+  --medium-color: #1980b3;
+  --secondary-medium-color: #b8c9db;
+  --tertiary-medium-color: #9ba6bb;
+  --light-color: #dfe5ed;
+  --secondary-light-color: #f2f5f7;
+  --alert-color: #a0270a;
+  --accent-color: #fae196;
+  --white-color: #ffffff;
   --font-size: 14px;
 }
 
-.versal-for-drop-down {
-  color: var(--gray-900);
+.versal-for-finna-drop-down {
+  background-color: var(--light-color);
   display: block;
   padding: 3px 20px;
   clear: both;
   text-decoration: none;
 }
 
+.versal-for-finna-drop-down:hover, .versal-for-finna-drop-down:show {
+  background-color: var(--alert-color);
+}
+
 .versal-for-finna-search-link {
-  font-family: 'Fira Sans', sans-serif;
   font-weight: 400;
   padding-left: 16px;
 }
 
-.concept-widget {
-  border-top: 2px solid #394554;
-}
-
-.concept-widget > .panel {
-  border-radius: 0;
-  border: 0;
-  box-shadow: none;
-  background-color: #fff;
+#finna-widget {
+  margin-top: .2rem;
+  background-color: var(--light-color)
 }
 
 .concept-widget > .panel > #headingFinna {
@@ -40,12 +45,6 @@
   border-top-right-radius: 3px;
 }
 
-.concept-widget > .result-counts {
-  margin-bottom: 15px;
-  padding-left: 43px;
-  background-color: #fff;
-} 
-
 #collapseFinna > .panel-body {
   padding: 15px 38px 5px 38px;
 }
@@ -53,34 +52,36 @@
 /*
  * Record specific
  */
-.record {
+.recordFinna {
   display: inline-flex;
   flex-direction: column;
-  margin-left: 12px;
-  margin-right: 12px;
   padding: 0;
-  width: 126px;
+  width: 8rem;
   min-height: 200px !important;
 }
 
-.record > a > span {
-  border-top: 1px #83CFC8 solid; 
+.recordFinna > a > span {
   display: block; 
   font-size: 10px; 
   margin-top: 5px;
   padding-top: 1px; 
 }
 
-.record > span {
+.recordFinna > span {
   display: block; 
   font-size: 10px;
 }
 
-.record > .image-container {
+.recordFinna > .image-container {
+  background-color: var(--white-color);
   position: relative;
-  height: 126px;
+  height: 8rem;
+  width: 8rem;
   margin: 0 auto;
   resize: both;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #collapseFinna > .panel-body > .btn:hover, #collapseFinna > .panel-body > .btn:active, #collapseFinna > .panel-body > .btn:focus {
@@ -88,7 +89,6 @@
 }
 
 #headingFinna > a > .fa-regular, #headingFinna > .fa-regular {
-  color: #83CFC8;
   float: right;
   top: 5px;
   padding-left: 15px;
@@ -100,25 +100,19 @@
 
 #collapseFinna > .panel-body {
   position: relative;
-  border-top: 1px solid #D4EDEB;
 }
 
-.img-wrapper {
-  width: 100%;
-  height: 100%;
+#img-wrapper-finna {
+  background-color: var(--white-color);
 }
 
-.img-wrapper img {
+#img-wrapper-finna img {
   position: relative;
+  vertical-align: middle
 }
 
-.img-wrapper td {
-  vertical-align: middle;
-  text-align: center;
-}
-
-.img-wrapper span.fa-solid {
-  color: #83CFC8;
+#img-wrapper-finna span.fa-solid {
+  color: var(--dark-color);
   font-size: 42px;
   transform: translate(-50%, -50%);
   position: absolute;
@@ -134,12 +128,12 @@
 #collapseFinna > .panel-body > .btn {
   position: absolute;
   top: 50%;
-  height: 60px;
-  border-radius: 0;
-  border: 1px solid #83CFC8 !important;
-  color: #83CFC8 !important;
-  font-size: 24px;
+  height: 3rem;
+  border-color: var(--dark-color);
+  border-style: solid;
   margin-top: -50px;
+  margin-left: 1rem;
+  margin-right: 1rem;
   padding: 12px 7px;
 }
 
@@ -148,9 +142,9 @@
 }
 
 #collapseFinna > .panel-body > .btn-disabled {
-  color: #ccc !important;
+  color: var(--secondary-medium-color);
   cursor: default;
-  border-color: #ccc !important;
+  border-color: var(--secondary-medium-color);
 }
 
 #collapseFinna > .panel-body {
@@ -173,16 +167,16 @@
 }
 
 #headingFinna .accordion-button {
-  color: var(--medium-color);
-  background-color: #fff !important;
+  background-color: var(--white-color);
   padding-top: 0.5rem;
   padding-right: 1rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
-  font-size: 1rem;
   position: absolute;
   z-index: 0;
   height: 40px;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 #headingFinna .accordion-button {
@@ -190,7 +184,7 @@
 }
 
 #headingFinna > .buttons-wrapper > .btn-group > .btn:hover, #headingFinna > .buttons-wrapper > .btn-group > .btn:active, #headingFinna > .buttons-wrapper > .btn-group > .btn:focus {
-  background-color: #D4EDEB;
+ /*  background-color: #dfe5ed; */
   border: 0;
 }
 
@@ -208,8 +202,7 @@
 #headingFinna > .buttons-wrapper > .btn-group > .btn {
   border-radius: 0;
   border: 0;
-  background-color: #D4EDEB;
-  color: #00748f;
+  background-color: #dfe5ed;
   min-width: 100px;
   max-height: 22px;
   text-align: left;
@@ -230,13 +223,14 @@
 }
 
 #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:hover, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:focus, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:active, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:visited {
-  background-color: #83CFC8;
   border: 0;
   color: #fff !important;
 }
 
 #collapseFinna > .panel-body > .row {
-  margin-bottom: 5px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
 }
 
 #collapseFinna > .panel-body > a:last-of-type {
@@ -244,9 +238,11 @@
 }
 
 @media (min-width: 1260px) {
-  .record {
-    margin-left: 8px;
-    margin-right: 7px;
+  .recordFinna {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 8px;
+    margin-bottom: 7px;
   }
 
  #collapseFinna > .panel-body {

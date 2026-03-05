@@ -40,31 +40,31 @@ const FINNA = {
                 }
             },
             template: `
-                <div class="concept-widget panel-group" id="finna-widget" role="tablist" aria-multiselectable="true">
+                <div class="panel-group" id="finna-widget" role="tablist" aria-multiselectable="true">
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingFinna">
                       <div class="buttons-wrapper">
                         <button class="accordion-button accordion" :type="records ? 'button' : null" :data-bs-toggle="records ? 'collapse' : null" data-bs-target="#collapseFinna" aria-expanded="false" aria-controls="collapseWiki">
-                          <span class="count">{{getTranslation[lang].recordsInFinna}} {{count}}</span>
+                          <div id="widget-content-text">{{getTranslation[lang].recordsInFinna}} {{count}}</div>
                         </button>
                         <div class="btn-group dropup">
                           <button class="font-only-height btn btn-light btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>
                           <ul class="dropdown-menu">
-                              <li v-for="(type, index) in types"><a @click="typeButton($event)" :id=index class="versal-for-drop-down">{{type}}</a></li>
+                              <li v-for="(type, index) in types"><a @click="typeButton($event)" :id=index class="versal-for-finna-drop-down">{{type}}</a></li>
                           </ul>
                         </div>
                       </div>
                     </div>
                     <div id="collapseFinna" class="panel-collapse collapse" :class="{ 'show': records }" role="tabpanel" aria-labelledby="headingFinna">
                       <div class="panel-body">
-                        <button @click="leftButton()" type="button" class="btn btn-light btn-disabled">&laquo;</button>
+                        <button @click="leftButton()" type="button" class="btn btn-light btn-disabled border-2 rounded-1"><i class="fa-solid fa-angle-left"></i></button>
                         <div class="row">
-                          <div class="record" v-for="record in records">
+                          <div class="recordFinna" v-for="record in records">
                             <div class="image-container">
                               <a :href="'https://www.finna.fi/Record/' + record.id" target="_blank">
-                                <table class="img-wrapper">
-                                  <tr><td><span :class="'fa-solid '+ record.iconizer"></span><img alt="" :src="'https://finna.fi'+record.images[0]+'&w=126&h=126'"></td></tr>
-                                </table>
+                                <div id="img-wrapper-finna">
+                                  <span :class="'fa-solid '+ record.iconizer"></span><img alt="" :src="'https://finna.fi'+record.images[0]+'&w=126&h=126'">
+                                </div>
                               </a>
                             </div>
                             <a :href="'https://www.finna.fi/Record/' + record.id" target="_blank">
@@ -76,7 +76,7 @@ const FINNA = {
                             -->
                           </div>
                         </div>
-                        <button @click="rightButton" type="button" class="btn btn-light" :class="{ 'btn-disabled': noMoreResults }">&raquo;</button>
+                        <button @click="rightButton" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': noMoreResults }"><i class="fa-solid fa-angle-right"></i></button>
                       </div>
                       <a class="versal-for-finna-search-link" :href=finnalink target="_blank">{{getTranslation[lang].resultListingInFinna}}</a>
                     </div>
