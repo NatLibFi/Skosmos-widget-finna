@@ -9,7 +9,8 @@ const FINNA = {
                     count: FINNA.cache.finnaResults.resultCount,
                     finnalink: FINNA.generateQueryString(FINNA.helpers.getLabelString(FINNA.prefLabels)).replace('api.finna.fi/v1/search', 'finna.fi/Search/Results'),
                     //opened: isOpened,
-                    noMoreResults: FINNA.cache.finnaResults.resultCount <= FINNA.helpers.recordsDisplayed() ? 1 : 0,
+                    leftButtonDisabled: FINNA.recordOffset >= FINNA.helpers.recordsDisplayed() ? 0 : 1,
+                    rightButtonDisabled: FINNA.cache.moreRecordsReady() === false && FINNA.cache.moreRecordsInAPI() === false ? 1 : 0,
                     lang: window.SKOSMOS.lang,
                     types: FINNA.formatNames[window.SKOSMOS.lang],
                     typeString: FINNA.formatNames[window.SKOSMOS.lang][FINNA.currentFormat],
@@ -48,22 +49,23 @@ const FINNA = {
                           <div>{{getTranslation[lang].recordsInFinna}} {{count}}</div>
                         </button>
                         <div class="btn-group dropup">
-                          <button class="font-only-height btn btn-light btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}</button>
+                          <button class="font-only-height btn btn-light btn-xs dropdown-toggle" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown" type="button"><span class="caret"></span>{{typeString}}
+                          </button>
                           <ul class="dropdown-menu">
-                              <li v-for="(type, index) in types"><a @click="typeButton($event)" :id=index class="versal-for-finna-drop-down">{{type}}</a></li>
+                              <li v-for="(type, index) in types"><a @click="typeButton($event)" :id=index class="dropdown-item">{{type}}</a></li>
                           </ul>
                         </div>
                       </div>
                     </div>
                     <div id="collapseFinna" class="panel-collapse collapse" :class="{ 'show': records }" role="tabpanel" aria-labelledby="headingFinna">
                       <div class="panel-body">
-                        <button @click="leftButton()" type="button" class="btn btn-light btn-disabled border-2 rounded-1"><i class="fa-solid fa-angle-left"></i></button>
+                        <button @click="leftButton()" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': leftButtonDisabled }"><i class="fa-solid fa-angle-left"></i></button>
                         <div class="row">
                           <div class="recordFinna" v-for="record in records">
                             <div class="image-container">
                               <a :href="'https://www.finna.fi/Record/' + record.id" target="_blank">
                                 <div id="img-wrapper-finna">
-                                  <span :class="'fa-solid '+ record.iconizer"></span><img alt="" :src="'https://finna.fi'+record.images[0]+'&w=126&h=126'">
+                                  <span :class="'fa-solid '+ record.iconizer"></span><img alt="" :src="getRecordSource(record)">
                                 </div>
                               </a>
                             </div>
@@ -71,12 +73,9 @@ const FINNA = {
                               <span class="versal versal-bold" :title="shortTitle ? title : null">{{record.shortTitle ? record.shortTitle : record.title}}</span>
                             </a>
                             <span class="versal">{{record.owner}}</span>
-                            <!--
-                            {{#if ../showType}}<span class="versal">{{formats.[0].translated}}</span>{{/if}}
-                            -->
                           </div>
                         </div>
-                        <button @click="rightButton" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': noMoreResults }"><i class="fa-solid fa-angle-right"></i></button>
+                        <button @click="rightButton()" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': rightButtonDisabled }"><i class="fa-solid fa-angle-right"></i></button>
                       </div>
                       <a class="versal-for-finna-search-link" :href=finnalink target="_blank">{{getTranslation[lang].resultListingInFinna}}</a>
                     </div>
@@ -84,15 +83,16 @@ const FINNA = {
                 </div>
                 `,
             methods: {
+                getRecordSource (record) {
+                    if (record.images.length > 0) {
+                        return "https://finna.fi" + record.images[0] + "&w=126&h=126"
+                    }
+                },
                 leftButton () {
                     // previous page button to the left
                     if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
                         FINNA.recordOffset -= FINNA.helpers.recordsDisplayed();
                         FINNA.render(true);
-                    }
-                    if (FINNA.recordOffset >= FINNA.helpers.recordsDisplayed()) {
-                    const button = document.querySelector('#collapseFinna > .panel-body > button:first-of-type');
-                    button.classList.remove('btn-disabled');
                     }
                 },
                 rightButton () {
@@ -103,10 +103,6 @@ const FINNA = {
                         if (FINNA.cache.lessThanTwoPagesLeft() && FINNA.cache.moreRecordsInAPI())  {
                             // querying more results in advance if there is two pages or less remaining
                             FINNA.queryFinna(FINNA.cache.resultsFetched, FINNA.resultLimit);
-                        }
-                        if (FINNA.cache.moreRecordsReady() === false && FINNA.cache.moreRecordsInAPI() === false) {
-                            const button = document.querySelector('#collapseFinna > .panel-body > button:last-of-type');
-                        button.classList.remove('btn-disabled');
                         }
                     }
                 },

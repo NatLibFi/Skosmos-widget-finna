@@ -25,7 +25,7 @@
 }
 
 .versal-for-finna-drop-down:hover, .versal-for-finna-drop-down:show {
-  background-color: var(--alert-color);
+  background-color: var(--dark-color);
 }
 
 .versal-for-finna-search-link {
@@ -39,7 +39,6 @@
 }
 
 .concept-widget > .panel > #headingFinna {
-  background-color: var(--white-color);
   border-bottom: 1px solid transparent;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -62,7 +61,7 @@
 
 .recordFinna > a > span {
   display: block; 
-  font-size: 10px; 
+  font-size: 10px;
   margin-top: 5px;
   padding-top: 1px; 
 }
@@ -85,7 +84,7 @@
 }
 
 #collapseFinna > .panel-body > .btn:hover, #collapseFinna > .panel-body > .btn:active, #collapseFinna > .panel-body > .btn:focus {
-  background-color: #fff;
+  background-color: var(--white-color);
 }
 
 #headingFinna > a > .fa-regular, #headingFinna > .fa-regular {
@@ -104,11 +103,12 @@
 
 #img-wrapper-finna {
   background-color: var(--white-color);
+  object-fit: contain;
 }
 
 #img-wrapper-finna img {
   position: relative;
-  vertical-align: middle
+  vertical-align: middle;
 }
 
 #img-wrapper-finna span.fa-solid {
@@ -153,12 +153,10 @@
 
 #collapseFinna > .panel-body > .btn:first-of-type {
   left: 0;
-  border-left: 0 !important;
 }
 
 #collapseFinna > .panel-body > .btn:last-of-type {
   right: 0;
-  border-right: 0 !important;
 }
 
 .buttons-wrapper {
@@ -201,7 +199,7 @@
 #headingFinna > .buttons-wrapper > .btn-group > .btn {
   border-radius: 0;
   border: 0;
-  background-color: #dfe5ed;
+  background-color: var(--light-color);
   min-width: 100px;
   max-height: 22px;
   text-align: left;
@@ -215,7 +213,6 @@
 
 #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu {
   border-radius: 0;
-  border: 1px solid #D4EDEB;
   box-shadow: none;
   margin: 0;
   padding: 0;
@@ -223,7 +220,6 @@
 
 #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:hover, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:focus, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:active, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:visited {
   border: 0;
-  color: #fff !important;
 }
 
 #collapseFinna > .panel-body > .row {
