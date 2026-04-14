@@ -16,30 +16,24 @@
   --font-size: 14px;
 }
 
-.versal-for-finna-search-link {
-  font-weight: 400;
-  padding-left: 16px;
-}
-
 #finna-widget {
   margin-top: .2rem;
   background-color: var(--light-color);
 }
 
-.concept-widget > .panel > #headingFinna {
-  border-bottom: 1px solid transparent;
+#finna-heading {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
 
-#collapseFinna > .panel-body {
+#finna-collapse > .panel-body {
   padding: 15px 38px 5px 38px;
 }
 
 /*
  * Record specific
  */
-.recordFinna {
+#finna-record {
   display: inline-flex;
   flex-direction: column;
   padding: 0;
@@ -47,19 +41,19 @@
   min-height: 200px !important;
 }
 
-.recordFinna > a > span {
+#finna-record > a > span {
   display: block; 
   font-size: 10px;
   margin-top: 5px;
   padding-top: 1px; 
 }
 
-.recordFinna > span {
+#finna-record > span {
   display: block; 
   font-size: 10px;
 }
 
-.recordFinna > .image-container {
+#finna-record > .image-container {
   background-color: var(--white-color);
   position: relative;
   height: 8rem;
@@ -71,35 +65,28 @@
   align-items: center;
 }
 
-#collapseFinna > .panel-body > .btn:active, #collapseFinna > .panel-body > .btn:focus {
-  background-color: var(--white-color);
-}
-
-#headingFinna > a > .fa-regular, #headingFinna > .fa-regular {
+#finna-heading > a > .fa-regular, #finna-heading > .fa-regular {
   float: right;
   top: 5px;
   padding-left: 15px;
 }
 
-#headingFinna > .fa-regular {
-  color: #777;
-}
-
-#collapseFinna > .panel-body {
+#finna-collapse > .panel-body {
   position: relative;
 }
 
-#img-wrapper-finna {
+#finna-heading {
+  border: 1px solid var(--light-color);
   background-color: var(--white-color);
   object-fit: contain;
 }
 
-#img-wrapper-finna img {
+#finna-img-wrapper img {
   position: relative;
   vertical-align: middle;
 }
 
-#img-wrapper-finna span.fa-solid {
+#finna-img-wrapper span.fa-solid {
   color: var(--dark-color);
   font-size: 42px;
   transform: translate(-50%, -50%);
@@ -113,11 +100,11 @@
  * Previous and next page buttons
  */
 
-#collapseFinna > .panel-body > .btn {
+#finna-collapse > .panel-body > .btn {
   position: absolute;
   top: 50%;
   height: 3rem;
-  border-color: var(--dark-color);
+  /* border-color: var(--dark-color); */
   border-style: solid;
   margin-top: -50px;
   margin-left: 1rem;
@@ -125,34 +112,30 @@
   padding: 12px 7px;
 }
 
-.font-only-height {
-  font-size: 12px;
+#finna-collapse > .panel-body > .btn {
+  cursor: default;
+  border-color: var(--secondary-medium-color);
 }
 
-#collapseFinna > .panel-body > .btn-disabled {
+#finna-collapse > .panel-body > .btn-disabled {
   color: var(--secondary-medium-color);
   cursor: default;
   border-color: var(--secondary-medium-color);
 }
 
-#collapseFinna > .panel-body {
+#finna-collapse > .panel-body {
   min-height: 200px;
 }
 
-#collapseFinna > .panel-body > .btn:first-of-type {
+#finna-collapse > .panel-body > .btn:first-of-type {
   left: 0;
 }
 
-#collapseFinna > .panel-body > .btn:last-of-type {
+#finna-collapse > .panel-body > .btn:last-of-type {
   right: 0;
 }
 
-.buttons-wrapper {
-  position: relative;
-  height: 40px;
-}
-
-#headingFinna .accordion-button {
+#finna-heading .accordion-button {
   background-color: var(--white-color);
   padding-top: 0.5rem;
   padding-right: 1rem;
@@ -165,80 +148,59 @@
   font-size: 1.2rem;
 }
 
-#headingFinna .accordion-button {
+#finna-heading .accordion-button {
   box-shadow: none;
 }
 
-#headingFinna > .buttons-wrapper > .btn-group > .btn:hover, #headingFinna > .buttons-wrapper > .btn-group > .btn:active, #headingFinna > .buttons-wrapper > .btn-group > .btn:focus {
-  border: 0;
+#finna-buttons-wrapper {
+  position: relative;
+  height: 40px;
+  border-bottom: 2px var(--secondary-medium-color);
 }
 
-#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu {
-  border-radius: 0;
-  box-shadow: none;
-  margin: 0;
-  padding: 0;
-}
-
-#headingFinna > .buttons-wrapper > .btn-group {
-  max-width: 135px;
+#finna-buttons-wrapper > .btn-group {
   height: 40px;
   right: 50px;
-  top: 10px;
-  bottom: 10px;
   vertical-align: middle;
   position: absolute;
   z-index: 1;
   border-color: var(--dark-color);
 }
 
-#headingFinna > .buttons-wrapper > .btn-group > .btn {
-  border-radius: 0;
-  border: 0;
-  background-color: var(--light-color);
-  min-width: 100px;
-  max-height: 22px;
-  text-align: middle;
-  vertical-align: middle;
-  padding: .175rem .75rem;
-}
-
-#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:hover, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:focus, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:active, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:visited {
-  border: 0;
-}
-
-#collapseFinna > .panel-body > .row {
+#finna-collapse > .panel-body > .row {
   margin-top: 5px;
   display: flex;
   justify-content: center;
 }
 
-#collapseFinna > .panel-body > a:last-of-type {
+#finna-collapse > .panel-body > a:last-of-type {
   margin-left: 25px;
 }
 
-#search-wrapper-finna ul {
+#finna-format-group ul {
   padding-top: 0rem;
   padding-bottom: 0rem;
   max-height: 50vh;
   overflow-y: auto;
 }
 
-#search-wrapper-finna .dropdown-menu {
+#finna-format-group i {
+  padding-left: 0.5rem;
+  font-size: 0.75rem;
+}
+
+#finna-format-group .dropdown-menu {
   transform: translateY(-1px);
   background-color: var(--secondary-light-color);
   color: var(--dark-color);
-  border: 1px solid var(--search-border);
   border-radius: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
 }
 
-#search-wrapper-finna .dropdown-menu label, #search-wrapper-finna .dropdown-menu a {
+#finna-format-group .dropdown-menu label, #finna-format-group .dropdown-menu a {
   color: var(--headerbar-text);
 }
 
-#search-wrapper-finna .btn-outline-secondary {
+#finna-format-group .btn-outline-secondary {
   color: var(--dark-color);
   background-color: var(--white-color);
   border: 1px solid var(--light-color);
@@ -247,20 +209,28 @@
   padding-right: 1.5rem;
 }
 
-#search-wrapper-finna .dropdown-item:hover, #search-wrapper-finna .dropdown-item.show {
+#finna-format-group .dropdown-item:hover, #finna-format-group .dropdown-item.show {
   background-color: var(--dark-color);
   color: var(--light-color);
 }
 
+#finna-search {
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  background-color: var(--white-color);
+}
+
 @media (min-width: 1260px) {
-  .recordFinna {
+  #finna-record {
     margin-left: 1rem;
     margin-right: 1rem;
     margin-top: 8px;
     margin-bottom: 7px;
   }
 
- #collapseFinna > .panel-body {
+ #finna-collapse > .panel-body {
    padding-left: 30px;
    padding-right: 30px;
    margin: 3.2px;

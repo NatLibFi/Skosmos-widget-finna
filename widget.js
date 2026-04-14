@@ -30,28 +30,35 @@ const FINNA = {
       template: `
                 <div class="panel-group" id="finna-widget" role="tablist" aria-multiselectable="true">
                   <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingFinna">
-                      <div class="buttons-wrapper">
-                        <button class="accordion-button accordion" :type="records ? 'button' : null" :data-bs-toggle="records ? 'collapse' : null" data-bs-target="#collapseFinna" aria-expanded="false" aria-controls="collapseWiki">
+                    <div class="panel-heading" role="tab" id="finna-heading">
+                      <div id="finna-buttons-wrapper">
+                        <button class="accordion-button accordion" :type="records ? 'button' : null" :data-bs-toggle="records ? 'collapse' : null" data-bs-target="#finna-collapse" aria-expanded="false" aria-controls="collapseWiki">
                           <div>{{ $t('translation.recordsInFinna', { msg: formatString }) }} {{count}}</div>
                         </button>
-                            <div class="btn-group dropup" id="search-wrapper-finna">
-                            <button class="btn btn-outline-secondary show" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{typeString}}<i class="fa-solid fa-chevron-down"></i></button>
+                          <div class="btn-group dropup" id="finna-format-group">
+                            <button class="btn btn-outline-secondary show" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{typeString}}
+                              <i class="fa-solid fa-chevron-down"></i>
+                            </button>
                             <ul class="dropdown-menu">
-                            <div >
-                                <li v-for="(type, index) in types"><div @click="typeButton($event)" :id=index class="dropdown-item">{{type}}</div></li>
-                            </div>
+                              <div >
+                                <li v-for="(type, index) in types">
+                                  <div @click="typeButton($event)" :id=index class="dropdown-item">{{type}}</div>
+                                </li>
+                              </div>
                             </ul>
+                          </div>
                       </div>
                     </div>
-                    <div id="collapseFinna" class="panel-collapse collapse" :class="{ 'show': records }" role="tabpanel" aria-labelledby="headingFinna">
+                    <div id="finna-collapse" class="panel-collapse collapse" :class="{ 'show': records }" role="tabpanel" aria-labelledby="finna-heading">
                       <div class="panel-body">
-                        <button @click="leftButton()" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': leftButtonDisabled }"><i class="fa-solid fa-angle-left"></i></button>
+                        <button @click="leftButton()" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': leftButtonDisabled }">
+                          <i class="fa-solid fa-angle-left"></i>
+                        </button>
                         <div class="row">
-                          <div class="recordFinna" v-for="record in records">
+                          <div id="finna-record" v-for="record in records">
                             <div class="image-container">
                               <a :href="'https://www.finna.fi/Record/' + record.id" target="_blank">
-                                <div id="img-wrapper-finna">
+                                <div id="finna-img-wrapper">
                                   <span :class="'fa-solid '+ record.iconizer"></span><img alt="" :src="getRecordSource(record)">
                                 </div>
                               </a>
@@ -62,8 +69,12 @@ const FINNA = {
                             <span class="versal">{{record.owner}}</span>
                           </div>
                         </div>
-                        <button @click="rightButton()" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': rightButtonDisabled }"><i class="fa-solid fa-angle-right"></i></button>
+                        <button @click="rightButton()" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': rightButtonDisabled }">
+                          <i class="fa-solid fa-angle-right"></i>
+                        </button>
                       </div>
+                    </div>
+                    <div id="finna-search">
                       <a class="versal-for-finna-search-link" :href=finnalink target="_blank">{{ $t('translation.resultListingInFinna') }}</a>
                     </div>
                   </div>
