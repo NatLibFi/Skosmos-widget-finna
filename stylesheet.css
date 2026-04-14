@@ -104,7 +104,7 @@
   position: absolute;
   top: 50%;
   height: 3rem;
-  /* border-color: var(--dark-color); */
+  width: 2.5rem;
   border-style: solid;
   margin-top: -50px;
   margin-left: 1rem;
@@ -220,6 +220,7 @@
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   background-color: var(--white-color);
+  font-size: 1.2rem;
 }
 
 @media (min-width: 1260px) {

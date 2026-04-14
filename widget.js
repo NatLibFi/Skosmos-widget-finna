@@ -32,7 +32,14 @@ const FINNA = {
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="finna-heading">
                       <div id="finna-buttons-wrapper">
-                        <button class="accordion-button accordion" :type="records ? 'button' : null" :data-bs-toggle="records ? 'collapse' : null" data-bs-target="#finna-collapse" aria-expanded="false" aria-controls="collapseWiki">
+                        <button
+                          class="accordion-button accordion"
+                          :type="records ? 'button' : null"
+                          :data-bs-toggle="records ? 'collapse' : null"
+                          data-bs-target="#finna-collapse"
+                          aria-expanded="false"
+                          aria-controls="collapseWiki"
+                        >
                           <div>{{ $t('translation.recordsInFinna', { msg: formatString }) }} {{count}}</div>
                         </button>
                           <div class="btn-group dropup" id="finna-format-group">
@@ -49,9 +56,20 @@ const FINNA = {
                           </div>
                       </div>
                     </div>
-                    <div id="finna-collapse" class="panel-collapse collapse" :class="{ 'show': records }" role="tabpanel" aria-labelledby="finna-heading">
+                    <div
+                      id="finna-collapse"
+                      class="panel-collapse collapse"
+                      :class="{ 'show': records }"
+                      role="tabpanel"
+                      aria-labelledby="finna-heading"
+                    >
                       <div class="panel-body">
-                        <button @click="leftButton()" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': leftButtonDisabled }">
+                        <button
+                          @click="leftButton()"
+                          type="button"
+                          class="btn btn-light border-2 rounded-1"
+                          :class="{ 'btn-disabled': leftButtonDisabled }"
+                        >
                           <i class="fa-solid fa-angle-left"></i>
                         </button>
                         <div class="row">
@@ -63,19 +81,28 @@ const FINNA = {
                                 </div>
                               </a>
                             </div>
-                            <a :href="'https://www.finna.fi/Record/' + record.id" target="_blank">
-                              <span class="versal versal-bold" :title="shortTitle ? title : null">{{record.shortTitle ? record.shortTitle : record.title}}</span>
+                            <a
+                              :href="'https://www.finna.fi/Record/' + record.id"
+                              target="_blank"
+                              :title="shortTitle ? title : null"
+                            >
+                              {{record.shortTitle ? record.shortTitle : record.title}}
                             </a>
-                            <span class="versal">{{record.owner}}</span>
+                            <p>{{record.owner}}</p>
                           </div>
                         </div>
-                        <button @click="rightButton()" type="button" class="btn btn-light border-2 rounded-1" :class="{ 'btn-disabled': rightButtonDisabled }">
+                        <button
+                          @click="rightButton()"
+                          type="button"
+                          class="btn btn-light border-2 rounded-1"
+                          :class="{ 'btn-disabled': rightButtonDisabled }"
+                        >
                           <i class="fa-solid fa-angle-right"></i>
                         </button>
                       </div>
                     </div>
                     <div id="finna-search">
-                      <a class="versal-for-finna-search-link" :href=finnalink target="_blank">{{ $t('translation.resultListingInFinna') }}</a>
+                      <a :href=finnalink target="_blank">{{ $t('translation.resultListingInFinna') }}</a>
                     </div>
                   </div>
                 </div>
@@ -121,6 +148,17 @@ const FINNA = {
   recordOffset: 0,
   resultLimit: 10,
   currentFormat: 1,
+  getCurrentFormat: function () {
+    const cookies = document.cookie.split('; ')
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i]
+      const [key, value] = cookie.split('=')
+      if (key === 'FINNA_WIDGET_FORMAT') {
+        return decodeURIComponent(value)
+      }
+    }
+    return 1
+  },
   formats: ['', '~format:0/Image/', '~format:0/Book/', '~format:0/PhysicalObject/', 'format:0/Sound/', 'format:0/Journal/', 'format:0/MusicalScore/', 'format:0/Video/', 'format:0/Thesis/', 'format:0/WorkOfArt/', 'format:0/Place/', 'format:0/Other/', 'format:0/Document/', 'format:0/Map/'],
   formatNamePlurals: [{ fi: 'aineistoja (kaikki tyypit)', sv: 'material', en: 'items', se: 'materiálat (buot tiippat)' }, { fi: 'kuvia', sv: 'bilder', en: 'images', se: 'govat' }, { fi: 'kirjoja', sv: 'böcker', en: 'books', se: 'girjjit' }, { fi: 'esineitä', sv: 'föremål', en: 'physical objects', se: 'diŋggat' }, { fi: 'äänitteitä', sv: 'ljudupptagningar', en: 'sound recordings', se: 'jietnabáttit' }, { fi: 'lehtiä/artikkeleita', sv: 'tidskrifter och artiklar', en: 'journals and articles', se: 'aviissat/artihkkalat' }, { fi: 'nuotteja', sv: 'noter', en: 'musical scores', se: 'nuohtat' }, { fi: 'videoita', sv: 'video', en: 'videos', se: 'videot' }, { fi: 'opinnäytteitä', sv: 'examensarbeten', en: 'theses', se: 'oahppočájánasat' }],
   formatNames: { fi: ['Kaikki tyypit', 'Kuva', 'Kirja', 'Esine', 'Äänite', 'Lehti/Artikkeli', 'Nuotti', 'Video', 'Opinnäyte'], sv: ['Alla typer av material', 'Bild', 'Bok', 'Föremål', 'Ljudupptagning', 'Tidskrift/Artikel', 'Noter', 'Video', 'Examensarbete'], en: ['All types', 'Image', 'Book', 'Physical object', 'Sound recording', 'Article', 'Musical score', 'Video', 'Thesis'], se: ['Buot tiippat', 'Govva', 'Girji', 'Diŋga', 'Jietnabáddi', 'Aviisa/Artihkal', 'Nuohtta', 'Video', 'Oahppočájánas'] },
@@ -156,6 +194,7 @@ const FINNA = {
     if (offset) {
       params.page = Math.floor((offset / 10) + 1)
     }
+    FINNA.currentFormat = FINNA.getCurrentFormat()
     if (FINNA.currentFormat === 1) {
       params.filter = ['online_boolean:1']
     }
@@ -239,14 +278,6 @@ const FINNA = {
     })
     this.vueApp = this.createVueApp()
     this.vueApp.use(i18n)
-    const cookies = document.cookie.split('; ')
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i]
-      const [key, value] = cookie.split('=')
-      if (key === 'FINNA_WIDGET_FORMAT') {
-        FINNA.currentFormat = decodeURIComponent(value)
-      }
-    }
     this.vueApp.mount('#finna-plugin')
   },
   // Helper functions for the widget
