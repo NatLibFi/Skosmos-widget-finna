@@ -1,4 +1,4 @@
-/* global Vue, vue-i18n */
+/* global Vue, VueI18n */
 
 const FINNA = {
   vueApp: null,
@@ -14,7 +14,8 @@ const FINNA = {
           types: FINNA.formatNames[window.SKOSMOS.lang],
           typeString: FINNA.formatNames[window.SKOSMOS.lang][FINNA.currentFormat],
           currentFormat: FINNA.currentFormat,
-          showType: FINNA.currentFormat === 0 ? 1 : 0
+          showType: FINNA.currentFormat === 0 ? 1 : 0,
+          formatString: FINNA.formatNamePlurals[FINNA.currentFormat][window.SKOSMOS.lang]
         }
       },
       computed: {
@@ -22,9 +23,6 @@ const FINNA = {
           if (FINNA.cache.finnaResults.records) {
             return FINNA.cache.finnaResults.records.slice(FINNA.recordOffset, FINNA.recordOffset + FINNA.helpers.recordsDisplayed())
           }
-        },
-        formatString () {
-          return FINNA.formatNamePlurals[FINNA.currentFormat][window.SKOSMOS.lang]
         }
       },
       template: `
@@ -70,7 +68,7 @@ const FINNA = {
                           class="btn btn-light border-2 rounded-1"
                           :class="{ 'btn-disabled': leftButtonDisabled }"
                         >
-                          <i class="fa-solid fa-angle-left"></i>
+                          <i class="fa-solid fa-angle-left finna-scroll-icon"></i>
                         </button>
                         <div class="row">
                           <div id="finna-record" v-for="record in records">
@@ -84,7 +82,7 @@ const FINNA = {
                             <a
                               :href="'https://www.finna.fi/Record/' + record.id"
                               target="_blank"
-                              :title="shortTitle ? title : null"
+                              :title="record.shortTitle ? title : null"
                             >
                               {{record.shortTitle ? record.shortTitle : record.title}}
                             </a>
@@ -97,12 +95,12 @@ const FINNA = {
                           class="btn btn-light border-2 rounded-1"
                           :class="{ 'btn-disabled': rightButtonDisabled }"
                         >
-                          <i class="fa-solid fa-angle-right"></i>
+                          <i class="fa-solid fa-angle-right finna-scroll-icon"></i>
                         </button>
                       </div>
-                    </div>
-                    <div id="finna-search">
-                      <a :href=finnalink target="_blank">{{ $t('translation.resultListingInFinna') }}</a>
+                      <div id="finna-search">
+                        <a :href=finnalink target="_blank">{{ $t('translation.resultListingInFinna') }}</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -336,7 +334,7 @@ const FINNA = {
         // limiting to first author since the space is super limited
         return record.nonPresenterAuthors[0].name
       }
-      if (record.buildings) {
+      if (record.buildings && record.buildings.length > 0) {
         return record.buildings[0].translated
       }
       return null

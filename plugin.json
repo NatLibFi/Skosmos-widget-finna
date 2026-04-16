@@ -1,5 +1,5 @@
 {
-    "js": ["widget.js", "node_modules/vue-i18n/dist/vue-i18n.global.prod.js", "node_modules/vue-i18n/dist/vue.global.js"],
+    "js": ["widget.js", "node_modules/vue-i18n/dist/vue-i18n.global.prod.js"],
     "callback": ["newFinnaSearch"],
     "css": ["stylesheet.css"]
 }

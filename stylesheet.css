@@ -2,20 +2,6 @@
  * The whole widget
  */
 
- :root {
-  --dark-color: #002855;
-  --secondary-dark-color: #5d7999;
-  --medium-color: #1980b3;
-  --secondary-medium-color: #b8c9db;
-  --tertiary-medium-color: #9ba6bb;
-  --light-color: #dfe5ed;
-  --secondary-light-color: #f2f5f7;
-  --alert-color: #a0270a;
-  --accent-color: #fae196;
-  --white-color: #ffffff;
-  --font-size: 14px;
-}
-
 #finna-widget {
   margin-top: .2rem;
   background-color: var(--light-color);
@@ -33,6 +19,7 @@
 /*
  * Record specific
  */
+
 #finna-record {
   display: inline-flex;
   flex-direction: column;
@@ -54,7 +41,6 @@
 }
 
 #finna-record > .image-container {
-  background-color: var(--white-color);
   position: relative;
   height: 8rem;
   width: 8rem;
@@ -100,20 +86,21 @@
  * Previous and next page buttons
  */
 
+.finna-scroll-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%)
+ }
+
 #finna-collapse > .panel-body > .btn {
   position: absolute;
-  top: 50%;
+  top: 7rem;
   height: 3rem;
   width: 2.5rem;
   border-style: solid;
-  margin-top: -50px;
   margin-left: 1rem;
   margin-right: 1rem;
-  padding: 12px 7px;
-}
-
-#finna-collapse > .panel-body > .btn {
-  cursor: default;
   border-color: var(--secondary-medium-color);
 }
 
@@ -175,6 +162,12 @@
 
 #finna-collapse > .panel-body > a:last-of-type {
   margin-left: 25px;
+}
+
+#finna-format-group button {
+  margin: 2px 2px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 #finna-format-group ul {
