@@ -278,6 +278,14 @@ const FINNA = {
     this.vueApp.use(i18n)
     this.vueApp.mount('#finna-plugin')
   },
+
+  remove: function () {
+    if (this.vueApp) {
+      this.vueApp.unmount()
+      this.vueApp = null
+    }
+  },
+
   // Helper functions for the widget
   helpers: {
     formatToGlyphicon: function (format) {
@@ -370,6 +378,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.newFinnaSearch = function (data) {
     // Only activating the widget when on a concept page and there is a prefLabel.
     if (data.pageType !== 'concept' || data.prefLabels === undefined) {
+      FINNA.remove()
       return
     }
     FINNA.cache.clear()
