@@ -2,123 +2,78 @@
  * The whole widget
  */
 
- :root {
-  --finto-mint: invert(99%) sepia(62%) saturate(1534%) hue-rotate(151deg) brightness(84%) contrast(89%);
-  --gray-900: #474B4F;
-  --font-size: 14px;
+#finna-widget {
+  margin-top: .2rem;
+  background-color: var(--light-color);
 }
 
-.versal-for-drop-down {
-  color: var(--gray-900);
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  text-decoration: none;
-}
-
-.versal-for-finna-search-link {
-  font-family: 'Fira Sans', sans-serif;
-  font-weight: 400;
-  padding-left: 16px;
-}
-
-.concept-widget {
-  border-top: 2px solid #394554;
-}
-
-.concept-widget > .panel {
-  border-radius: 0;
-  border: 0;
-  box-shadow: none;
-  background-color: #fff;
-}
-
-.concept-widget > .panel > #headingFinna {
-  background-color: #fff;
-  border-bottom: 1px solid transparent;
+#finna-heading {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
 
-.concept-widget > .result-counts {
-  margin-bottom: 15px;
-  padding-left: 43px;
-  background-color: #fff;
-} 
-
-#collapseFinna > .panel-body {
+#finna-collapse > .panel-body {
   padding: 15px 38px 5px 38px;
 }
 
 /*
  * Record specific
  */
-.record {
+
+#finna-record {
   display: inline-flex;
   flex-direction: column;
-  margin-left: 12px;
-  margin-right: 12px;
   padding: 0;
-  width: 126px;
+  width: 8rem;
   min-height: 200px !important;
 }
 
-.record > a > span {
-  border-top: 1px #83CFC8 solid; 
+#finna-record > a > span {
   display: block; 
-  font-size: 10px; 
+  font-size: 10px;
   margin-top: 5px;
   padding-top: 1px; 
 }
 
-.record > span {
+#finna-record > span {
   display: block; 
   font-size: 10px;
 }
 
-.record > .image-container {
+#finna-record > .image-container {
   position: relative;
-  height: 126px;
+  height: 8rem;
+  width: 8rem;
   margin: 0 auto;
   resize: both;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#collapseFinna > .panel-body > .btn:hover, #collapseFinna > .panel-body > .btn:active, #collapseFinna > .panel-body > .btn:focus {
-  background-color: #fff;
-}
-
-#headingFinna > a > .fa-regular, #headingFinna > .fa-regular {
-  color: #83CFC8;
+#finna-heading > a > .fa-regular, #finna-heading > .fa-regular {
   float: right;
   top: 5px;
   padding-left: 15px;
 }
 
-#headingFinna > .fa-regular {
-  color: #777;
-}
-
-#collapseFinna > .panel-body {
-  position: relative;
-  border-top: 1px solid #D4EDEB;
-}
-
-.img-wrapper {
-  width: 100%;
-  height: 100%;
-}
-
-.img-wrapper img {
+#finna-collapse > .panel-body {
   position: relative;
 }
 
-.img-wrapper td {
+#finna-heading {
+  border: 1px solid var(--light-color);
+  background-color: var(--white-color);
+  object-fit: contain;
+}
+
+#finna-img-wrapper img {
+  position: relative;
   vertical-align: middle;
-  text-align: center;
 }
 
-.img-wrapper span.fa-solid {
-  color: #83CFC8;
+#finna-img-wrapper span.fa-solid {
+  color: var(--dark-color);
   font-size: 42px;
   transform: translate(-50%, -50%);
   position: absolute;
@@ -131,127 +86,149 @@
  * Previous and next page buttons
  */
 
-#collapseFinna > .panel-body > .btn {
+.finna-scroll-icon {
   position: absolute;
+  left: 50%;
   top: 50%;
-  height: 60px;
-  border-radius: 0;
-  border: 1px solid #83CFC8 !important;
-  color: #83CFC8 !important;
-  font-size: 24px;
-  margin-top: -50px;
-  padding: 12px 7px;
+  transform: translate(-50%, -50%)
+ }
+
+#finna-collapse > .panel-body > .btn {
+  position: absolute;
+  top: 7rem;
+  height: 3rem;
+  width: 2.5rem;
+  border-style: solid;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-color: var(--secondary-medium-color);
 }
 
-.font-only-height {
-  font-size: 12px;
-}
-
-#collapseFinna > .panel-body > .btn-disabled {
-  color: #ccc !important;
+#finna-collapse > .panel-body > .btn-disabled {
+  color: var(--secondary-medium-color);
   cursor: default;
-  border-color: #ccc !important;
+  border-color: var(--secondary-medium-color);
 }
 
-#collapseFinna > .panel-body {
+#finna-collapse > .panel-body {
   min-height: 200px;
 }
 
-#collapseFinna > .panel-body > .btn:first-of-type {
+#finna-collapse > .panel-body > .btn:first-of-type {
   left: 0;
-  border-left: 0 !important;
 }
 
-#collapseFinna > .panel-body > .btn:last-of-type {
+#finna-collapse > .panel-body > .btn:last-of-type {
   right: 0;
-  border-right: 0 !important;
 }
 
-.buttons-wrapper {
-  position: relative;
-  height: 40px;
-}
-
-#headingFinna .accordion-button {
-  color: var(--medium-color);
-  background-color: #fff !important;
+#finna-heading .accordion-button {
+  background-color: var(--white-color);
   padding-top: 0.5rem;
   padding-right: 1rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
-  font-size: 1rem;
   position: absolute;
   z-index: 0;
   height: 40px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--dark-color);
 }
 
-#headingFinna .accordion-button {
+#finna-heading .accordion-button {
   box-shadow: none;
 }
 
-#headingFinna > .buttons-wrapper > .btn-group > .btn:hover, #headingFinna > .buttons-wrapper > .btn-group > .btn:active, #headingFinna > .buttons-wrapper > .btn-group > .btn:focus {
-  background-color: #D4EDEB;
-  border: 0;
+#finna-buttons-wrapper {
+  position: relative;
+  height: 40px;
+  border-bottom: 2px var(--secondary-medium-color);
 }
 
-#headingFinna > .buttons-wrapper > .btn-group {
-  max-width: 135px;
+#finna-buttons-wrapper > .btn-group {
   height: 40px;
   right: 50px;
-  top: 10px;
-  bottom: 10px;
   vertical-align: middle;
   position: absolute;
   z-index: 1;
+  border-color: var(--dark-color);
 }
 
-#headingFinna > .buttons-wrapper > .btn-group > .btn {
-  border-radius: 0;
-  border: 0;
-  background-color: #D4EDEB;
-  color: #00748f;
-  min-width: 100px;
-  max-height: 22px;
-  text-align: left;
-  vertical-align: middle;
-  padding: .175rem .75rem;
+#finna-collapse > .panel-body > .row {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
 }
 
-#headingFinna > .buttons-wrapper > .btn-group > .btn > .caret {
-  margin: 0 5px;
-}
-
-#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu {
-  border-radius: 0;
-  border: 1px solid #D4EDEB;
-  box-shadow: none;
-  margin: 0;
-  padding: 0;
-}
-
-#headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:hover, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:focus, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:active, #headingFinna > .buttons-wrapper > .btn-group > .dropdown-menu > li > a:visited {
-  background-color: #83CFC8;
-  border: 0;
-  color: #fff !important;
-}
-
-#collapseFinna > .panel-body > .row {
-  margin-bottom: 5px;
-}
-
-#collapseFinna > .panel-body > a:last-of-type {
+#finna-collapse > .panel-body > a:last-of-type {
   margin-left: 25px;
 }
 
+#finna-format-group button {
+  margin: 2px 2px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#finna-format-group ul {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+#finna-format-group i {
+  padding-left: 0.5rem;
+  font-size: 0.75rem;
+}
+
+#finna-format-group .dropdown-menu {
+  transform: translateY(-1px);
+  background-color: var(--secondary-light-color);
+  color: var(--dark-color);
+  border-radius: 0;
+}
+
+#finna-format-group .dropdown-menu label, #finna-format-group .dropdown-menu a {
+  color: var(--headerbar-text);
+}
+
+#finna-format-group .btn-outline-secondary {
+  color: var(--dark-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--light-color);
+  border-radius: 0;
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+}
+
+#finna-format-group .dropdown-item:hover, #finna-format-group .dropdown-item.show {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+}
+
+#finna-search {
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  background-color: var(--white-color);
+  font-size: 1.2rem;
+}
+
 @media (min-width: 1260px) {
-  .record {
-    margin-left: 8px;
-    margin-right: 7px;
+  #finna-record {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 8px;
+    margin-bottom: 7px;
   }
 
- #collapseFinna > .panel-body {
+ #finna-collapse > .panel-body {
    padding-left: 30px;
    padding-right: 30px;
+   margin: 3.2px;
  }
 
 }

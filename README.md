@@ -4,7 +4,7 @@ A widget for displaying records (currently only images) from the Finna API in Sk
 
 ### installing dependencies
 ```
-$ npm install i18next
+$ npm install
 ```
 
 https://www.kiwi.fi/pages/viewpage.action?pageId=53839221
