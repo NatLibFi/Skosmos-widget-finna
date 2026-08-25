@@ -258,8 +258,7 @@ const FINNA = {
       this.finnaResults = null
     }
   },
-
-  render: function (isOpened) {
+  appendMountPoint: function () {
     const mountPoint = document.getElementById('finna-plugin')
     if (mountPoint) {
       if (this.vueApp) {
@@ -270,6 +269,8 @@ const FINNA = {
     const newMountPoint = document.createElement('div')
     newMountPoint.id = 'finna-plugin'
     document.getElementById('main-content-bottom-slot').appendChild(newMountPoint)
+  },
+  render: function (isOpened) {
     const i18n = VueI18n.createI18n({
       locale: window.SKOSMOS.lang,
       messages: FINNA.translations
@@ -278,7 +279,6 @@ const FINNA = {
     this.vueApp.use(i18n)
     this.vueApp.mount('#finna-plugin')
   },
-
   remove: function () {
     if (this.vueApp) {
       this.vueApp.unmount()
@@ -381,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
       FINNA.remove()
       return
     }
+    FINNA.appendMountPoint()
     FINNA.cache.clear()
 
     const isOpen = 1
