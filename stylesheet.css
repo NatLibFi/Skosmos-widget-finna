@@ -62,7 +62,7 @@
 }
 
 #finna-heading {
-  border: 1px solid var(--secondary-medium-color);
+  border-bottom: 1px solid var(--secondary-medium-color);
   background-color: var(--white-color);
   object-fit: contain;
 }
