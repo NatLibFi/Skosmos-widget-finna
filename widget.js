@@ -44,12 +44,16 @@ const FINNA = {
                             <button class="btn btn-outline-secondary show" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{typeString}}
                               <i class="fa-solid fa-chevron-down"></i>
                             </button>
-                            <ul class="dropdown-menu">
-                              <div >
-                                <li v-for="(type, index) in types">
-                                  <div @click="typeButton($event)" :id=index class="dropdown-item">{{type}}</div>
-                                </li>
-                              </div>
+                            <ul class="dropdown-menu" role="radiogroup">
+                              <li v-for="(type, index) in types">
+                                <button
+                                  @click="typeButton($event)"
+                                  :id=index class="dropdown-item"
+                                  role="radio"
+                                >
+                                  {{type}}
+                                </button>
+                              </li>
                             </ul>
                           </div>
                       </div>
