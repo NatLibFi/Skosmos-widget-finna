@@ -41,15 +41,23 @@ const FINNA = {
                           <div>{{ $t('translation.recordsInFinna', { msg: formatString }) }} {{count}}</div>
                         </button>
                           <div class="btn-group dropup" id="finna-format-group">
-                            <button class="btn btn-outline-secondary show" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{typeString}}
+                            <button
+                              class="btn btn-outline-secondary show"
+                              role="button"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              {{typeString}}
                               <i class="fa-solid fa-chevron-down"></i>
                             </button>
-                            <ul class="dropdown-menu" role="radiogroup">
+                            <ul class="dropdown-menu" role="listbox">
                               <li v-for="(type, index) in types">
                                 <button
                                   @click="typeButton($event)"
                                   :id=index class="dropdown-item"
-                                  role="radio"
+                                  role="option"
+                                  :aria-selected="index === Number(currentFormat)"
+                                  aria-labelledby="finna-format-group"
                                 >
                                   {{type}}
                                 </button>
@@ -79,7 +87,8 @@ const FINNA = {
                             <div class="image-container">
                               <a :href="'https://www.finna.fi/Record/' + record.id" target="_blank">
                                 <div id="finna-img-wrapper">
-                                  <span :class="'fa-solid '+ record.iconizer"></span><img alt="" :src="getRecordSource(record)">
+                                  <span :class="'fa-solid '+ record.iconizer"></span>
+                                  <img alt="" :src="getRecordSource(record)">
                                 </div>
                               </a>
                             </div>
