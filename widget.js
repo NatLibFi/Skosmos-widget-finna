@@ -50,14 +50,17 @@ const FINNA = {
                               {{typeString}}
                               <i class="fa-solid fa-chevron-down"></i>
                             </button>
-                            <ul class="dropdown-menu" role="listbox">
+                            <ul
+                              class="dropdown-menu"
+                              role="listbox"
+                              :aria-label="$t('translation.finnaContentType')"
+                            >
                               <li v-for="(type, index) in types">
                                 <button
                                   @click="typeButton($event)"
                                   :id=index class="dropdown-item"
                                   role="option"
                                   :aria-selected="index === Number(currentFormat)"
-                                  aria-labelledby="finna-format-group"
                                 >
                                   {{type}}
                                 </button>
@@ -175,20 +178,32 @@ const FINNA = {
   formatNames: { fi: ['Kaikki tyypit', 'Kuva', 'Kirja', 'Esine', 'Äänite', 'Lehti/Artikkeli', 'Nuotti', 'Video', 'Opinnäyte'], sv: ['Alla typer av material', 'Bild', 'Bok', 'Föremål', 'Ljudupptagning', 'Tidskrift/Artikel', 'Noter', 'Video', 'Examensarbete'], en: ['All types', 'Image', 'Book', 'Physical object', 'Sound recording', 'Article', 'Musical score', 'Video', 'Thesis'], se: ['Buot tiippat', 'Govva', 'Girji', 'Diŋga', 'Jietnabáddi', 'Aviisa/Artihkal', 'Nuohtta', 'Video', 'Oahppočájánas'] },
   translations: {
     fi: {
-      translation: { recordsInFinna: 'Termillä kuvailtuja {msg} Finnassa', resultListingInFinna: 'Katso hakutulokset Finnassa' }
+      translation: {
+        finnaContentType: 'Valitse aineistotyyppi',
+        recordsInFinna: 'Termillä kuvailtuja {msg} Finnassa',
+        resultListingInFinna: 'Katso hakutulokset Finnassa' }
     },
     sv: {
-      translation: { recordsInFinna: "@.capitalize:{'msg'} som beskrivits med termen i Finna", resultListingInFinna: 'Se alla sökresultat i Finna' },
+      translation: {
+        finnaContentType: 'Välj materialtyp',
+        recordsInFinna: "@.capitalize:{'msg'} som beskrivits med termen i Finna",
+        resultListingInFinna: 'Se alla sökresultat i Finna'
+      },
       msg: '{msg}'
     },
     se: {
       translation: {
+        finnaContentType: '',
         recordsInFinna: 'Tearpmain govviduvvon {msg} Finnas',
         resultListingInFinna: 'Geahča ohcanbohtosiid Finnas'
       }
     },
     en: {
-      translation: { recordsInFinna: "@.capitalize:{'msg'} indexed with the term in Finna", resultListingInFinna: 'See all the results in Finna' },
+      translation: {
+        finnaContentType: 'Select content type',
+        recordsInFinna: "@.capitalize:{'msg'} indexed with the term in Finna",
+        resultListingInFinna: 'See all the results in Finna'
+      },
       msg: '{msg}'
     }
   },
