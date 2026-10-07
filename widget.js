@@ -26,9 +26,9 @@ const FINNA = {
         }
       },
       template: `
-                <div class="panel-group" id="finna-widget" role="tablist" aria-multiselectable="true">
+                <div class="panel-group" id="finna-widget" aria-multiselectable="true">
                   <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="finna-heading">
+                    <div class="panel-heading" id="finna-heading">
                       <div id="finna-buttons-wrapper">
                         <h2 class="mb-0">
                           <button
@@ -75,7 +75,6 @@ const FINNA = {
                       id="finna-collapse"
                       class="panel-collapse collapse"
                       :class="{ 'show': records }"
-                      role="tabpanel"
                       aria-labelledby="finna-heading"
                     >
                       <div class="panel-body">

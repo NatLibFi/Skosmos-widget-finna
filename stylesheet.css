@@ -7,11 +7,6 @@
   background-color: var(--secondary-light-color);
 }
 
-#finna-heading {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
 #finna-collapse > .panel-body {
   padding: 15px 38px 5px 38px;
 }
