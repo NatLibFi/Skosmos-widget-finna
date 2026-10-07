@@ -3,13 +3,8 @@
  */
 
 #finna-widget {
-  margin-top: .2rem;
+  margin-top: 1rem;
   background-color: var(--secondary-light-color);
-}
-
-#finna-heading {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
 }
 
 #finna-collapse > .panel-body {
@@ -99,8 +94,8 @@
   height: 3rem;
   width: 2.5rem;
   border-style: solid;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 1.9rem;
+  margin-right: 1.9rem;
   border-color: var(--secondary-medium-color);
 }
 
@@ -125,14 +120,15 @@
 #finna-heading .accordion-button {
   background-color: var(--white-color);
   padding-top: 0.5rem;
-  padding-right: 1rem;
+  padding-right: 1.9rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 1.9rem;
   position: absolute;
   z-index: 0;
   height: 40px;
   font-weight: bold;
   font-size: 1.2rem;
+  font-family: var(--font-family);
   color: var(--dark-color);
 }
 
@@ -148,7 +144,7 @@
 
 #finna-buttons-wrapper > .btn-group {
   height: 40px;
-  right: 50px;
+  right: 80px;
   vertical-align: middle;
   position: absolute;
   z-index: 1;
@@ -192,7 +188,7 @@
   background-color: var(--white-color);
   border: 1px solid var(--light-color);
   border-radius: 0;
-  padding-left: 1rem;
+  padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
 
@@ -205,7 +201,7 @@
   padding-top: 0.5rem;
   padding-right: 1rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 1.9rem;
   background-color: var(--white-color);
   border-top: 1px solid var(--light-color);
 }
