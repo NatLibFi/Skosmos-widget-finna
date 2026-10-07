@@ -186,7 +186,8 @@ const FINNA = {
         previous: 'edellinen',
         finnaContentType: 'Valitse aineistotyyppi',
         recordsInFinna: 'Termillä kuvailtuja {msg} Finnassa',
-        resultListingInFinna: 'Katso hakutulokset Finnassa' }
+        resultListingInFinna: 'Katso hakutulokset Finnassa'
+      }
     },
     sv: {
       translation: {
