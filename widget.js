@@ -30,43 +30,45 @@ const FINNA = {
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="finna-heading">
                       <div id="finna-buttons-wrapper">
-                        <button
-                          class="accordion-button accordion"
-                          :type="records ? 'button' : null"
-                          :data-bs-toggle="records ? 'collapse' : null"
-                          data-bs-target="#finna-collapse"
-                          aria-expanded="false"
-                          aria-controls="collapseWiki"
-                        >
-                          <div>{{ $t('translation.recordsInFinna', { msg: formatString }) }} {{count}}</div>
-                        </button>
-                          <div class="btn-group dropup" id="finna-format-group">
-                            <button
-                              class="btn btn-outline-secondary show"
-                              role="button"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              {{typeString}}
-                              <i class="fa-solid fa-chevron-down"></i>
-                            </button>
-                            <ul
-                              class="dropdown-menu"
-                              role="listbox"
-                              :aria-label="$t('translation.finnaContentType')"
-                            >
-                              <li v-for="(type, index) in types">
-                                <button
-                                  @click="typeButton($event)"
-                                  :id=index class="dropdown-item"
-                                  role="option"
-                                  :aria-selected="index === Number(currentFormat)"
-                                >
-                                  {{type}}
-                                </button>
-                              </li>
-                            </ul>
-                          </div>
+                        <h2 class="mb-0">
+                          <button
+                            class="accordion-button accordion"
+                            :type="records ? 'button' : null"
+                            :data-bs-toggle="records ? 'collapse' : null"
+                            data-bs-target="#finna-collapse"
+                            aria-expanded="false"
+                            aria-controls="collapseWiki"
+                          >
+                            <div>{{ $t('translation.recordsInFinna', { msg: formatString }) }} {{count}}</div>
+                          </button>
+                        </h2>
+                        <div class="btn-group dropup" id="finna-format-group">
+                          <button
+                            class="btn btn-outline-secondary show"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            {{typeString}}
+                            <i class="fa-solid fa-chevron-down"></i>
+                          </button>
+                          <ul
+                            class="dropdown-menu"
+                            role="listbox"
+                            :aria-label="$t('translation.finnaContentType')"
+                          >
+                            <li v-for="(type, index) in types">
+                              <button
+                                @click="typeButton($event)"
+                                :id=index class="dropdown-item"
+                                role="option"
+                                :aria-selected="index === Number(currentFormat)"
+                              >
+                                {{type}}
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -82,6 +84,7 @@ const FINNA = {
                           type="button"
                           class="btn btn-light border-2 rounded-1"
                           :class="{ 'btn-disabled': leftButtonDisabled }"
+                          :aria-label="$t('translation.previous')"
                         >
                           <i class="fa-solid fa-angle-left finna-scroll-icon"></i>
                         </button>
@@ -110,6 +113,7 @@ const FINNA = {
                           type="button"
                           class="btn btn-light border-2 rounded-1"
                           :class="{ 'btn-disabled': rightButtonDisabled }"
+                          :aria-label="$t('translation.next')"
                         >
                           <i class="fa-solid fa-angle-right finna-scroll-icon"></i>
                         </button>
@@ -179,12 +183,16 @@ const FINNA = {
   translations: {
     fi: {
       translation: {
+        next: 'seuraava',
+        previous: 'edellinen',
         finnaContentType: 'Valitse aineistotyyppi',
         recordsInFinna: 'Termillä kuvailtuja {msg} Finnassa',
         resultListingInFinna: 'Katso hakutulokset Finnassa' }
     },
     sv: {
       translation: {
+        next: 'nästa',
+        previous: 'föregående',
         finnaContentType: 'Välj materialtyp',
         recordsInFinna: "@.capitalize:{'msg'} som beskrivits med termen i Finna",
         resultListingInFinna: 'Se alla sökresultat i Finna'
@@ -193,6 +201,8 @@ const FINNA = {
     },
     se: {
       translation: {
+        next: '',
+        previous: '',
         finnaContentType: '',
         recordsInFinna: 'Tearpmain govviduvvon {msg} Finnas',
         resultListingInFinna: 'Geahča ohcanbohtosiid Finnas'
@@ -200,6 +210,8 @@ const FINNA = {
     },
     en: {
       translation: {
+        next: 'next',
+        previous: 'previous',
         finnaContentType: 'Select content type',
         recordsInFinna: "@.capitalize:{'msg'} indexed with the term in Finna",
         resultListingInFinna: 'See all the results in Finna'
