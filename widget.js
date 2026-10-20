@@ -201,9 +201,9 @@ const FINNA = {
     },
     se: {
       translation: {
-        next: '',
-        previous: '',
-        finnaContentType: '',
+        next: 'Čuovvovaš',
+        previous: 'Ovddit',
+        finnaContentType: 'Vállje materiálatiippa',
         recordsInFinna: 'Tearpmain govviduvvon {msg} Finnas',
         resultListingInFinna: 'Geahča ohcanbohtosiid Finnas'
       }
