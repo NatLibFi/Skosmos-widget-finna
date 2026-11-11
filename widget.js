@@ -26,9 +26,9 @@ const FINNA = {
         }
       },
       template: `
-                <div class="panel-group" id="finna-widget" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" id="finna-heading">
+                <div class="accordion" id="finna-widget" aria-multiselectable="true">
+                  <div class="accordion-item">
+                    <div class="accordion-header" id="finna-heading">
                       <div id="finna-buttons-wrapper">
                         <h2 class="mb-0">
                           <button
@@ -73,11 +73,11 @@ const FINNA = {
                     </div>
                     <div
                       id="finna-collapse"
-                      class="panel-collapse collapse"
+                      class="accordion-collapse collapse"
                       :class="{ 'show': records }"
                       aria-labelledby="finna-heading"
                     >
-                      <div class="panel-body">
+                      <div class="accordion-body">
                         <button
                           @click="leftButton()"
                           type="button"
