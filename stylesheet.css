@@ -4,10 +4,15 @@
 
 #finna-widget {
   margin-top: 1rem;
-  background-color: var(--secondary-light-color);
 }
 
-#finna-collapse > .panel-body {
+#finna-widget .accordion-item {
+  background-color: var(--secondary-light-color);
+  border-radius: 0;
+  border: none;
+}
+
+#finna-collapse > .accordion-body {
   padding: 15px 38px 5px 38px;
 }
 
@@ -52,7 +57,7 @@
   padding-left: 15px;
 }
 
-#finna-collapse > .panel-body {
+#finna-collapse > .accordion-body {
   position: relative;
 }
 
@@ -88,7 +93,7 @@
   transform: translate(-50%, -50%)
  }
 
-#finna-collapse > .panel-body > .btn {
+#finna-collapse > .accordion-body > .btn {
   position: absolute;
   top: 7rem;
   height: 3rem;
@@ -99,21 +104,21 @@
   border-color: var(--secondary-medium-color);
 }
 
-#finna-collapse > .panel-body > .btn-disabled {
+#finna-collapse > .accordion-body > .btn-disabled {
   color: var(--secondary-medium-color);
   cursor: default;
   border-color: var(--secondary-medium-color);
 }
 
-#finna-collapse > .panel-body {
+#finna-collapse > .accordion-body {
   min-height: 200px;
 }
 
-#finna-collapse > .panel-body > .btn:first-of-type {
+#finna-collapse > .accordion-body > .btn:first-of-type {
   left: 0;
 }
 
-#finna-collapse > .panel-body > .btn:last-of-type {
+#finna-collapse > .accordion-body > .btn:last-of-type {
   right: 0;
 }
 
@@ -130,10 +135,7 @@
   font-size: 1.2rem;
   font-family: var(--font-family);
   color: var(--dark-color);
-}
-
-#finna-heading .accordion-button {
-  box-shadow: none;
+  border-radius: 0;
 }
 
 #finna-buttons-wrapper {
@@ -150,13 +152,13 @@
   border-color: var(--dark-color);
 }
 
-#finna-collapse > .panel-body > .row {
+#finna-collapse > .accordion-body > .row {
   margin-top: 5px;
   display: flex;
   justify-content: center;
 }
 
-#finna-collapse > .panel-body > a:last-of-type {
+#finna-collapse > .accordion-body > a:last-of-type {
   margin-left: 25px;
 }
 
@@ -196,12 +198,7 @@
   background-color: var(--dark-color);
   color: var(--light-color);
 }
-
-/* #finna-format-group li:hover, #finna-format-group li:active, #finna-format-group li:hover label, #finna-format-group li:active label {
-  background-color: var(--search-dropdown-hover-bg);
-  color: var(--search-dropdown-hover-text) !important;
-}
- */
+ 
 #finna-search {
   padding-top: 0.5rem;
   padding-right: 1rem;
@@ -223,11 +220,5 @@
     margin-top: 8px;
     margin-bottom: 7px;
   }
-
- #finna-collapse > .panel-body {
-   padding-left: 30px;
-   padding-right: 30px;
-   margin: 3.2px;
- }
 
 }

@@ -26,9 +26,9 @@ const FINNA = {
         }
       },
       template: `
-                <div class="panel-group" id="finna-widget" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" id="finna-heading">
+                <div class="accordion" id="finna-widget" aria-multiselectable="true">
+                  <div class="accordion-item">
+                    <div class="accordion-header" id="finna-heading">
                       <div id="finna-buttons-wrapper">
                         <h2 class="mb-0">
                           <button
@@ -36,7 +36,7 @@ const FINNA = {
                             :type="records ? 'button' : null"
                             :data-bs-toggle="records ? 'collapse' : null"
                             data-bs-target="#finna-collapse"
-                            aria-expanded="false"
+                            :aria-expanded="records ? 'true' : 'false'"
                             aria-controls="collapseWiki"
                           >
                             <div>{{ $t('translation.recordsInFinna', { msg: formatString }) }} {{count}}</div>
@@ -73,11 +73,11 @@ const FINNA = {
                     </div>
                     <div
                       id="finna-collapse"
-                      class="panel-collapse collapse"
+                      class="accordion-collapse collapse"
                       :class="{ 'show': records }"
                       aria-labelledby="finna-heading"
                     >
-                      <div class="panel-body">
+                      <div class="accordion-body">
                         <button
                           @click="leftButton()"
                           type="button"
