@@ -36,7 +36,7 @@ const FINNA = {
                             :type="records ? 'button' : null"
                             :data-bs-toggle="records ? 'collapse' : null"
                             data-bs-target="#finna-collapse"
-                            aria-expanded="false"
+                            :aria-expanded="records ? 'true' : 'false'"
                             aria-controls="collapseWiki"
                           >
                             <div>{{ $t('translation.recordsInFinna', { msg: formatString }) }} {{count}}</div>

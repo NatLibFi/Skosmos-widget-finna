@@ -2,12 +2,13 @@
  * The whole widget
  */
 
-#finna-widget .accordion-item {
+#finna-widget {
   margin-top: 1rem;
 }
 
 #finna-widget .accordion-item {
   background-color: var(--secondary-light-color);
+  border-radius: 0;
 }
 
 #finna-collapse > .accordion-body {
@@ -195,11 +196,6 @@
 #finna-format-group .dropdown-item:hover, #finna-format-group .dropdown-item.show {
   background-color: var(--dark-color);
   color: var(--light-color);
-}
-
-#finna-format-group li:hover, #finna-format-group li:active, #finna-format-group li:hover label, #finna-format-group li:active label {
-  background-color: var(--search-dropdown-hover-bg);
-  color: var(--search-dropdown-hover-text) !important;
 }
  
 #finna-search {
