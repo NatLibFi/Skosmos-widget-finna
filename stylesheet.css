@@ -9,6 +9,7 @@
 #finna-widget .accordion-item {
   background-color: var(--secondary-light-color);
   border-radius: 0;
+  border: none;
 }
 
 #finna-collapse > .accordion-body {
