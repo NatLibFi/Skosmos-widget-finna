@@ -221,11 +221,15 @@ const FINNA = {
   },
 
   generateQueryString: function (terms, offset, limit) {
-    const params = { lng: window.SKOSMOS.lang, type: 'AllFields', join: 'AND' }
-    let lookfors = 'bool0[]=OR&'
+    const params = {}
+    let lookfors = 'bool0[]=AND&lookfor0[]='
     for (let i = 0; i < terms.length; i++) {
-      lookfors += ('lookfor0[]=topic_facet' + encodeURIComponent(':' + terms[i]) + '&')
+      lookfors += (encodeURIComponent('"' + terms[i]) + '"')
+      if (i < terms.length -1) {
+        lookfors += '+OR+'
+      }
     }
+    lookfors += "&type0[]=Subject&join=AND&sort=relevance&"
     if (limit) {
       params.limit = limit
     }
@@ -369,10 +373,6 @@ const FINNA = {
       const labels = []
       for (const i in prefLabels) {
         labels.push(prefLabels[i].label)
-        // giving the a higher weight in the query to the term in the users language
-        if (prefLabels[i].lang === window.SKOSMOS.lang) {
-          labels[i] += '^2'
-        }
       }
       return labels
     },
@@ -423,7 +423,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     FINNA.appendMountPoint()
     FINNA.cache.clear()
-
     const isOpen = 1
     if (isOpen) {
       FINNA.queryFinna(0, FINNA.resultLimit, data.prefLabels)
